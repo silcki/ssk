@@ -1,0 +1,104 @@
+.gallary_hold{
+    background:url(../i/bg-gallery.png) repeat-x;
+    position:relative;
+    /*    margin: 10px 10px;*/
+    margin: 10px 9px 10px 11px;
+
+}
+.holder .gallary_hold{
+    background:url(../i/bg-gallery.png) repeat-x;
+    position:relative;
+    /*    margin: 10px 10px;*/
+    margin: 10px 9px 10px 6px;
+
+}
+
+.gallary_hold .holder{
+    position:relative;
+}
+.gallary_hold .gal_img{
+   /* height:auto;*/
+    overflow:hidden;
+
+    /*    position: relative;
+    top: -2px;*/
+}
+
+.holder .gallary_hold .gal_img{
+    height:179px;
+    overflow:hidden;
+
+    /*    position: relative;
+    top: -2px;*/
+}
+
+.gallary_hold .number{
+    position:absolute;
+    z-index:100;
+    padding:3px 10px 4px 5px;
+    background:#eee;
+    top:183px;
+    left:0px;
+}
+
+.holder .gallary_hold .number{
+    position:absolute;
+    z-index:0;
+    padding:1px 10px 1px 5px;
+    background:#eee;
+    top:350px;
+    left:136px;
+}
+.number li{
+    float:left;
+    margin-left:5px;
+}
+.number li a{
+    float:left;
+    background:url(../i/btn-gallery.png) no-repeat -8px 0;
+    width:8px;
+    height:8px;
+    text-indent:-9999px;
+    overflow:hidden;
+}
+.number li a:hover, .number li.active a{
+    background-position:0 0;
+}
+#gallary{
+    position:relative;
+}
+#gallary li{
+    position:absolute;
+    top:0;
+    /*    left:-2px;*/
+    /*    background:url(../i/gal-bg-2.jpg) no-repeat 0 0;*/
+    /*    padding-left:2px;*/
+}
+#gallary li table, #gallary li table td{
+    border-collapse:collapse;
+    margin:0;
+    padding:0;
+    width: 240px;
+}
+#gallary li table td{
+    /*background:url(../i/gal-bg-1.jpg) no-repeat 100% 0;*/
+    background:none;
+    padding-right:1px;
+    /*    display: block;*/
+}
+#gallary li table td.text{
+    color:#fff;
+    padding:0;
+    background:none;
+    /*    background:url(../i/bg-gallery.png) repeat-x;*/
+}
+#gallary li table td.text a{
+    color:#fff;
+    display: block;
+}
+#gallary li table td.text .head{
+    font-size:24px;
+}
+#gallary li table td.text p{
+    margin:10px 0;
+}

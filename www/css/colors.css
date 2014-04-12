@@ -1,0 +1,220 @@
+/*   blue   */
+.hover .blue{
+	background:#e8eaff;
+}
+.blue h2{
+	color:#0a00cc;
+}
+.blue h2 a{
+	color:#0a00cc;
+}
+.blue ul a:hover{
+	color:#1f18a0!important;
+}
+.blue ul span.active{
+	color:#1f18a0!important;
+	background:url(../i/bulet-blue.png);
+}
+
+.hover .blue  .bulet{
+	background:url(../i/blue-bg.png) no-repeat;
+}
+/*   green   */
+.hover .green{
+	background:#dfffe5;
+}
+.green h2{
+	color:#007624;
+}
+.green h2 a{
+	color:#007624;
+}
+.green ul a:hover{
+	color:#007624!important;
+}
+.green ul span.active{
+	color:#007624!important;
+	background:url(../i/bulet-green.png);
+}
+.hover .green  .bulet{
+	background:url(../i/green-bg.png) no-repeat;
+}
+/*   red   */
+.hover .red{
+	background:#fff1e8;
+}
+.red h2{
+	color:#ff3700;
+}
+.red h2 a{
+	color:#ff3700;
+}
+.red ul a:hover{
+	color:#ff3700!important;
+}
+.red ul span.active{
+	color:#ff3700!important;
+	background:url(../i/bulet-red.png);
+}
+.hover .red  .bulet{
+	background:url(../i/red-bg.png) no-repeat;
+}
+/*   grey   */
+.hover .grey{
+	background:#ececec;
+}
+.grey h2{
+	color:#333333;
+}
+.grey h2 a{
+	color:#333333;
+}
+.grey ul a:hover{
+	color:#333333!important;
+}
+.grey ul span.active{
+	color:#333333!important;
+	background:url(../i/bulet-grey.png);
+}
+.hover .grey  .bulet{
+	background:url(../i/grey-bg.png) no-repeat;
+}
+/*   yellow   */
+.hover .yellow{
+	background:#ffffd6;
+}
+.yellow h2{
+	color:#f63;
+}
+.yellow h2 a{
+	color:#f63;
+}
+.yellow ul a:hover{
+	color:#f63!important;
+}
+.yellow ul span.active{
+	color:#f63!important;
+	background:url(../i/bulet-yellow.png);
+}
+.hover .yellow .bulet{
+	background:url(../i/yellow-bg.png) no-repeat;
+}
+/* ----------------------------------------------------------------------------------------------------------------*/
+/* ---------->>> thickbox settings <<<-----------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------------------------*/
+
+#TB_window {
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #333333;
+}
+#TB_secondLine {
+	font: 10px Arial, Helvetica, sans-serif;
+	color:#666666;
+}
+#TB_overlay {
+	position: fixed;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	background-color:#666;
+	filter:alpha(opacity=50);
+	-moz-opacity: 0.50;
+	opacity: 0.50;
+	height:100%;
+	width:100%;
+}
+* html #TB_overlay { /* ie6 hack */
+	position: absolute;
+	height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+#TB_window {
+	position: fixed;
+	z-index: 102;
+	display:none;
+	text-align:left;
+	top:50%;
+	left:50%;
+	border: 1px solid #666;
+	background:#fff;
+}
+* html #TB_window { /* ie6 hack */
+	position: absolute;
+	margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+#TB_window img#TB_Image {
+	display:block;
+	padding: 15px 15px 0 15px;
+}
+#TB_caption {
+display:none;
+}
+#TB_closeWindow {
+	height:25px;
+	padding:11px 0 10px 0;
+	background:#fff;
+	display:block;
+	text-align:center;
+}
+#TB_closeAjaxWindow {
+	padding:7px 10px 5px 0;
+	margin-bottom:1px;
+	text-align:right;
+	float:right;
+}
+#TB_ajaxWindowTitle {
+	float:left;
+	padding:7px 0 5px 10px;
+	margin-bottom:1px;
+}
+#TB_title {
+	background-color:#e8e8e8;
+	height:27px;
+}
+#TB_ajaxContent {
+	clear:both;
+	padding:7px;
+	overflow:auto;
+	text-align:left;
+	line-height:1.4em;
+}
+#TB_ajaxContent.TB_modal {padding:15px;}
+#TB_ajaxContent p {padding:5px 0px 5px 0px;}
+#TB_load {
+	position: fixed;
+	display:none;
+	height:13px;
+	width:208px;
+	z-index:103;
+	top: 50%;
+	left: 50%;
+	margin: -6px 0 0 -104px; /* -height/2 0 0 -width/2 */
+}
+* html #TB_load { /* ie6 hack */
+	position: absolute;
+	margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+
+#TB_HideSelect {
+	z-index:99;
+	position:fixed;
+	top: 0;
+	left: 0;
+	background-color:#fff;
+	border:none;
+	filter:alpha(opacity=0);
+	-moz-opacity: 0;
+	opacity: 0;
+	height:100%;
+	width:100%;
+}
+* html #TB_HideSelect { /* ie6 hack */
+	position: absolute;
+	height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+#TB_iframeContent {
+	clear:both;
+	border:none;
+	margin-bottom:-1px;
+	margin-top:1px;
+	_margin-bottom:1px;
+}

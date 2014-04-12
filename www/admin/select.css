@@ -1,0 +1,33 @@
+.sel_wrap{
+  height:25px;
+  color: #000;
+  
+}
+.sel_wrap select{display:none}
+.sel_imul{width:200px}
+.sel_imul .sel_selected{position:relative;padding:0 0 0 14px}
+.sel_imul.act .sel_selected{}
+.sel_imul .sel_options{
+background:#474747;overflow:auto;position:absolute;width:186px;display:none;z-index:10;padding:7px 0 7px 14px;
+-moz-box-shadow:0 3px 7px #555;-webkit-box-shadow:0 3px 7px #555;box-shadow:0 3px 7px #555}
+.sel_options .sel_option{
+  padding:0 0 0 27px;
+  line-height:27px;
+  color:#fff;
+  background-repeat:no-repeat;
+  cursor:pointer
+}
+
+.selected-text{
+  padding:0 0 0 27px;
+  line-height:27px;
+  color:#000;
+  background-repeat:no-repeat;
+  cursor:pointer
+}
+.selected-text span {border-bottom:1px dotted #FFF}
+.sel_options .sel_option:hover span {border-bottom:1px solid #FFF}
+#sel_option_USD, #sel_option_selected_USD {background-position:0 -48px}
+#sel_option_EUR, #sel_option_selected_EUR {background-position:0 -73px}
+#sel_option_RUB, #sel_option_selected_RUB {background-position:0 1px}
+#sel_option_UAH, #sel_option_selected_UAH {background-position:0 -23px}

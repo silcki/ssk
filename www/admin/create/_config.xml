@@ -1,0 +1,3925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by 123 (qwerty) -->
+<config>
+	<basename>vasilek</basename>
+	<coltypes>
+		<option value="0">Ключевое поле (автоинкремент)</option>
+		<option value="1">Короткий текст</option>
+		<option value="2">Длинный текст</option>
+		<option value="3">Целое число</option>
+		<option value="4">Дробь</option>
+		<option value="5">Е-майл</option>
+		<option value="6">Справочник</option>
+		<option value="7">Картинка</option>
+		<option value="8">Check box</option>
+		<option value="9">Радио кнопка</option>
+		<option value="10">Список</option>
+		<option value="11">Порядок сортировки</option>
+		<option value="12">Дата-время</option>
+		<option value="13">Справочник-дерево</option>
+		<option value="14">Файл</option>
+		<option value="15">Картинка-превью с возможностью генерации из большой</option>
+		<option value="16">Картинка-превью</option>
+		<option value="17">Список с подкрашиванием опций</option>
+	</coltypes>
+	<coltypes_indirect>
+		<option value="0">int(12) unsigned auto_increment</option>
+		<option value="1">varchar(255)</option>
+		<option value="2">text</option>
+		<option value="3">int(12) unsigned</option>
+		<option value="4">double</option>
+		<option value="5">varchar(128)</option>
+		<option value="6">int(12) unsigned</option>
+		<option value="7">varchar(50)</option>
+		<option value="8">int(1) unsigned</option>
+		<option value="9">int(3) unsigned</option>
+		<option value="10">int(12) unsigned</option>
+		<option value="11">int(12) unsigned</option>
+		<option value="12">datetime</option>
+		<option value="13">int(12)</option>
+		<option value="14">varchar(50)</option>
+		<option value="15">varchar(50)</option>
+		<option value="16">varchar(50)</option>
+		<option value="17">varchar(12)</option>
+	</coltypes_indirect>
+	<!-- 
+  **********************************************************************************
+            Таблица "Старые урлы - ЧПУ-урлы"
+  **********************************************************************************
+  -->
+	<table name="OLD_SEF_URL" pagesize="50">
+		<name>Таблица соответствия старых урлов урлам сайта</name>
+		<col type="0" name="OLD_SEF_URL_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Старый урл</name>
+			<comment>Название</comment>
+		</col>
+		<col type="6" name="SEF_SITE_URL_ID" visuality="y">
+			<name>ЧПУ-урл :: Урл сайта</name>
+			<ref>
+				<table>SEF_SITE_URL</table>
+				<field>SEF_SITE_URL_ID</field>
+				<visual>concat(SEF_URL," :: ",SITE_URL)</visual>
+			</ref>
+			<comment>Название</comment>
+		</col>
+		<col type="12" name="DATE" visuality="y" calendar="y">
+			<name>Дата создания записи</name>
+			<comment>Дата</comment>
+		</col>
+	</table>
+	<!-- 
+  **********************************************************************************
+            Таблица "ЧПУ-урлы - урлы сайта"
+  **********************************************************************************
+  -->
+	<table name="SEF_SITE_URL" pagesize="50">
+		<name>Таблица соответствия ЧПУ-урлов урлам сайта</name>
+		<col type="0" name="SEF_SITE_URL_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="SEF_URL" size="90" visuality="y">
+			<name>ЧПУ-урл</name>
+			<comment>Название</comment>
+		</col>
+		<col type="1" name="SITE_URL" size="90" visuality="y">
+			<name>Урл сайта</name>
+			<comment>Название</comment>
+		</col>
+		<col type="12" name="DATE" visuality="y" calendar="y">
+			<name>Дата создания записи</name>
+			<comment>Дата</comment>
+		</col>
+	</table>
+	<!--<table name="SEF_SITE_URL" pagesize="50">
+      <name>Таблица соответствия ЧПУ-урлов урлам сайта</name>
+      <col type="0" name="SEF_SITE_URL_ID" primary="y" visuality="y">
+          <name>N</name>
+          <comment>Уникальный идентификатор</comment>
+      </col>
+       <col type="1" name="SEF_URL" size="90" visuality="y">
+          <name>ЧПУ-урл</name>
+          <comment>Название</comment>
+      </col>  
+      <col type="1" name="SITE_URL" size="90" visuality="y">
+          <name>Урл сайта</name>
+          <comment>Название</comment>
+      </col>    
+      <col type="12" name="DATE" visuality="y" calendar="y">
+          <name>Дата создания записи</name>
+          <comment>Дата</comment>
+      </col>     
+  </table>-->
+	<table name="TRANSLIT_RULE" pagesize="50">
+		<name>Правила транслитерации</name>
+		<col type="0" name="TRANSLIT_RULE_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="SRC" size="90" visuality="y">
+			<name>Исх.символ(ы)</name>
+			<comment>Название</comment>
+		</col>
+		<col type="1" name="TRANSLIT" size="90" visuality="y">
+			<name>Транслит</name>
+			<comment>Название</comment>
+		</col>
+	</table>
+	<table name="CALLBACK_TIME" pagesize="20">
+		<name>Удобное время для звонка</name>
+		<col type="0" name="CALLBACK_TIME_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор новости</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="CALLBACK_TIME_LANG">
+			<name>Тексты для других языков</name>
+			<col type="0" name="CALLBACK_TIME_LANG_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Название</name>
+				<comment>Название</comment>
+			</col>
+			<col type="11" name="ORDERING">
+				<name>Порядок сортировки</name>
+				<comment>Порядок сортировки</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="CALLBACK" pagesize="120" ordering="CALLBACK_ID desc">
+		<name>Обратный звонок</name>
+		<col type="0" name="CALLBACK_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="CALLBACK_TIME_ID" visuality="y">
+			<name>Время для звонка</name>
+			<ref>
+				<table>CALLBACK_TIME</table>
+				<field>CALLBACK_TIME_ID</field>
+				<visual>NAME</visual>
+			</ref>
+			<comment>Уникальный идентификатор товара</comment>
+			<index>2</index>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Имя</name>
+			<comment>Имя</comment>
+		</col>
+		<col type="1" name="PHONE" size="90" visuality="y">
+			<name>Имя</name>
+			<comment>Имя</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Коментарий</name>
+			<comment>Коментарий</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Статус</name>
+			<comment>Статус</comment>
+		</col>
+	</table>
+	<table name="HEADER" pagesize="120" ordering="ORDERING" imagepath="/header/">
+		<name>Картинки шапки</name>
+		<col type="0" name="HEADER_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>Ссылка</name>
+			<comment>Ссылка</comment>
+		</col>
+		<col type="7" name="IMAGE" visuality="y">
+			<name>Картинка</name>
+			<comment>Картинка</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
+			<name>Текст</name>
+			<comment>Текст</comment>
+		</col>
+		<col type="7" name="IMAGE1" postfix="_alt_text">
+			<name>Альтернативный текст (картинка)</name>
+			<comment>Альтернативный текст (картинка)</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Статус</name>
+			<comment>Статус</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="HEADER_CMF_LANG">
+			<name>Тексты для других языков</name>
+			<col type="0" name="HEADER_CMF_LANG_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="7" name="IMAGE" visuality="y" postfix="_lang">
+				<name>Картинка</name>
+				<comment>Картинка</comment>
+			</col>
+			<col type="1" name="URL" size="90">
+				<name>Ссылка</name>
+				<comment>Ссылка</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
+				<name>Текст</name>
+				<comment>Текст</comment>
+			</col>
+			<col type="7" name="IMAGE1" postfix="_lang_alt_text">
+				<name>Альтернативный текст (картинка)</name>
+				<comment>Альтернативный текст (картинка)</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- Articles -->
+	<table name="ARTICLE_GROUP" pagesize="20">
+		<name>Группы статей</name>
+		<col type="0" name="ARTICLE_GROUP_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор </comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Заголовок группы</name>
+			<comment>Заголовок группы</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Статус</name>
+			<comment>Статус</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="ARTICLE_GROUP_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ARTICLE_GROUP_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Заголовок группы</name>
+				<comment>Заголовок группы</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="ARTICLE" imagepath="/article/" type="5" pagesize="20">
+		<name>Статьи</name>
+		<col type="0" name="ARTICLE_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор статьи</comment>
+		</col>
+		<!--<col type="6" name="ARTICLE_GROUP_ID" visuality="y">
+			<name>Группа </name>
+			<ref>
+				<table>ARTICLE_GROUP</table>
+				<field>ARTICLE_GROUP_ID</field>
+				<visual>NAME</visual>
+				<none/>
+			</ref>
+			<comment>Уникальный идентификатор группы</comment>
+			<index>2</index>
+		</col>-->
+		<col type="12" name="DATA" visuality="y" calendar="y">
+			<name>Дата</name>
+			<comment>Дата опубликования</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Заголовок статьи</name>
+			<comment>Заголовок статьи</comment>
+		</col>
+		<col type="7" name="IMAGE1">
+			<name>Картинка</name>
+			<comment>Картинка</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>URL</name>
+			<comment>URL если ссылка</comment>
+		</col>
+		<col type="1" name="SPECIAL_URL" visuality="y" size="90">
+			<name>Спец URL</name>
+			<comment>Спец URL</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<preinsertevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+    ]]></preinsertevent>
+		<preupdateevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+    ]]></preupdateevent>
+		<joined name="ARTICLE_LANGS" type="5">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ARTICLE_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Заголовок статьи</name>
+				<comment>Заголовок статьи</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- Articles -->
+	<!--News -->
+	<table name="NEWS_GROUP" pagesize="20">
+		<name>Группы новостей</name>
+		<col type="0" name="NEWS_GROUP_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор новости</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название группы</name>
+			<comment>Название группы</comment>
+		</col>
+		<col type="1" name="RSS" size="90">
+			<name>RSS</name>
+			<comment>RSS</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="NEWS_GROUP_LANGS" type="1">
+			<name>Тексты для других языков</name>
+			<col type="0" name="NEWS_GROUP_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Название группы</name>
+				<comment>Название группы</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="NEWS" imagepath="/news/" type="1" pagesize="20" ordering="DATA desc">
+		<name>Новости</name>
+		<col type="0" name="NEWS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор новости</comment>
+		</col>
+		<!--<col type="6" name="NEWS_GROUP_ID" visuality="y" filt="y">
+			<name>Группа новостей</name>
+			<ref>
+				<table>NEWS_GROUP</table>
+				<field>NEWS_GROUP_ID</field>
+				<visual>NAME</visual>
+			</ref>
+			<comment>Уникальный идентификатор товара</comment>
+			<index>2</index>
+		</col>-->
+		<col type="12" name="DATA" visuality="y" calendar="y">
+			<name>Дата</name>
+			<comment>Дата опубликования новости</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Заголовок новости</name>
+			<comment>Заголовок новости</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="news_config.js">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>URL</name>
+			<comment>URL если ссылка</comment>
+		</col>
+		<col type="1" name="SPECIAL_URL" visuality="y" size="90">
+			<name>Спец URL</name>
+			<comment>Спец URL</comment>
+		</col>
+		<col type="7" name="IMAGE1">
+			<name>Картинка</name>
+			<comment>Картинка</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<preinsertevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+      
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUNews();
+    ]]></preinsertevent>
+		<preupdateevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+      
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUNews();
+    ]]></preupdateevent>
+		<joined name="NEWS_LANGS" type="1">
+			<name>Тексты для других языков</name>
+			<col type="0" name="NEWS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Заголовок новости</name>
+				<comment>Заголовок новости</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<!--News -->
+	<!--Services -->
+	<table name="SERVICES" imagepath="/srv/" type="9" pagesize="20" ordering="DATA desc">
+		<name>Услуги</name>
+		<col type="0" name="SERVICES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор сервиса</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название услуги</name>
+			<comment>Название услуги</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="12" name="DATA" internal="y">
+			<name>Дата</name>
+			<comment>Дата </comment>
+			<index>1</index>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<joined name="SERVICES_LANGS" type="9">
+			<name>Тексты для других языков</name>
+			<col type="0" name="SERVICES_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Заголовок новости</name>
+				<comment>Заголовок новости</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<!--Services -->
+	<table name="SPECIAL_OFFERS" imagepath="/offers/" type="6" pagesize="20">
+		<name>Спецпредложения</name>
+		<col type="0" name="SPECIAL_OFFERS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор статьи</comment>
+		</col>
+		<col type="12" name="DATA" visuality="y" calendar="y">
+			<name>Дата</name>
+			<comment>Дата опубликования</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Заголовок</name>
+			<comment>Заголовок</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>URL</name>
+			<comment>URL если ссылка</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<joined name="SPECIAL_OFFERS_LANGS" type="6">
+			<name>Тексты для других языков</name>
+			<col type="0" name="SPECIAL_OFFERS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Заголовок </name>
+				<comment>Заголовок</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- Фото галерея -->
+	<table name="GALLERY_GROUP" type="10" parentscript="GALLERY_GROUP" treechild="GALLERY" imagepath="/gallery_group/">
+		<name>Раздел галереи</name>
+		<col type="0" name="GALLERY_GROUP_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="3" name="PARENT_ID" parent="y">
+			<index>1</index>
+			<name>N</name>
+			<comment>Уникальный идентификатор рубрики</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90" isfold="y">
+			<name>Название группы</name>
+			<comment>Название группы</comment>
+		</col>
+		<!--<col type="7" name="IMAGE1" postfix="_b" is_watermark="y" watermark="path_to_watermark" set_width="gallary_small_x" set_height="gallary_small_y">-->
+		<col type="7" name="IMAGE1" postfix="_galary">
+			<name>Картинка мал.</name>
+			<comment>Картинка маленькая</comment>
+		</col>
+		<col type="10" name="STYLE" visuality="y">
+			<name>Стиль</name>
+			<enum>
+				<option value="0">Красный</option>
+				<option value="1">Синий</option>
+				<option value="2">Зеленый</option>
+				<option value="3">Серый</option>
+				<option value="4">Желтый</option>
+			</enum>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="REALSTATUS" selectible="y" isrealstate="y">
+			<name>auto Статус - Вкл/Выкл</name>
+			<comment>auto Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<postinsertevent><![CDATA[
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUGallery();
+    ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUGallery();
+    ]]></postupdateevent>
+		<!--
+    <postinsertevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+          $tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+          if($tmpPath){
+            $tmpPath = preg_replace('/\#.*/','',$tmpPath);
+            $pathToW = '../images/wm/'.$tmpPath;
+          }          
+          
+    if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name']){
+        $gallary_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_x'");
+        $gallary_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_y'");
+        
+        $image1 = $cmf->selectrow_array("select IMAGE1 from GALLERY_GROUP where GALLERY_GROUP_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image1, '../images/gallery_group/', $waterPath, $gallary_small_x, $gallary_small_y);
+        
+        $object->addImage();
+        
+        $image1 = $object->new_image_name;
+           
+        if ($image1){
+        $sql="update GALLERY_GROUP
+              set IMAGE1 = '{$image1}'
+              where GALLERY_GROUP_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+      ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+          $tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+          if($tmpPath){
+            $tmpPath = preg_replace('/\#.*/','',$tmpPath);
+            $pathToW = '../images/wm/'.$tmpPath;
+          }          
+          
+      if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name']){
+        $gallary_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_x'");
+        $gallary_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_y'");
+        
+        $image1 = $cmf->selectrow_array("select IMAGE1 from GALLERY_GROUP where GALLERY_GROUP_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image1, '../images/gallery_group/', $waterPath, $gallary_small_x, $gallary_small_y);
+        $object->addImage();
+        
+        $image1 = $object->new_image_name;
+           
+        if ($image1){
+        $sql="update GALLERY_GROUP
+              set IMAGE1 = '{$image1}'
+              where GALLERY_GROUP_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+      ]]></postupdateevent>
+      -->
+		<joined name="GALLERY_GROUP_LANGS" type="6">
+			<name>Тексты для других языков</name>
+			<col type="0" name="GALLERY_GROUP_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Название </name>
+				<comment>Название</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="GALLERY" parentscript="GALLERY_GROUP" article="GALLERY_GROUP" imagepath="/gallery/" pagesize="20">
+		<name>Галерея</name>
+		<col type="0" name="GALLERY_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор статьи</comment>
+		</col>
+		<col type="6" name="GALLERY_GROUP_ID" parent="y">
+			<index>1</index>
+			<name>Группа</name>
+			<comment>Уникальный идентификатор группы</comment>
+			<ref>
+				<table>GALLERY_GROUP</table>
+				<field>GALLERY_GROUP_ID</field>
+				<visual>NAME</visual>
+				<none/>
+			</ref>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="15" name="IMAGE1" visuality="y" is_watermark="y" watermark="path_to_watermark" set_width="gallary_small_x" set_height="gallary_small_y">
+			<name>Картинка мал.</name>
+			<comment>Картинка маленькая</comment>
+		</col>
+		<col type="7" name="IMAGE2" postfix="_b" is_watermark="y" watermark="path_to_watermark" set_width="gallary_big_x" set_height="gallary_big_y">
+			<!--<col type="7" name="IMAGE2" postfix="_b" is_watermark="y" watermark="path_to_watermark">-->
+			<name>Картинка бол.</name>
+			<comment>Картинка большая</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<postinsertevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+        	$tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+        	if($tmpPath){
+	        	$tmpPath = preg_replace('/\#.*/','',$tmpPath);
+	        	$pathToW = '../images/wm/'.$tmpPath;
+        	}        	
+        	
+      if(isset($_FILES['NOT_IMAGE2']['tmp_name']) && $_FILES['NOT_IMAGE2']['tmp_name']){
+        $gallary_big_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_big_x'");
+        $gallary_big_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_big_y'");        
+        
+        $image2 = $cmf->selectrow_array("select IMAGE2 from GALLERY where GALLERY_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK_b']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image2, '../images/gallery/', $waterPath, $gallary_big_x, $gallary_big_y);
+        $object->addImage();
+        
+        $image2 = $object->new_image_name;
+           
+        if ($image2){
+        $sql="update GALLERY
+              set IMAGE2 = '{$image2}'
+              where GALLERY_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+	  if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name']){
+        $gallary_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_x'");
+        $gallary_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_y'");
+        
+        $image1 = $cmf->selectrow_array("select IMAGE1 from GALLERY where GALLERY_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image1, '../images/gallery/', $waterPath, $gallary_small_x, $gallary_small_y);
+        $object->addImage();
+        
+        $image1 = $object->new_image_name;
+           
+        if ($image1){
+        $sql="update GALLERY
+              set IMAGE1 = '{$image1}'
+              where GALLERY_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+      ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+        	$tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+        	if($tmpPath){
+	        	$tmpPath = preg_replace('/\#.*/','',$tmpPath);
+	        	$pathToW = '../images/wm/'.$tmpPath;
+        	}        	
+        	
+      if(isset($_FILES['NOT_IMAGE2']['tmp_name']) && $_FILES['NOT_IMAGE2']['tmp_name']){
+        $gallary_big_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_big_x'");
+        $gallary_big_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_big_y'");        
+        
+        $image2 = $cmf->selectrow_array("select IMAGE2 from GALLERY where GALLERY_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK_b']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image2, '../images/gallery/', $waterPath, $gallary_big_x, $gallary_big_y);
+        $object->addImage();
+        
+        $image2 = $object->new_image_name;
+           
+        if ($image2){
+        $sql="update GALLERY
+              set IMAGE2 = '{$image2}'
+              where GALLERY_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+	  if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name']){
+        $gallary_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_x'");
+        $gallary_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_y'");
+        
+        $image1 = $cmf->selectrow_array("select IMAGE1 from GALLERY where GALLERY_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image1, '../images/gallery/', $waterPath, $gallary_small_x, $gallary_small_y);
+        $object->addImage();
+        
+        $image1 = $object->new_image_name;
+           
+        if ($image1){
+        $sql="update GALLERY
+              set IMAGE1 = '{$image1}'
+              where GALLERY_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+      ]]></postupdateevent>
+		<predeletesevent><![CDATA[
+      foreach ($_REQUEST['id'] as $id){
+         list($image1, $image2) = $cmf->selectrow_array("select IMAGE1, IMAGE2 from GALLERY where GALLERY_ID=?",$id);
+         //Удаление картинок
+        if(strchr($image1,"#")){
+          $img1 = explode("#",$image1);
+          $src1 = $img1[0];
+          @unlink('../images/gallery/'.$src1);
+        }
+        if(strchr($image2,"#")){
+          $img2 = explode("#",$image2);
+          $src2 = $img2[0];
+          @unlink('../images/gallery/'.$src2);
+        }
+      }
+      ]]></predeletesevent>
+		<joined name="GALLERY_LANGS" type="6">
+			<name>Тексты для других языков</name>
+			<col type="0" name="GALLERY_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Название </name>
+				<comment>Название</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="GALLERY_GROUP_VIDEO" type="10" parentscript="GALLERY_GROUP_VIDEO" treechild="GALLERY_VIDEO" imagepath="/gallery_video/">
+		<name>Раздел галереи видео</name>
+		<col type="0" name="GALLERY_GROUP_VIDEO_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="3" name="PARENT_ID" parent="y">
+			<index>1</index>
+			<name>N</name>
+			<comment>Уникальный идентификатор рубрики</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90" isfold="y">
+			<name>Название группы</name>
+			<comment>Название группы</comment>
+		</col>
+		<col type="7" name="IMAGE1" postfix="_galary">
+			<name>Картинка мал.</name>
+			<comment>Картинка маленькая</comment>
+		</col>
+		<col type="10" name="STYLE" visuality="y">
+			<name>Стиль</name>
+			<enum>
+				<option value="0">Красный</option>
+				<option value="1">Синий</option>
+				<option value="2">Зеленый</option>
+				<option value="3">Серый</option>
+				<option value="4">Желтый</option>
+			</enum>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="REALSTATUS" selectible="y" isrealstate="y">
+			<name>auto Статус - Вкл/Выкл</name>
+			<comment>auto Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<postinsertevent><![CDATA[
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUVideoGallery();
+    ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUVideoGallery();
+    ]]></postupdateevent>
+		<joined name="GALLERY_GROUP_VIDEO_LANGS" type="6">
+			<name>Тексты для других языков</name>
+			<col type="0" name="GALLERY_GROUP_VIDEO_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Название </name>
+				<comment>Название</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="GALLERY_VIDEO" parentscript="GALLERY_GROUP_VIDEO" article="GALLERY_GROUP_VIDEO" imagepath="/gallery_video/" pagesize="20">
+		<name>Галерея видео</name>
+		<col type="0" name="GALLERY_VIDEO_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор статьи</comment>
+		</col>
+		<col type="6" name="GALLERY_GROUP_VIDEO_ID" parent="y">
+			<index>1</index>
+			<name>Группа</name>
+			<comment>Уникальный идентификатор группы</comment>
+			<ref>
+				<table>GALLERY_GROUP_VIDEO</table>
+				<field>GALLERY_GROUP_VIDEO_ID</field>
+				<visual>NAME</visual>
+				<none/>
+			</ref>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="7" name="IMAGE1" visuality="y" is_watermark="y" watermark="path_to_watermark" set_width="gallary_small_x" set_height="gallary_small_y">
+			<name>Картинка мал.</name>
+			<comment>Картинка маленькая</comment>
+		</col>
+		<col type="14" name="IMAGE2">
+			<name>Файл видео</name>
+			<comment>Файл видео</comment>
+		</col>
+		<col type="2" name="CODE_VIDEO" rows="7" cols="90">
+			<name>Код видео</name>
+			<comment>Код видео</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<postinsertevent><![CDATA[
+      include('resize_img.php');
+      $pathToW = '';
+        
+          $tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+          if($tmpPath){
+            $tmpPath = preg_replace('/\#.*/','',$tmpPath);
+            $pathToW = '../images/wm/'.$tmpPath;
+          }          
+
+    if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name']){
+        $gallary_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_x'");
+        $gallary_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_y'");
+        
+        $image1 = $cmf->selectrow_array("select IMAGE1 from GALLERY_VIDEO where GALLERY_VIDEO_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image1, $image1, '../images/gallery_video/', $waterPath, $gallary_small_x, $gallary_small_y);
+        $object->addImage();
+        
+        $image1 = $object->new_image_name;
+           
+        if ($image1){
+        $sql="update GALLERY_VIDEO
+              set IMAGE1 = '{$image1}'
+              where GALLERY_VIDEO_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }            
+      ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+          $tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+          if($tmpPath){
+            $tmpPath = preg_replace('/\#.*/','',$tmpPath);
+            $pathToW = '../images/wm/'.$tmpPath;
+          }          
+
+    if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name']){
+        $gallary_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_x'");
+        $gallary_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='gallary_small_y'");
+        
+        $image1 = $cmf->selectrow_array("select IMAGE1 from GALLERY_VIDEO where GALLERY_VIDEO_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image1, $image1, '../images/gallery_video/', $waterPath, $gallary_small_x, $gallary_small_y);
+        $object->addImage();
+        
+        $image1 = $object->new_image_name;
+           
+        if ($image1){
+        $sql="update GALLERY_VIDEO
+              set IMAGE1 = '{$image1}'
+              where GALLERY_VIDEO_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+        }
+      }
+      ]]></postupdateevent>
+		<predeletesevent><![CDATA[
+      foreach ($_REQUEST['id'] as $id){
+         list($image1, $image2) = $cmf->selectrow_array("select IMAGE1, IMAGE2 from GALLERY_VIDEO where GALLERY_VIDEO_ID=?",$id);
+         //Удаление картинок
+        if(strchr($image1,"#")){
+          $img1 = explode("#",$image1);
+          $src1 = $img1[0];
+          @unlink('../images/gallery_video/'.$src1);
+        }
+        if(strchr($image2,"#")){
+          $img2 = explode("#",$image2);
+          $src2 = $img2[0];
+          @unlink('../images/gallery_video/'.$src2);
+        }
+      }
+      ]]></predeletesevent>
+		<joined name="GALLERY_VIDEO_LANGS" type="6">
+			<name>Тексты для других языков</name>
+			<col type="0" name="GALLERY_VIDEO_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Название </name>
+				<comment>Название</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- Фото галерея -->
+	<!-- Голосовалка -->
+	<table name="VOPROS" ordering="DATA_START desc">
+		<name>Опрос</name>
+		<col type="0" name="VOPROS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="12" name="DATA_START" visuality="y" size="70" calendar="y">
+			<name>Дата начала</name>
+			<comment>Дата начала</comment>
+		</col>
+		<col type="12" name="DATA_STOP" visuality="y" size="70" calendar="y">
+			<name>Дата Окончания</name>
+			<comment>Дата Окончания</comment>
+		</col>
+		<col type="2" name="NAME" visuality="y" rows="7" cols="90">
+			<name>Текст вопроса</name>
+			<comment>Текст вопроса</comment>
+		</col>
+		<panel/>
+		<col type="3" name="COUNT_" size="70">
+			<name>Количество проголосовавших</name>
+			<comment>Количество проголосовавших</comment>
+		</col>
+		<!--<col type="8" name="IS_MULTI" visuality="y">
+			<name>множ. выбор</name>
+			<comment>Возможность выбора нескольких пунктов</comment>
+		</col>-->
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<child_script name="OTVETS" image="img/fold0.gif" title="Ответы"/>
+		<joined name="VOPROS_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="VOPROS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Текст вопроса </name>
+				<comment>Заголовок</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="OTVETS" parentscript="VOPROS" article="VOPROS">
+		<name>Ответы</name>
+		<col type="0" name="OTVETS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="VOPROS_ID" index="1" parent="y">
+			<name>Вопрос</name>
+			<comment>Вопрос</comment>
+			<ref>
+				<table>VOPROS</table>
+				<field>VOPROS_ID</field>
+				<visual>NAME</visual>
+			</ref>
+		</col>
+		<col type="2" name="NAME" visuality="y" rows="7" cols="90">
+			<name>Текст ответа</name>
+			<comment>Текст ответа</comment>
+		</col>
+		<!--<col type="8" name="IS_COMMENT" visuality="y" default="0">
+			<name>Комментарий.</name>
+			<comment>Комментарий.</comment>
+		</col>-->
+		<col type="3" name="COUNT_" size="70">
+			<name>Количество</name>
+			<comment>Количество ответивших так</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<!--<child_script name="OTVETS_COMMENT" image="img/fold0.gif" width="16" title="Ответы"/>-->
+		<joined name="OTVETS_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="OTVETS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Текст ответа </name>
+				<comment>Текст ответа</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="OTVETS_COMMENT" parentscript="OTVETS" article="VOPROS" ordering="COUNT_ desc">
+		<name>Коментарии к ответам</name>
+		<col type="0" name="OTVETS_COMMENT_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="OTVETS_ID" index="1" parent="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Текст комментария</name>
+			<comment>Текст комментария</comment>
+		</col>
+		<col type="3" name="COUNT_" size="70" visuality="y">
+			<name>Количество</name>
+			<comment>Количество ответивших так</comment>
+		</col>
+	</table>
+	<!-- / Голосовалка  -->
+	<!-- Messages -->
+	<table name="MESSAGES">
+		<name>Рассылка</name>
+		<col type="0" name="MESSAGES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Тема</name>
+			<comment>Тема</comment>
+		</col>
+		<col type="2" name="TEXT" rows="7" cols="90" panelize="y">
+			<name>Текст сообщения</name>
+			<comment>Текст сообщения</comment>
+		</col>
+		<panel/>
+		<col type="10" name="ACTION" visuality="n">
+			<name>Действия</name>
+			<enum>
+				<option value="0">Отправить</option>
+				<option value="1">Сохранить в архиве</option>
+			</enum>
+			<comment>Тип занятости</comment>
+		</col>
+		<col type="10" name="STATE_" internal="y" visuality="y">
+			<name>Состояние</name>
+			<enum>
+				<option value="0">Отправляется</option>
+				<option value="1">Отправлен</option>
+			</enum>
+			<comment>Состояние</comment>
+		</col>
+		<col type="3" name="ADMIN" internal="y">
+			<name>ИД админа</name>
+			<comment>ИД админа</comment>
+		</col>
+		<col type="6" name="USERS" multiple="y">
+			<index>1</index>
+			<name>Пользователи</name>
+			<ref>
+				<table>CLIENT</table>
+				<field>CLIENT_ID</field>
+				<visual>NAME</visual>
+				<none/>
+				<where><![CDATA[  ]]></where>
+				<where2><![CDATA[ and STATUS=1]]></where2>
+			</ref>
+			<comment>Пользователи</comment>
+		</col>
+		<preinsertevent><![CDATA[
+$_REQUEST['id']=$cmf->GetSequence('MESSAGES');
+$cmf->execute("delete from MESSAGES_CLIENTS where MESSAGES_ID=?",$_REQUEST['id']);
+
+$users = array();
+if(!empty($_REQUEST['USERS']) && is_array($_REQUEST['USERS']))
+{
+   $users = $_REQUEST['USERS'];
+}
+else
+{
+   $sth = $cmf->execute("select CLIENT_ID from CLIENT where STATUS=1");
+   while($row = mysql_fetch_array($sth))
+   {
+      $users[] = $row['CLIENT_ID'];
+   }
+}
+$_REQUEST['USERS'] = '';
+]]></preinsertevent>
+		<postinsertevent><![CDATA[
+
+switch($_REQUEST['ACTION'])
+{
+   case 0:
+   {
+      foreach($users as $value)
+      {
+         $cmf->execute('insert into MESSAGES_CLIENTS set USER_ID=?, MESSAGES_ID=?',$value,$_REQUEST['id']);
+      }
+      $cmf->execute('update MESSAGES set STATE_= 0 where MESSAGES_ID=?',$_REQUEST['id']);
+      break;
+   }
+
+   case 1:
+   {
+      foreach($users as $value){
+         $cmf->execute('insert into MESSAGES_CLIENTS set USER_ID=?, MESSAGES_ID=?',$value,$_REQUEST['id']);
+      }
+      $cmf->execute('update MESSAGES set STATE_= 1 where MESSAGES_ID=?',$_REQUEST['id']);
+      break;
+   }
+}
+
+//Админ
+if(!empty($_COOKIE['CMF_UID']))
+{
+   $admin_id = $cmf->selectrow_array("select CMF_USER_ID from CMF_USER where MD5_=?", $_COOKIE['CMF_UID']);
+   $cmf->execute('update MESSAGES set ADMIN=? where MESSAGES_ID=?',$admin_id,$_REQUEST['id']);
+}
+]]></postinsertevent>
+		<preupdateevent><![CDATA[
+$cmf->execute("delete from MESSAGES_CLIENTS where MESSAGES_ID=?",$_REQUEST['id']);
+
+$users = array();
+if(!empty($_REQUEST['USERS']) && is_array($_REQUEST['USERS']))
+{
+   $users = $_REQUEST['USERS'];
+}
+else
+{
+   $sth = $cmf->execute("select CLIENT_ID from CLIENT where STATUS=1");
+   while($row = mysql_fetch_array($sth))
+   {
+      $users[] = $row['CLIENT_ID'];
+   }
+}
+$_REQUEST['USERS'] = '';
+]]></preupdateevent>
+		<postupdateevent><![CDATA[
+
+switch($_REQUEST['ACTION'])
+{
+   case 0:
+   {
+      foreach($users as $value){
+         $cmf->execute('insert into MESSAGES_CLIENTS set USER_ID=?, MESSAGES_ID=?',$value,$_REQUEST['id']);
+      }
+      $cmf->execute('update MESSAGES set STATE_= 0 where MESSAGES_ID=?',$_REQUEST['id']);
+      break;
+   }
+
+   case 1:
+   {
+      foreach($users as $value){
+         $cmf->execute('insert into MESSAGES_CLIENTS set USER_ID=?, MESSAGES_ID=?',$value,$_REQUEST['id']);
+      }
+      $cmf->execute('update MESSAGES set STATE_= 1 where MESSAGES_ID=?',$_REQUEST['id']);
+      break;
+   }
+}
+
+//Админ
+if(!empty($_COOKIE['CMF_UID']))
+{
+   $admin_id = $cmf->selectrow_array("select CMF_USER_ID from CMF_USER where MD5_=?", $_COOKIE['CMF_UID']);
+   $cmf->execute('update MESSAGES set ADMIN=? where MESSAGES_ID=?',$admin_id,$_REQUEST['id']);
+}
+]]></postupdateevent>
+		<preeditevent><![CDATA[
+$users = array();
+$sth = $cmf->execute("select USER_ID from MESSAGES_CLIENTS where MESSAGES_ID=?",$_REQUEST['id']);
+while($row = mysql_fetch_array($sth))
+{
+   $users[] = $row['USER_ID'];
+}
+$V_USERS = $users;
+]]></preeditevent>
+	</table>
+	<table name="MESSAGES_CLIENTS" nogen="y">
+		<col type="3" name="USER_ID">
+			<name>ИД пользователя</name>
+			<comment>ИД пользователя</comment>
+		</col>
+		<col type="3" name="MESSAGES_ID">
+			<index>1</index>
+			<name>ИД сообщения</name>
+			<comment>ИД сообщения</comment>
+		</col>
+	</table>
+	<!-- Messages -->
+	<table name="FILE_TYPES" imagepath="/filetypes/">
+		<name>Типы файлов</name>
+		<col type="0" name="FILE_TYPES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Имя типа</name>
+			<comment>Имя типа</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="EXT" visuality="y" size="90">
+			<name>Расширение файла</name>
+			<comment>Расширение файла</comment>
+		</col>
+		<col type="7" name="IMAGE1">
+			<name>Иконка</name>
+			<comment>Иконка</comment>
+		</col>
+		<predeletesevent><![CDATA[
+      foreach ($_REQUEST['id'] as $id){
+         $image1 = $cmf->selectrow_array("select IMAGE1, from FILE_TYPES where FILE_TYPES_ID=?",$id);
+         //Удаление картинок
+        if(strchr($image1,"#")){
+          $img1 = explode("#",$image1);
+          $src1 = $img1[0];
+          @unlink('../images/filetypes/'.$src1);
+        }
+      }
+      ]]></predeletesevent>
+	</table>
+	<!-- Клиенты -->
+	<table name="CLIENT" type="8" imagepath="/cl/">
+		<name>Клиенты</name>
+		<!--<link name="CLIENT_VOPROS" />-->
+		<col type="0" name="CLIENT_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Имя</name>
+			<comment>Имя</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="EMAIL" visuality="y" size="90">
+			<name>E-mail</name>
+			<comment>E-mail</comment>
+		</col>
+		<col type="1" name="URL" visuality="y" size="90">
+			<name>URL</name>
+			<comment>URL</comment>
+		</col>
+		<col type="7" name="IMAGE1" postfix="_m" set_width="client_small_x" set_height="client_small_y">
+			<name>Логотип</name>
+			<comment>Логотип</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткое описание</name>
+			<comment>Краткое описание</comment>
+		</col>
+		<col type="8" name="STATUS_MAIN" visuality="y">
+			<name>Выводить на главной</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<extraevents><![CDATA[
+      if($cmf->Param('ell3') == 'Отменить')
+      {
+         $visible=0;
+         $pos = 3;
+         $pos = $pos -1;
+         echo '<meta http-equiv="Refresh" content="1; url=CLIENT.php?e'.$pos.'=ED&amp;id='.$_REQUEST['id'].'&amp;iid='.$_REQUEST['iid'].'">';
+      };
+    ]]></extraevents>
+	</table>
+	<table name="CLIENT_VOPROS" ordering="DATA_START desc">
+		<name>Опрос</name>
+		<col type="0" name="CLIENT_VOPROS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="12" name="DATA_START" visuality="y" size="70" calendar="y">
+			<name>Дата начала</name>
+			<comment>Дата начала</comment>
+		</col>
+		<col type="12" name="DATA_STOP" visuality="y" size="70" calendar="y">
+			<name>Дата Окончания</name>
+			<comment>Дата Окончания</comment>
+		</col>
+		<col type="2" name="NAME" visuality="y" rows="7" cols="90" child="CLIENT_VOPROS_CLIENTS">
+			<name>Текст вопроса</name>
+			<comment>Текст вопроса</comment>
+		</col>
+		<!--
+		<col type="8" name="IS_MULTI" visuality="y">
+			<name>множ. выбор</name>
+			<comment>Возможность выбора нескольких пунктов</comment>
+		</col>
+		-->
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<col type="6" name="USERS" multiple="y">
+			<index>1</index>
+			<name>Пользователи</name>
+			<ref>
+				<table>CLIENT</table>
+				<field>CLIENT_ID</field>
+				<visual>NAME</visual>
+				<none/>
+				<where><![CDATA[  ]]></where>
+				<where2><![CDATA[ and STATUS=1]]></where2>
+			</ref>
+			<comment>Пользователи</comment>
+		</col>
+		<child_script name="CLIENT_OTVETS" image="img/fold0.gif" title="Ответы"/>
+		<preinsertevent><![CDATA[
+      $_REQUEST['id']=$cmf->GetSequence('CLIENT_VOPROS');
+      $cmf->execute("delete from CLIENT_VOPROS_CLIENTS where CLIENT_VOPROS_ID=?",$_REQUEST['id']);
+
+      $users = array();
+      if(!empty($_REQUEST['USERS']) && is_array($_REQUEST['USERS']))
+      {
+         $users = $_REQUEST['USERS'];
+      }
+      else{
+         $sth = $cmf->execute("select CLIENT_ID from CLIENT where STATUS=1");
+         while($row = mysql_fetch_array($sth)){
+            $users[] = $row['CLIENT_ID'];
+         }
+      }
+      $_REQUEST['USERS'] = '';
+      ]]></preinsertevent>
+		<postinsertevent><![CDATA[
+      foreach($users as $value){
+        $sql="select EMAIL
+              from CLIENT
+              where CLIENT_ID = {$value}";
+      
+        $V_EMAIL = $cmf->selectrow_array($sql);
+        
+        $V_CLIENT_HASH = $last_conf = substr(md5($value.$V_EMAIL.$_REQUEST['id']),0,24);
+        
+        $sql="insert into CLIENT_VOPROS_CLIENTS 
+              set CLIENT_ID={$value}
+                , CLIENT_VOPROS_ID={$_REQUEST['id']}
+                , CLIENT_HASH='{$V_CLIENT_HASH}'
+                , STATUS = 1";
+                
+        $cmf->execute($sql);
+      }
+
+    ]]></postinsertevent>
+		<preupdateevent><![CDATA[
+      $cmf->execute("delete from CLIENT_VOPROS_CLIENTS where CLIENT_VOPROS_ID=?",$_REQUEST['id']);
+
+      $users = array();
+      if(!empty($_REQUEST['USERS']) && is_array($_REQUEST['USERS']))
+      {
+         $users = $_REQUEST['USERS'];
+      }
+      else
+      {
+         $sth = $cmf->execute("select CLIENT_ID from CLIENT where STATUS=1");
+         while($row = mysql_fetch_array($sth))
+         {
+            $users[] = $row['CLIENT_ID'];
+         }
+      }
+      $_REQUEST['USERS'] = '';
+      ]]></preupdateevent>
+		<postupdateevent><![CDATA[
+      foreach($users as $value){
+        $sql="select EMAIL
+              from CLIENT
+              where CLIENT_ID = {$value}";
+      
+        $V_EMAIL = $cmf->selectrow_array($sql);
+        
+        $V_CLIENT_HASH = $last_conf = substr(md5($value.$V_EMAIL.$_REQUEST['id']),0,24);
+        
+        $sql="insert into CLIENT_VOPROS_CLIENTS 
+              set CLIENT_ID={$value}
+                , CLIENT_VOPROS_ID={$_REQUEST['id']}
+                , CLIENT_HASH='{$V_CLIENT_HASH}'
+                , STATUS = 1";
+                
+        $cmf->execute($sql);
+      }
+  
+    ]]></postupdateevent>
+		<preeditevent><![CDATA[
+      $users = array();
+      $sth = $cmf->execute("select CLIENT_ID from CLIENT_VOPROS_CLIENTS where CLIENT_VOPROS_ID=?",$_REQUEST['id']);
+      while($row = mysql_fetch_array($sth))
+      {
+         $users[] = $row['CLIENT_ID'];
+      }
+      $V_USERS = $users;
+    ]]></preeditevent>
+	</table>
+	<table name="CLIENT_VOPROS_CLIENTS" nogen="y" parentscript="CLIENT_VOPROS" article="CLIENT_VOPROS">
+		<col type="3" name="CLIENT_ID">
+			<name>ИД пользователя</name>
+			<comment>ИД пользователя</comment>
+		</col>
+		<col type="3" name="CLIENT_VOPROS_ID">
+			<index>1</index>
+			<name>ИД сообщения</name>
+			<comment>ИД сообщения</comment>
+		</col>
+		<col type="1" name="CLIENT_HASH">
+			<name>Идентификатор</name>
+			<comment>Идентификатор</comment>
+		</col>
+		<col type="8" name="STATUS">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+	</table>
+	<table name="CLIENT_OTVETS" parentscript="CLIENT_VOPROS" article="CLIENT_VOPROS">
+		<name>Ответы</name>
+		<col type="0" name="CLIENT_OTVETS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="CLIENT_VOPROS_ID" index="1" parent="y">
+			<name>Вопрос</name>
+			<comment>Вопрос</comment>
+			<ref>
+				<table>CLIENT_VOPROS</table>
+				<field>CLIENT_VOPROS_ID</field>
+				<visual>NAME</visual>
+			</ref>
+		</col>
+		<col type="2" name="NAME" visuality="y" rows="7" cols="90">
+			<name>Текст ответа</name>
+			<comment>Текст ответа</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+	</table>
+	<!-- Клиенты -->
+	<!-- Объявления -->
+	<table name="ANNOUNCEMENT_RUBRICS">
+		<name>Рубрики объявлений</name>
+		<col type="0" name="ANNOUNCEMENT_RUBRICS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор рубрики</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="8" name="STATUS" default="0" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<joined name="ANNOUNCEMENT_RUBRICS_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ANNOUNCEMENT_RUBRICS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90">
+				<name>Название пункта меню</name>
+				<comment>Название пункта меню</comment>
+			</col>
+			<!--
+        <col type="2" name="TITLE" rows="2" cols="90">
+        <name>TITLE</name>
+        <comment>TITLE</comment>
+        </col>
+        <col type="2" name="DESCRIPTION" rows="7" cols="90">
+                <name>Краткий текст</name>
+                <comment>Краткий текст</comment>
+        </col>
+        -->
+		</joined>
+	</table>
+	<table name="ANNOUNCEMENT_TYPES">
+		<name>Типы объявлений</name>
+		<col type="0" name="ANNOUNCEMENT_TYPES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="8" name="STATUS" default="0" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<joined name="ANNOUNCEMENT_TYPES_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ANNOUNCEMENT_TYPES_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90">
+				<name>Название пункта меню</name>
+				<comment>Название пункта меню</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="ANNOUNCEMENT" pagesize="35" defsort="11">
+		<name>Объявления</name>
+		<col type="0" name="ANNOUNCEMENT_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="ANNOUNCEMENT_RUBRICS_ID" visuality="y" link="y" filt="y">
+			<index>2</index>
+			<name>Рубрика</name>
+			<comment>Рубрика</comment>
+			<ref>
+				<table>ANNOUNCEMENT_RUBRICS</table>
+				<field>ANNOUNCEMENT_RUBRICS_ID</field>
+				<visual>NAME</visual>
+				<where><![CDATA[ ]]></where>
+				<where2><![CDATA[  ]]></where2>
+				<multi>1</multi>
+				<cond><![CDATA[ ]]></cond>
+			</ref>
+		</col>
+		<col type="6" name="ANNOUNCEMENT_TYPES_ID" visuality="y" link="y" filt="y">
+			<index>1</index>
+			<name>Тип</name>
+			<comment>Тип объявления</comment>
+			<ref>
+				<table>ANNOUNCEMENT_TYPES</table>
+				<field>ANNOUNCEMENT_TYPES_ID</field>
+				<visual>NAME</visual>
+				<where><![CDATA[ ]]></where>
+				<where2><![CDATA[  ]]></where2>
+				<multi>1</multi>
+				<cond><![CDATA[ ]]></cond>
+			</ref>
+		</col>
+		<col type="1" name="TITLE" visuality="y" size="90">
+			<name>Заголовок</name>
+			<comment>Заголовок</comment>
+		</col>
+		<col type="2" name="TEXT" visuality="y" rows="7" cols="90">
+			<name>Текст объявления</name>
+			<comment>Текст объявления</comment>
+		</col>
+		<col type="1" name="ORGANIZATION" size="90">
+			<name>Организация</name>
+			<comment>Организация</comment>
+		</col>
+		<col type="1" name="COUNTRY" size="90">
+			<name>Страна</name>
+			<comment>Страна</comment>
+		</col>
+		<col type="1" name="CITY" size="90">
+			<name>Город</name>
+			<comment>Город</comment>
+		</col>
+		<col type="1" name="NAME" size="90">
+			<name>Имя</name>
+			<comment>Имя</comment>
+		</col>
+		<col type="1" name="PHONE" size="90">
+			<name>Телефон</name>
+			<comment>Телефон</comment>
+		</col>
+		<col type="1" name="FAX" size="90">
+			<name>Факс</name>
+			<comment>Факс</comment>
+		</col>
+		<col type="1" name="EMAIL" size="90">
+			<name>E-mail</name>
+			<comment>E-mail</comment>
+		</col>
+		<col type="12" name="DATE" visuality="y" size="70" calendar="y">
+			<name>Дата добавления</name>
+			<comment>Дата добавления</comment>
+		</col>
+		<col type="8" name="STATUS" default="0" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<preinsertevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+    ]]></preinsertevent>
+		<preupdateevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+    ]]></preupdateevent>
+		<where><![CDATA[(($_REQUEST['f'] != '') ? ' ANNOUNCEMENT_TYPES_ID='.$_REQUEST['f'] : ' 1=1 ')]]></where>
+		<filter cols="7"><![CDATA[
+<td colspan="7">
+EOF;
+
+$COUNT = $cmf->selectrow_array('select count(*) from ANNOUNCEMENT ');
+if ( $_REQUEST['f'] > 0 )
+{
+print '<a href="ANNOUNCEMENT.php?s='.$_REQUEST['s'].'">Все ('.$COUNT.')</a>&#160;&#160;&#160;';
+}
+else
+{
+print '<a href="ANNOUNCEMENT.php?s='.$_REQUEST['s'].'" class="red">Все ('.$COUNT.')</a>&#160;&#160;&#160;';
+}
+
+$vopr = $cmf->select('select ANNOUNCEMENT_TYPES_ID,NAME from ANNOUNCEMENT_TYPES order by ANNOUNCEMENT_TYPES_ID');
+$index = sizeof($vopr);
+for($i=0; $i<$index; $i++)
+{
+$V_ANNOUNCEMENT_TYPES_ID       = $vopr[$i]['ANNOUNCEMENT_TYPES_ID'];
+$V_NAME                        = $vopr[$i]['NAME'];
+
+$COUNT = $cmf->selectrow_array('select count(*) from ANNOUNCEMENT where ANNOUNCEMENT_TYPES_ID=?',$V_ANNOUNCEMENT_TYPES_ID);
+
+if($_REQUEST['f'] == $V_ANNOUNCEMENT_TYPES_ID)
+{
+   print '<a href="ANNOUNCEMENT.php?f='.$V_ANNOUNCEMENT_TYPES_ID.'&amp;s='.$_REQUEST['s'].'" class="red">'.$V_NAME.' ('.$COUNT.')</a>&#160;&#160;&#160;';
+}
+else
+{
+print '<a href="ANNOUNCEMENT.php?f='.$V_ANNOUNCEMENT_TYPES_ID.'&amp;s='.$_REQUEST['s'].'">'.$V_NAME.' ('.$COUNT.')</a>&#160;&#160;&#160;';                                }
+}
+print <<<EOF
+</td>
+]]></filter>
+	</table>
+	<!-- Объявления -->
+	<!-- FAQ -->
+	<table name="QUESTION_GROUP" pagesize="20" ordering="ORDERING">
+		<name>Группы Вопрос-ответ</name>
+		<col type="0" name="QUESTION_GROUP_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор новости</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название группы</name>
+			<comment>Название группы</comment>
+		</col>
+		<col type="8" name="STATUS" default="0" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="QUESTION_GROUP_LANGS" type="3">
+			<name>Тексты для других языков</name>
+			<col type="0" name="QUESTION_GROUP_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="2" name="NAME" visuality="y" rows="7" cols="90">
+				<name>Текст вопроса</name>
+				<comment>Текст ответа</comment>
+			</col>
+			<col type="11" name="ORDERING">
+				<name>Порядок сортировки</name>
+				<comment>Порядок сортировки</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="QUESTION" pagesize="20">
+		<name>Вопрос-ответ</name>
+		<col type="0" name="QUESTION_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор новости</comment>
+		</col>
+		<col type="6" name="QUESTION_GROUP_ID" visuality="y">
+			<name>Группы Вопрос-ответ</name>
+			<comment>Группы Вопрос-ответ</comment>
+			<ref>
+				<table>QUESTION_GROUP</table>
+				<field>QUESTION_GROUP_ID</field>
+				<visual>NAME</visual>
+			</ref>
+		</col>
+		<col type="2" name="QUESTION" visuality="y" rows="7" cols="90">
+			<name>Текст вопроса</name>
+			<comment>Текст ответа</comment>
+		</col>
+		<col type="2" name="ANSWER" rows="7" cols="90" panelize="y">
+			<name>Текст ответа</name>
+			<comment>Текст ответа</comment>
+		</col>
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="QUESTION_LANGS" type="3">
+			<name>Тексты для других языков</name>
+			<col type="0" name="QUESTION_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="2" name="QUESTION" visuality="y" rows="7" cols="90">
+				<name>Текст вопроса</name>
+				<comment>Текст ответа</comment>
+			</col>
+			<col type="2" name="ANSWER" rows="7" cols="90" panelize="y">
+				<name>Текст ответа</name>
+				<comment>Текст ответа</comment>
+			</col>
+			<col type="11" name="ORDERING">
+				<name>Порядок сортировки</name>
+				<comment>Порядок сортировки</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- FAQ -->
+	<!-- Texts -->
+	<table name="TEXTES" pagesize="120" ordering="NAME" imagepath="/textes/">
+		<name>Баннерные Места</name>
+		<col type="0" name="TEXTES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="1" name="SYS_NAME" size="90" visuality="y">
+			<name>Системное имя</name>
+			<comment>Системное имя</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Текст</name>
+			<comment>Текст</comment>
+		</col>
+		<col type="7" name="IMAGE">
+			<name>Картинка</name>
+			<comment>Картинка</comment>
+		</col>
+		<joined name="TEXTES_LANGS" type="3">
+			<name>Тексты для других языков</name>
+			<col type="0" name="TEXTES_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткое описание</name>
+				<comment>Краткое описание</comment>
+			</col>
+			<col type="7" name="IMAGE">
+				<name>Картинка</name>
+				<comment>Картинка</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- Texts -->
+	<!-- Banners -->
+	<table name="ALIGN" pagesize="120" ordering="NAME">
+		<name>Баннерные Места</name>
+		<col type="0" name="ALIGN_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Имя</name>
+			<comment>Имя</comment>
+		</col>
+	</table>
+	<table name="BANN_SECTION" pagesize="120" ordering="NAME" imagepath="/bn/">
+		<name>Баннерные разделы</name>
+		<col type="3" name="BANN_SECTION_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<joined name="SECTION_ALIGN" ordering="ALIGN_ID">
+			<name>Баннеры</name>
+			<col type="0" name="SECTION_ALIGN_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="ALIGN_ID" visuality="y">
+				<index>1</index>
+				<name>место</name>
+				<ref>
+					<table>ALIGN</table>
+					<field>ALIGN_ID</field>
+					<visual>NAME</visual>
+				</ref>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="7" name="IMAGE1" visuality="y" isflash="y">
+				<name>Картинка.</name>
+				<comment>Картинка.</comment>
+			</col>
+			<col type="1" name="ALT" size="90" visuality="y">
+				<name>Альт текст</name>
+				<comment>Альт текст</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+			<col type="2" name="BANNER_CODE" rows="7" cols="90">
+				<name>Код банера</name>
+				<comment>Код банера</comment>
+			</col>
+			<col type="10" name="TYPE" size="90" visuality="y">
+				<name>Тип</name>
+				<comment>Тип</comment>
+				<enum>
+					<option value="0"> картинка </option>
+					<option value="1"> флеш баннер</option>
+					<option value="2"> текст</option>
+				</enum>
+			</col>
+			<col type="1" name="URL" size="90" visuality="y">
+				<name>URL</name>
+				<comment>URL</comment>
+			</col>
+			<col type="8" name="NEWWIN" default="1">
+				<name>В новом окне</name>
+				<comment>Флаг (1-вкл 0-выкл)</comment>
+			</col>
+			<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+				<name>Вкл</name>
+				<comment>Флаг (1-вкл 0-выкл)</comment>
+			</col>
+			<joined name="SECTION_ALIGN_LANGS" position="2">
+				<name>Тексты для других языков</name>
+				<col type="0" name="SECTION_ALIGN_LANGS_ID" primary="y" visuality="y">
+					<name>N</name>
+					<comment>Уникальный идентификатор</comment>
+				</col>
+				<col type="6" name="CMF_LANG_ID" visuality="y">
+					<index>1</index>
+					<name>Язык</name>
+					<ref>
+						<table>CMF_LANG</table>
+						<field>CMF_LANG_ID</field>
+						<visual>NAME</visual>
+						<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+					</ref>
+					<comment>Идентификатор языка</comment>
+				</col>
+				<col type="7" name="IMAGE1" visuality="y" isflash="y">
+					<name>Картинка.</name>
+					<comment>Картинка.</comment>
+				</col>
+				<col type="1" name="ALT" size="90" visuality="y">
+					<name>Альт текст</name>
+					<comment>Альт текст</comment>
+				</col>
+				<panel/>
+				<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y">
+					<name>Краткий текст</name>
+					<comment>Краткий текст</comment>
+				</col>
+			</joined>
+		</joined>
+	</table>
+	<!-- Banners -->
+	<!-- Catalog -->
+	<table name="CATALOGUE" parentscript="CATALOGUE" treechild="ITEM" type="2" imagepath="/cat/">
+		<name>Каталог</name>
+		<col type="0" name="CATALOGUE_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор рубрики</comment>
+		</col>
+		<col type="13" name="PARENT_ID" link="y" is_parent="y">
+			<index>1</index>
+			<name>Родительский каталог</name>
+			<ref>
+				<table>CATALOGUE</table>
+				<field>CATALOGUE_ID</field>
+				<visual>NAME</visual>
+				<none>Корневой</none>
+			</ref>
+			<comment>Уникальный идентификатор рубрики</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90" isfold="y">
+			<name>Название пункта меню</name>
+			<comment>Название пункта меню</comment>
+		</col>
+		<nameadd>($V_COUNT_)</nameadd>
+		<col type="1" name="CATNAME" size="90">
+			<name>Путь до каталога</name>
+			<comment>Путь до каталога</comment>
+		</col>
+		<col type="1" name="REALCATNAME" visuality="y" size="90" internal="y">
+			<name>Путь</name>
+			<comment>Полный путь до каталога</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>URL</name>
+			<comment>URL</comment>
+		</col>
+		<col type="1" name="SPECIAL_URL" visuality="y" size="90" internal="y">
+			<name>Спец URL</name>
+			<comment>Спец URL</comment>
+		</col>
+		<col type="1" name="TITLE" size="90">
+			<name>Добавка к тайтлу</name>
+			<comment>Добавка к тайтлу</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткий текст</name>
+			<comment>Краткий текст</comment>
+		</col>
+		<col type="10" name="COLOR_STYLE" visuality="y">
+			<name>Стиль</name>
+			<enum>
+				<option value="0">Красный</option>
+				<option value="1">Синий</option>
+				<option value="2">Зеленый</option>
+				<option value="3">Серый</option>
+				<option value="4">Желтый</option>
+				<option value="5">Фиолетовый</option>
+				<option value="6">Желтый 2</option>
+			</enum>
+		</col>
+		<col type="7" name="IMAGE1" postfix="_img1">
+			<name>Картинка рубрики</name>
+			<comment>Картинка рубрики</comment>
+		</col>
+		<!--<col type="7" name="IMAGE2" postfix="_img2">
+			<name>Картинка рубрики (аним.)</name>
+			<comment>Картинка рубрики (аним.)</comment>
+		</col>-->
+		<col type="3" name="COUNT_" selectible="y" internal="y">
+			<name>количество товаров.</name>
+			<comment>количество товаров.</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="STATUS_MAIN" visuality="y">
+			<name>Выводить на главной?</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="TO_PARENT" visuality="y">
+			<name>Картинка родителя</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="ITEM_IS_DESCR" visuality="y">
+			<name>Товар явл. описанием каталога</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="IN_MENU" visuality="y">
+			<name>В меню каталога</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="REALSTATUS" selectible="y" isrealstate="y">
+			<name>auto Статус - Вкл/Выкл</name>
+			<comment>auto Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<pseudorow><![CDATA[<tr bgcolor="#F0F0F0"><td>-</td><td colspan="7"><a href="?e=Перестроить" class="red">Перестроить</a></td></tr>        ]]></pseudorow>
+		<extraevents><![CDATA[ 
+if(!isset($V_PARENT_ID)) $V_PARENT_ID=0;
+
+if($_REQUEST['e'] == 'Перестроить'){
+$cmf->CheckCount(0);
+}
+    ]]></extraevents>
+		<preinsertevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+    ]]></preinsertevent>
+		<preupdateevent><![CDATA[
+      require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');      
+      $translit = new Translit();
+      $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);      
+    ]]></preupdateevent>
+		<joined name="CATALOGUE_LANGS" type="2">
+			<name>Тексты для других языков</name>
+			<col type="0" name="CATALOGUE_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="TYPENAME" size="90">
+				<name>Префикс для типа товара</name>
+				<comment>Префикс для типа товара</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90">
+				<name>Название пункта меню</name>
+				<comment>Название пункта меню</comment>
+			</col>
+			<col type="2" name="TITLE" rows="2" cols="90">
+				<name>TITLE</name>
+				<comment>TITLE</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткий текст</name>
+				<comment>Краткий текст</comment>
+			</col>
+		</joined>
+		<joined name="CATALOGUE_ARTICLE_GROUP">
+			<name>Связь "Каталог - Группа статей"</name>
+			<col type="3" name="CATALOGUE_ARTICLE_GROUP_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="ARTICLE_GROUP_ID" visuality="y">
+				<name>Группа статей</name>
+				<ref>
+					<table>ARTICLE_GROUP</table>
+					<field>ARTICLE_GROUP_ID</field>
+					<visual>NAME</visual>
+				</ref>
+				<comment>Группа статей</comment>
+				<index>1</index>
+			</col>
+		</joined>
+		<postinsertevent><![CDATA[
+      if(empty($_REQUEST['CATNAME'])){
+        $dbRules = $cmf->select("select * from TRANSLIT_RULE");
+        $rules = array();
+        if(!empty($dbRules)){
+          foreach ($dbRules as $rule){
+            $rules[$rule['SRC']] = $rule['TRANSLIT'];
+          }
+        }
+        
+        $_REQUEST['NAME'] = trim(mb_strtolower($_REQUEST['NAME'],'utf-8'));
+        $_REQUEST['NAME'] = preg_replace("/\s+/s", "-", $_REQUEST['NAME']);
+        
+        $_REQUEST['CATNAME'] = strtr($_REQUEST['NAME'], $rules);
+        
+        $cmf->execute('update CATALOGUE set CATNAME=? where CATALOGUE_ID=?',$_REQUEST['CATNAME'] ,$_REQUEST['id']);
+        
+      }
+  
+      $cmf->execute('update CATALOGUE set REALSTATUS=?,REALCATNAME=? where CATALOGUE_ID=?',GetMyRealStatus($cmf,$_REQUEST['id']),GetPath($cmf,$_REQUEST['id']),$_REQUEST['id']);
+      $cmf->CheckCount(0);
+      
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUCatalogue();
+      $sefu->applySEFUItem();
+    ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      if(empty($_REQUEST['CATNAME'])){
+        $dbRules = $cmf->select("select * from TRANSLIT_RULE");
+        $rules = array();
+        if(!empty($dbRules)){
+          foreach ($dbRules as $rule){
+            $rules[$rule['SRC']] = $rule['TRANSLIT'];
+          }
+        }
+        
+        $_REQUEST['NAME'] = trim(mb_strtolower($_REQUEST['NAME'],'utf-8'));
+        $_REQUEST['NAME'] = preg_replace("/\s+/s", "-", $_REQUEST['NAME']);
+        
+        $_REQUEST['CATNAME'] = strtr($_REQUEST['NAME'], $rules);
+        
+        $cmf->execute('update CATALOGUE set CATNAME=? where CATALOGUE_ID=?',$_REQUEST['CATNAME'] ,$_REQUEST['id']);
+        
+      }
+      UpdatePath($cmf,0,'');
+      
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUCatalogue();
+      $sefu->applySEFUItem();
+    ]]></postupdateevent>
+		<extraevents><![CDATA[
+
+if(!isset($V_PARENT_ID)) $V_PARENT_ID=0;
+
+if($_REQUEST['e'] == 'DL')
+{
+   $parent_id = $cmf->selectrow_array("select PARENT_ID from CATALOGUE where CATALOGUE_ID=?",$_REQUEST['id']);
+   __DelTree($cmf,$_REQUEST['id'],$parent_id);
+   $cmf->execute('delete from CATALOGUE where CATALOGUE_ID=?',$_REQUEST['id']);
+   $cmf->execute('delete from CATALOGUE_LANGS where CATALOGUE_ID=?',$_REQUEST['id']);
+   updateOrdering($cmf,0);
+   $cmf->execute("update ITEM set CATALOGUE_ID=? where CATALOGUE_ID=?",$parent_id,$_REQUEST['id']);
+   
+   //DelTree($cmf,$_REQUEST['id']);
+   //$cmf->execute('delete from CATALOGUE where CATALOGUE_ID=?',$_REQUEST['id']);
+   //updateOrdering($cmf,0);
+}
+
+
+]]></extraevents>
+		<extrasubs><![CDATA[
+
+function __DelTree($cmf,$id,$parent_id=0)
+{
+$sth=$cmf->execute('select CATALOGUE_ID from CATALOGUE where PARENT_ID=?',$id);
+while(list($V_CATALOGUE_ID)=mysql_fetch_array($sth, MYSQL_NUM))
+{
+__DelTree($cmf,$V_CATALOGUE_ID,$parent_id);
+$cmf->execute('delete from CATALOGUE where CATALOGUE_ID=?',$V_CATALOGUE_ID);
+$cmf->execute('delete from CATALOGUE_LANGS where CATALOGUE_ID=?',$V_CATALOGUE_ID);
+#### del items
+$cmf->execute("update ITEM set CATALOGUE_ID=? where CATALOGUE_ID=?",$parent_id,$V_CATALOGUE_ID);
+}
+}
+
+function GetPath($cmf,$id)
+{
+list ($PATH,$PARENTID,$NAME)=array('','','');
+$i=0;
+while(list($PARENTID,$NAME)=$cmf->selectrow_array('select PARENT_ID,CATNAME from CATALOGUE where CATALOGUE_ID=?',$id))
+{
+$i++;
+if($i==1 && $NAME=='') break;
+$id=$PARENTID;
+if($NAME){ $PATH="/$NAME$PATH"; }
+};
+
+if('/' != substr($PATH,-1)){$PATH=$PATH."/";}
+$PATH = preg_replace("/(\/){2,}/","/",$PATH);
+return $PATH;
+}
+
+function UpdatePath($cmf,$id,$path)
+{
+        $sth=$cmf->execute('select CATALOGUE_ID,CATNAME from CATALOGUE where PARENT_ID=?',$id);
+        while(list ($V_CATALOGUE_ID,$V_CATNAME)=mysql_fetch_array($sth, MYSQL_NUM))
+        {
+                if($V_CATNAME){$V_CATNAME="$path/$V_CATNAME";} else {$V_CATNAME='';};
+                $V_CATNAME = preg_replace("/(\/){2,}/","/",$V_CATNAME);
+                if(!preg_match("/(\/)$/",$V_CATNAME)) $V_CATNAME .="/";
+                $cmf->execute('update CATALOGUE set REALCATNAME=? where CATALOGUE_ID=?',$V_CATNAME,$V_CATALOGUE_ID);
+                UpdatePath($cmf,$V_CATALOGUE_ID,$V_CATNAME);
+        }
+}
+
+function updateOrdering($cmf,$id)
+{
+   $sth = $cmf->execute("select CATALOGUE_ID from CATALOGUE where PARENT_ID=? order by ORDERING",$id);
+   $order=1;
+   while($row = mysql_fetch_array($sth))
+   {
+       $sql = "update CATALOGUE set ORDERING='".$order."' where CATALOGUE_ID = '".$row['CATALOGUE_ID']."'";
+       $cmf->execute($sql);
+       $order++;
+       updateOrdering($cmf,$row['CATALOGUE_ID']);
+   }
+}
+]]></extrasubs>
+	</table>
+	<table name="ITEM" imagepath="/it/" type="3" pagesize="35" parentscript="CATALOGUE" defsort="1" article="CATALOGUE">
+		<name>Продукция</name>
+		<!--<link name="GOODS_GROUP_ITEM_LINK" />-->
+		<col type="0" name="ITEM_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор товара</comment>
+		</col>
+		<col type="6" name="CATALOGUE_ID" parent="y">
+			<name>Рубрика каталога</name>
+			<ref>
+				<table>CATALOGUE</table>
+				<field>CATALOGUE_ID</field>
+				<visual>NAME</visual>
+			</ref>
+			<comment>Рубрика каталога</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Наименование продукта</name>
+			<comment>Наименование продукта</comment>
+		</col>
+		<col type="1" name="SPECIAL_URL" visuality="y" size="90">
+			<name>Спец URL</name>
+			<comment>Спец URL</comment>
+		</col>
+		<col type="16" name="IMAGE" visuality="y" postfix="_icon" is_watermark="y" watermark="path_to_watermark" set_width="item_icon_x" set_height="item_icon_y">
+			<name>Иконка</name>
+			<comment>Иконка</comment>
+		</col>
+		<!--<col type="7" name="IMAGE1" postfix="_m" is_watermark="y" watermark="path_to_watermark" set_width="item_small_x" set_height="item_small_y">-->
+		<col type="7" name="IMAGE1" postfix="_m" is_watermark="y" watermark="path_to_watermark">
+			<name>Картинка мал.</name>
+			<comment>Картинка маленькая</comment>
+		</col>
+		<col type="7" name="IMAGE2" postfix="_b" is_watermark="y" watermark="path_to_watermark" set_width="item_big_x" set_height="item_big_y">
+			<name>Картинка бол.</name>
+			<comment>Картинка большая</comment>
+		</col>
+		<col type="2" name="POP_IMAGE_TEXT" rows="7" cols="90" panelize="y" econfig="light_config.js">
+			<name>Текст над картинкой</name>
+			<comment>Текст над картинкой</comment>
+		</col>
+		<col type="2" name="UNDER_IMAGE_TEXT" rows="7" cols="90" panelize="y" econfig="light_config.js">
+			<name>Текст под картинкой</name>
+			<comment>Текст под картинкой</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткое описание</name>
+			<comment>Краткое описание</comment>
+		</col>
+		<col type="2" name="CODE_MAP_AREA" rows="7" cols="90">
+			<name>Код карты картинки</name>
+			<comment>Код карты картинки</comment>
+		</col>
+		<col type="8" name="IS_FORM" default="1" selectible="y">
+			<name>Форма на странице</name>
+			<comment>Форма на странице</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Выводить активные позиции</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<preinsertevent><![CDATA[
+		if(empty($_REQUEST['SPECIAL_URL'])){
+        require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');
+      $translit = new Translit();
+          $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);
+      }
+    ]]></preinsertevent>
+		<preupdateevent><![CDATA[
+		if(empty($_REQUEST['SPECIAL_URL'])){
+        require_once($_SERVER['DOCUMENT_ROOT'].'/lib/Translit.class.php');
+      $translit = new Translit();
+          $_REQUEST['SPECIAL_URL'] = $translit->getLatin($_REQUEST['NAME']);
+      }
+ 
+    ]]></preupdateevent>
+		<joined name="ITEM_LANGS" type="3">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ITEM_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90">
+				<name>Наименование</name>
+				<comment>Наименование</comment>
+			</col>
+			<col type="2" name="POP_IMAGE_TEXT" rows="7" cols="90">
+				<name>Текст над картинкой</name>
+				<comment>Текст над картинкой</comment>
+			</col>
+			<col type="2" name="UNDER_IMAGE_TEXT" rows="7" cols="90" panelize="y">
+				<name>Текст под картинкой</name>
+				<comment>Текст под картинкой</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткое описание</name>
+				<comment>Краткое описание</comment>
+			</col>
+		</joined>
+		<joined name="ITEM_PHOTO" type="3">
+			<name>Связь "Товар - Фото"</name>
+			<col type="0" name="ITEM_PHOTO_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="GALLERY_ID" visuality="y">
+				<index>1</index>
+				<name>Фото</name>
+				<ref>
+					<table>GALLERY</table>
+					<field>GALLERY_ID</field>
+					<visual>concat(GALLERY_ID,\' - \',NAME)</visual>
+					<where> where STATUS=1</where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="11" name="ORDERING_">
+				<name>Порядок сортировки</name>
+				<comment>Порядок сортировки</comment>
+			</col>
+		</joined>
+		<postinsertevent><![CDATA[
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUItem($_REQUEST['id']);
+    ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUItem($_REQUEST['id']);
+    ]]></postupdateevent>
+		<!--
+		<postinsertevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+        	$tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+        	if($tmpPath){
+	        	$tmpPath = preg_replace('/\#.*/','',$tmpPath);
+	        	$pathToW = '../images/wm/'.$tmpPath;
+        	}
+
+      if(isset($_FILES['NOT_IMAGE2']['tmp_name']) && $_FILES['NOT_IMAGE2']['tmp_name']){                
+        $item_big_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_big_x'");
+		$item_big_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_big_y'");        
+        $image2 = $cmf->selectrow_array("select IMAGE2 from ITEM where ITEM_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK_b']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image2, '../images/it/', $waterPath, $item_big_x, $item_big_y);
+        $object->addImage();
+        
+        $image2 = $object->new_image_name;
+        
+        $sql="update ITEM
+              set IMAGE2 = '{$image2}'
+              where ITEM_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+      }
+	  if(isset($_FILES['NOT_IMAGE']['tmp_name']) && $_FILES['NOT_IMAGE']['tmp_name'] ){                
+                
+        $icon = $cmf->selectrow_array("select IMAGE from ITEM where ITEM_ID=?",$_REQUEST['id']);
+        $item_icon_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_icon_x'");
+        $item_icon_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_icon_y'");
+        
+        if(!empty($_REQUEST['IS_WATERMARK_icon']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($icon, '../images/it/', $waterPath, $item_icon_x, $item_icon_y);
+        $object->addImage();
+        
+        $icon = $object->new_image_name;
+        
+        $sql="update ITEM
+              set IMAGE = '{$icon}'
+              where ITEM_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+      }
+	  if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name'] ){                
+        $item_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_small_x'");
+		$item_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_small_y'");        
+        $image = $cmf->selectrow_array("select IMAGE1 from ITEM where ITEM_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image, '../images/it/', $waterPath, $item_small_x, $item_small_x);
+        $object->addImage();
+        
+        $image = $object->new_image_name;
+        
+        $sql="update ITEM
+              set IMAGE1 = '{$image}'
+              where ITEM_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+      }
+      ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      include('resize_img.php');
+$pathToW = '';
+        
+        	$tmpPath = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_watermark'");
+        	if($tmpPath){
+	        	$tmpPath = preg_replace('/\#.*/','',$tmpPath);
+	        	$pathToW = '../images/wm/'.$tmpPath;
+        	}
+
+      if(isset($_FILES['NOT_IMAGE2']['tmp_name']) && $_FILES['NOT_IMAGE2']['tmp_name']){                
+        $item_big_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_big_x'");
+		$item_big_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_big_y'");        
+        $image2 = $cmf->selectrow_array("select IMAGE2 from ITEM where ITEM_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK_b']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image2, '../images/it/', $waterPath, $item_big_x, $item_big_y);
+        $object->addImage();
+        
+        $image2 = $object->new_image_name;
+        
+        $sql="update ITEM
+              set IMAGE2 = '{$image2}'
+              where ITEM_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+      }
+	  if(isset($_FILES['NOT_IMAGE']['tmp_name']) && $_FILES['NOT_IMAGE']['tmp_name'] ){                
+                
+        $icon = $cmf->selectrow_array("select IMAGE from ITEM where ITEM_ID=?",$_REQUEST['id']);
+        $item_icon_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_icon_x'");
+        $item_icon_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_icon_y'");
+        
+        if(!empty($_REQUEST['IS_WATERMARK_icon']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($icon, '../images/it/', $waterPath, $item_icon_x, $item_icon_y);
+        $object->addImage();
+        
+        $icon = $object->new_image_name;
+        
+        $sql="update ITEM
+              set IMAGE = '{$icon}'
+              where ITEM_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+      }
+	  if(isset($_FILES['NOT_IMAGE1']['tmp_name']) && $_FILES['NOT_IMAGE1']['tmp_name'] ){                
+        $item_small_x = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_small_x'");
+		$item_small_y = $cmf->selectrow_array("select VALUE from SETINGS where SYSTEM_NAME='item_small_y'");        
+        $image = $cmf->selectrow_array("select IMAGE1 from ITEM where ITEM_ID=?",$_REQUEST['id']);
+        
+        if(!empty($_REQUEST['IS_WATERMARK']) && !empty($pathToW)) $waterPath = $pathToW;
+        else $waterPath = ''; 
+        
+        $object = new Resize();
+        $object->addSettings($image, '../images/it/', $waterPath, $item_small_x, $item_small_x);
+        $object->addImage();
+        
+        $image = $object->new_image_name;
+        
+        $sql="update ITEM
+              set IMAGE1 = '{$image}'
+              where ITEM_ID = {$_REQUEST['id']}";
+              
+        $cmf->execute($sql);
+      }
+
+      ]]></postupdateevent>
+    -->
+		<predeletesevent><![CDATA[
+      foreach ($_REQUEST['id'] as $id){
+         list($image1, $image2) = $cmf->selectrow_array("select IMAGE1, IMAGE2 from ITEM where ITEM_ID=?",$id);
+         //Удаление картинок
+        if(strchr($image1,"#")){
+          $img1 = explode("#",$image1);
+          $src1 = $img1[0];
+          @unlink('../images/it/'.$src1);
+        }
+        if(strchr($image2,"#")){
+          $img2 = explode("#",$image2);
+          $src2 = $img2[0];
+          @unlink('../images/it/'.$src2);
+        }
+      }
+      ]]></predeletesevent>
+		<child_script name="ITEM_ELEMENTS" image="img/main_i_plus.gif" title="Дополнительные элементы конструкции"/>
+	</table>
+	<table name="ITEM_ELEMENTS" pagesize="20" parentscript="ITEM" article="CATALOGUE" imagepath="/item_elem/">
+		<name>Описание элементов стеллажа</name>
+		<col type="0" name="ITEM_ELEMENTS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="ITEM_ID" link="y" parent="y">
+			<ref>
+				<table>ITEM</table>
+				<field>ITEM_ID</field>
+				<visual>NAME</visual>
+			</ref>
+			<name>товар</name>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Наименование</name>
+			<comment>Наименование</comment>
+		</col>
+		<col type="1" name="NAME_NUM" visuality="y" size="90">
+			<name>Число</name>
+			<comment>Число</comment>
+		</col>
+		<col type="7" name="IMAGE1" visuality="y">
+			<name>Картинка</name>
+			<comment>Картинка</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткое описание</name>
+			<comment>Краткое описание</comment>
+		</col>
+		<joined name="ITEM_ELEMENTS_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ITEM_ELEMENTS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90">
+				<name>Наименование</name>
+				<comment>Наименование</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="7" cols="90">
+				<name>Краткое описание</name>
+				<comment>Краткое описание</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="SITE_PARAM" pagesize="100">
+		<name>Параметры сайта</name>
+		<col type="0" name="PARAM_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор параметра</comment>
+		</col>
+		<col type="1" name="SYSNAME" size="90" visuality="y">
+			<name>Системное имя</name>
+			<comment>Системное имя</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название параметра</name>
+			<comment>Название параметра</comment>
+		</col>
+		<col type="1" name="VALUE" size="90" visuality="y">
+			<name>Значение параметра</name>
+			<comment>Значение параметра</comment>
+		</col>
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+	</table>
+	<table name="MANAGERS">
+		<name>Менеджеры</name>
+		<col type="0" name="MANAGER_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Описание</name>
+			<comment>Описание</comment>
+		</col>
+		<col type="1" name="EMAIL" visuality="y" size="90">
+			<name>Email</name>
+			<comment>Email</comment>
+		</col>
+		<col type="8" name="EMAIL_STATUS" isstate="y" selectible="y" default="1">
+			<name>Отправлять письма</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<col type="8" name="STATUS" isstate="y" selectible="y" default="1">
+			<name>Вкл.</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+	</table>
+	<!-- Catalog -->
+	<!-- System -->
+	<table name="ANOTHER_PAGES" parentscript="ANOTHER_PAGES" treechild="ANOTHER_PAGES" imagepath="/pg/" type="0">
+		<name>Страницы сайта</name>
+		<col type="0" name="ANOTHER_PAGES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="3" name="PARENT_ID" parent="y">
+			<name>Родительский узел</name>
+			<comment>Родительский узел</comment>
+			<index>1</index>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90" isfold="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="7" name="IMAGE1" isflash="y">
+			<name>Картинка раздела</name>
+			<comment>Картинка раздела</comment>
+		</col>
+		<col type="1" name="CATNAME" size="90">
+			<name>Путь до каталога</name>
+			<comment>Путь до каталога</comment>
+		</col>
+		<col type="1" name="REALCATNAME" visuality="y" size="90" internal="y">
+			<name>Полный Путь до каталога</name>
+			<comment>Полный Путь до каталога</comment>
+		</col>
+		<col type="1" name="URL" visuality="y" size="90">
+			<name>URL</name>
+			<comment>URL</comment>
+		</col>
+		<col type="1" name="SPECIAL_URL" visuality="y" size="90">
+			<name>Спец URL</name>
+			<comment>Спец URL</comment>
+		</col>
+		<col type="1" name="TEMPLATE" size="90">
+			<name>Шаблон</name>
+			<comment>Шаблон</comment>
+		</col>
+		<col type="2" name="TITLE" rows="2" cols="90">
+			<name>Тайтл</name>
+			<comment>Тайтл</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="5" cols="90">
+			<name>Описание</name>
+			<comment>Описание</comment>
+		</col>
+		<col type="2" name="KEYWORDS" rows="5" cols="90">
+			<name>Ключевые слова</name>
+			<comment>Ключевые слова</comment>
+		</col>
+		<!--
+  <col type="7" name="IMAGE">
+  <name>Карт. 1</name>
+  <comment>Карт. 1</comment>
+  </col>
+  <col type="7" name="IMAGE1" prefix="n">
+  <name>Карт. 2</name>
+  <comment>Карт. 2</comment>
+  </col>
+  -->
+		<!--<col type="8" name="IS_GROUP_NODE" default="0">
+			<name>Выводить форму обратной связи?</name>
+			<comment>Выводить форму обратной связи?</comment>
+		</col>-->
+		<col type="8" name="IS_NODE" default="0">
+			<name>Раздел явл. узлом</name>
+			<comment>Раздел явл. узлом</comment>
+		</col>
+		<col type="8" name="IS_NEW_WIN" default="0">
+			<name>В новом окне</name>
+			<comment>В новом окне</comment>
+		</col>
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<col type="8" name="REALSTATUS" selectible="y" isrealstate="y">
+			<name>auto Статус - Вкл/Выкл</name>
+			<comment>auto Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDER_">
+			<name>Порядок</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<joined name="ANOTHER_PAGES_LANGS" type="0">
+			<name>Тексты для других языков</name>
+			<col type="0" name="ANOTHER_PAGES_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90" isfold="y">
+				<name>Название</name>
+				<comment>Название</comment>
+			</col>
+			<col type="2" name="TITLE" rows="2" cols="90">
+				<name>Тайтл</name>
+				<comment>Тайтл</comment>
+			</col>
+			<col type="2" name="DESCRIPTION" rows="5" cols="90">
+				<name>Описание</name>
+				<comment>Описание</comment>
+			</col>
+			<col type="2" name="KEYWORDS" rows="5" cols="90">
+				<name>Ключевые слова</name>
+				<comment>Ключевые слова</comment>
+			</col>
+		</joined>
+		<postinsertevent><![CDATA[
+      if(empty($_REQUEST['CATNAME'])){
+        $dbRules = $cmf->select("select * from TRANSLIT_RULE");
+        $rules = array();
+        if(!empty($dbRules)){
+          foreach ($dbRules as $rule){
+            $rules[$rule['SRC']] = $rule['TRANSLIT'];
+          }
+        }
+        
+        $_REQUEST['NAME'] = trim(mb_strtolower($_REQUEST['NAME'],'utf-8'));
+        $_REQUEST['NAME'] = preg_replace("/\s+/s", "-", $_REQUEST['NAME']);
+        
+        $_REQUEST['CATNAME'] = strtr($_REQUEST['NAME'], $rules);
+        
+        $cmf->execute('update ANOTHER_PAGES set CATNAME=? where ANOTHER_PAGES_ID=?',$_REQUEST['CATNAME'] ,$_REQUEST['id']);
+        
+      }      
+      $cmf->execute('update ANOTHER_PAGES set REALSTATUS=?,REALCATNAME=? where ANOTHER_PAGES_ID=?',GetMyRealStatus($cmf,$_REQUEST['id']),GetPath($cmf,$_REQUEST['id']),$_REQUEST['id']);
+      
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUDoc();
+    ]]></postinsertevent>
+		<postupdateevent><![CDATA[
+      if(empty($_REQUEST['CATNAME'])){
+        $dbRules = $cmf->select("select * from TRANSLIT_RULE");
+        $rules = array();
+        if(!empty($dbRules)){
+          foreach ($dbRules as $rule){
+            $rules[$rule['SRC']] = $rule['TRANSLIT'];
+          }
+        }
+        
+        $_REQUEST['NAME'] = trim(mb_strtolower($_REQUEST['NAME'],'utf-8'));
+        $_REQUEST['NAME'] = preg_replace("/\s+/s", "-", $_REQUEST['NAME']);
+        
+        $_REQUEST['CATNAME'] = strtr($_REQUEST['NAME'], $rules);
+        
+        $cmf->execute('update ANOTHER_PAGES set CATNAME=? where ANOTHER_PAGES_ID=?',$_REQUEST['CATNAME'] ,$_REQUEST['id']);
+        
+      }
+      UpdatePath($cmf,0,'');
+      
+      require $_SERVER['DOCUMENT_ROOT']."/lib/CreateSEFU.class.php";
+      $sefu = new CreateSEFU();
+      $sefu->applySEFUDoc();
+    ]]></postupdateevent>
+		<extrasubs><![CDATA[
+function GetPath($cmf,$id)
+{
+list ($PATH,$PARENTID,$NAME)=array('','','');
+while(list($PARENTID,$NAME)=$cmf->selectrow_array('select PARENT_ID,CATNAME from ANOTHER_PAGES where ANOTHER_PAGES_ID=? and IS_NODE=0',$id))
+{
+$id=$PARENTID;
+if($NAME && $PARENTID > 0){ $PATH="/$NAME$PATH"; }
+$PATH = preg_replace("/(\/){2,}/","/",$PATH);
+};
+return $PATH;
+}
+
+function UpdatePath($cmf,$id,$path)
+{
+        $sth=$cmf->execute('select ANOTHER_PAGES_ID,CATNAME,PARENT_ID from ANOTHER_PAGES where PARENT_ID=?',$id);
+        while(list ($V_CATALOGUE_ID,$V_CATNAME, $V_PARENT_ID)=mysql_fetch_array($sth, MYSQL_NUM))
+        {
+                if($V_CATNAME && $V_PARENT_ID > 0){$V_CATNAME="$path/$V_CATNAME";} else {$V_CATNAME=$path;};
+                $V_CATNAME = preg_replace("/(\/){2,}/","/",$V_CATNAME);
+                if(!preg_match("/(\/)$/",$V_CATNAME)) $V_CATNAME .="/";
+                $cmf->execute('update ANOTHER_PAGES set REALCATNAME=? where ANOTHER_PAGES_ID=?',$V_CATNAME,$V_CATALOGUE_ID);
+                UpdatePath($cmf,$V_CATALOGUE_ID,$V_CATNAME);
+        }
+}
+]]></extrasubs>
+	</table>
+	<table name="XMLS" nogen="y">
+		<name>Еденица измерения</name>
+		<col type="0" name="XMLS_ID" primary="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор еденицы измерения</comment>
+		</col>
+		<col type="3" name="CMF_LANG_ID">
+			<index>1</index>
+			<name>Язык</name>
+			<comment>Идентификатор языка</comment>
+		</col>
+		<col type="10" name="TYPE" primary="y">
+			<name>К чему привязанн</name>
+			<enum>
+				<option value="0">Статья</option>
+				<option value="1">Страница сайта</option>
+				<option value="2">новости</option>
+			</enum>
+			<comment>К чему привязанн</comment>
+		</col>
+		<col type="2" name="XML">
+			<name>Содержимое</name>
+			<comment>Содержимое</comment>
+		</col>
+	</table>
+	<table name="SETINGS" imagepath="/wm/">
+		<name>Настройки</name>
+		<col type="0" name="SETINGS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название настройки</name>
+			<comment>Название настройки</comment>
+		</col>
+		<col type="1" name="SYSTEM_NAME" visuality="y" size="90">
+			<name>Системное имя настройки</name>
+			<comment>Системное имя настройки</comment>
+			<index unique="y">1</index>
+		</col>
+		<col type="2" name="VALUE" rows="7" cols="90">
+			<name>Значение</name>
+			<comment>Значение</comment>
+		</col>
+		<panel/>
+		<col type="7" name="IMAGE">
+			<name>Картинка</name>
+			<comment>Картинка</comment>
+		</col>
+	</table>
+	<table name="SEQUENCES" defsort="3">
+		<name>Последовательности</name>
+		<col type="0" name="SEQUENCES_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>N</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название последовательности</name>
+			<comment>Название последовательности</comment>
+			<index unique="y">1</index>
+		</col>
+		<col type="3" name="ID" visuality="y" size="90">
+			<name>Значение последовательности</name>
+			<comment>Значение последовательности</comment>
+		</col>
+	</table>
+	<!-- CMF -->
+	<table name="CMF_USER" pagesize="100" defsort="1">
+		<name>Пользователи системы</name>
+		<col type="0" name="CMF_USER_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="MD5_" size="90" internal="y">
+			<index>1</index>
+			<name>MD5</name>
+			<comment>MD5</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Имя пользователя</name>
+			<comment>Имя пользователя</comment>
+		</col>
+		<col type="1" name="LOGIN" size="90" visuality="y" trim="y">
+			<index>2</index>
+			<name>Login</name>
+			<comment>Login</comment>
+		</col>
+		<col type="1" name="PASS_" size="90">
+			<name>Пароль</name>
+			<comment>Пароль</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>URL точки входа</name>
+			<comment>URL точки входа</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<postinsertevent><![CDATA[$cmf->execute('update CMF_USER set MD5_=PASSWORD(LOGIN) where CMF_USER_ID=?',$_REQUEST['id']);]]></postinsertevent>
+		<postupdateevent><![CDATA[$cmf->execute('update CMF_USER set MD5_=PASSWORD(LOGIN) where CMF_USER_ID=?',$_REQUEST['id']);]]></postupdateevent>
+		<joined name="CMF_USER_GROUP">
+			<name>Принадлежность пользователя к группе</name>
+			<col type="6" name="CMF_GROUP_ID" primary="y" visuality="y" editable="y">
+				<ref>
+					<table>CMF_GROUP</table>
+					<field>CMF_GROUP_ID</field>
+					<visual>NAME</visual>
+				</ref>
+				<name>Группа</name>
+				<comment>Уникальный идентификатор группы</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="CMF_GROUP" pagesize="100" defsort="1">
+		<name>Группы системы</name>
+		<col type="0" name="CMF_GROUP_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Название группы</name>
+			<comment>Название группы</comment>
+		</col>
+		<col type="1" name="URL" size="90">
+			<name>URL точки входа</name>
+			<comment>URL точки входа</comment>
+		</col>
+		<postinsertevent><![CDATA[
+$_REQUEST['SCRIPT_ID']=$cmf->selectrow_array('select CMF_SCRIPT_ID from CMF_SCRIPT where URL=?','user_rights.php');
+$cmf->execute('insert ignore into CMF_SCRIPT_GROUP (CMF_GROUP_ID,CMF_SCRIPT_ID,R) VALUES (?,?,?)',$_REQUEST['id'],$_REQUEST['SCRIPT_ID'],1);
+]]></postinsertevent>
+	</table>
+	<table name="CMF_SCRIPT" imagepath="/adm/scr/" parentscript="CMF_SCRIPT" treechild="CMF_SCRIPT">
+		<name>Скрипты</name>
+		<col type="0" name="CMF_SCRIPT_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор Скрипта</comment>
+		</col>
+		<col type="3" name="PARENT_ID" parent="y">
+			<index>1</index>
+			<name>N</name>
+			<comment>Уникальный идентификатор рубрики</comment>
+		</col>
+		<col type="1" name="ARTICLE">
+			<index>2</index>
+			<name>Псевдоним скрипта</name>
+			<comment>Псевдоним скрипта</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90" isfold="y">
+			<name>Название cкрипта</name>
+			<comment>Название скрипта</comment>
+		</col>
+		<col type="1" name="URL" visuality="y" size="90" trim="y">
+			<name>Путь к скрипту</name>
+			<comment>Путь к скрипту</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Краткое описание</name>
+			<comment>Краткое описание</comment>
+		</col>
+		<col type="7" name="IMAGE">
+			<name>Картинка</name>
+			<comment>Картика</comment>
+		</col>
+		<col type="1" name="BACKGROUND" size="7">
+			<name>Цвет фона</name>
+			<comment>Цвет фона</comment>
+		</col>
+		<col type="10" name="TYPE" size="90" visuality="y">
+			<name>Тип</name>
+			<comment>Тип</comment>
+			<enum>
+				<option value="0"> в главное меню </option>
+				<option value="1"> в верхнее меню</option>
+				<option value="2"> еще куда нибудь в меню</option>
+			</enum>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="8" name="REALSTATUS" selectible="y" isrealstate="y">
+			<name>auto Статус - Вкл/Выкл</name>
+			<comment>auto Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<postinsertevent><![CDATA[$cmf->execute('update CMF_SCRIPT set REALSTATUS=? where CMF_SCRIPT_ID=?',GetMyRealStatus($cmf,$cmf->Param('id')),$cmf->Param('id'));
+$cmf->execute('insert into CMF_SCRIPT_GROUP (CMF_SCRIPT_ID,CMF_GROUP_ID,R,W,D) VALUES (?,1,1,1,1)',$cmf->Param('id'));]]></postinsertevent>
+		<postdeleteevent><![CDATA[$cmf->execute('delete from CMF_SCRIPT_GROUP where CMF_SCRIPT_ID=?',$cmf->Param('id'));
+$cmf->execute('delete from CMF_SCRIPT_USER where CMF_SCRIPT_ID=?',$cmf->Param('id'));]]></postdeleteevent>
+		<joined name="CMF_SCRIPT_USER">
+			<name>Права пользователей</name>
+			<col type="6" name="CMF_USER_ID" primary="y" visuality="y" editable="y">
+				<name>Имя пользователя</name>
+				<ref>
+					<table>CMF_USER</table>
+					<field>CMF_USER_ID</field>
+					<visual>NAME</visual>
+				</ref>
+				<comment>Уникальный идентификатор пользователя</comment>
+			</col>
+			<col type="8" name="R" default="0" visuality="y">
+				<name>чтение?</name>
+				<comment>чтение?</comment>
+			</col>
+			<col type="8" name="W" default="0" visuality="y">
+				<name>запись?</name>
+				<comment>запись?</comment>
+			</col>
+			<col type="8" name="D" default="0" visuality="y">
+				<name>удаление?</name>
+				<comment>удаление?</comment>
+			</col>
+		</joined>
+		<joined name="CMF_SCRIPT_GROUP">
+			<name icon="somepic.gif">Права групп</name>
+			<col type="6" name="CMF_GROUP_ID" primary="y" visuality="y" editable="y">
+				<name>Группа</name>
+				<ref>
+					<table>CMF_GROUP</table>
+					<field>CMF_GROUP_ID</field>
+					<visual>NAME</visual>
+				</ref>
+				<comment>Уникальный идентификатор группы</comment>
+			</col>
+			<col type="8" name="R" default="0" visuality="y">
+				<name>чтение?</name>
+				<comment>чтение?</comment>
+			</col>
+			<col type="8" name="W" default="0" visuality="y">
+				<name>запись?</name>
+				<comment>запись?</comment>
+			</col>
+			<col type="8" name="D" default="0" visuality="y">
+				<name>удаление?</name>
+				<comment>удаление?</comment>
+			</col>
+		</joined>
+	</table>
+	<table name="CMF_XMLS_ARTICLE">
+		<name>Привязка типа к скрипту</name>
+		<col type="3" name="TYPE" primary="y" visuality="y" editable="y">
+			<name>Тип</name>
+			<comment>Тип</comment>
+		</col>
+		<col type="6" name="ARTICLE" visuality="y">
+			<ref type="text">
+				<table>CMF_SCRIPT</table>
+				<field>ARTICLE</field>
+				<visual>NAME</visual>
+			</ref>
+			<name>ARTICLE</name>
+			<comment>ARTICLE</comment>
+		</col>
+		<col type="1" name="EDIT" visuality="y" size="90">
+			<name>Шаблон пути для редактирования</name>
+			<comment>Шаблон пути для редактирования</comment>
+		</col>
+		<col type="1" name="VIEW" visuality="y" size="90">
+			<name>Шаблон пути для просмотра</name>
+			<comment>Шаблон пути для просмотра</comment>
+		</col>
+	</table>
+	<table name="CMF_BUG" pagesize="100" defsort="1">
+		<name>Баги системы</name>
+		<col type="0" name="CMF_BUG_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="CMF_USER_ID" visuality="y">
+			<ref>
+				<table>CMF_USER</table>
+				<field>CMF_USER_ID</field>
+				<visual>concat(LOGIN,":",CMF_USER_ID)</visual>
+			</ref>
+			<name>Пользователь</name>
+			<comment>Пользователь</comment>
+		</col>
+		<col type="12" name="DATA" visuality="y">
+			<index>1</index>
+			<name>Дата</name>
+			<comment>Дата</comment>
+		</col>
+		<col type="1" name="URL" size="90" visuality="y">
+			<name>URL ошибки</name>
+			<comment>URL ошибки</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="5" cols="90">
+			<name>Текст</name>
+			<comment>Текст</comment>
+		</col>
+		<col type="10" name="STATUS" default="1">
+			<name>Статус</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+			<enum>
+				<option value="0"> Новый </option>
+				<option value="1"> В процессе</option>
+				<option value="2"> Обработан</option>
+				<option value="3"> Отказ</option>
+			</enum>
+		</col>
+		<addpager>&amp;f={$_REQUEST['f']}</addpager>
+		<where><![CDATA[(isset($_REQUEST['f'])?"STATUS={$_REQUEST['f']}":'1=1')]]></where>
+		<filter cols="3"><![CDATA[<th colspan="3" class="main_tbl_title">
+EOF;
+foreach ($cmf->ENUM_STATUS as $key=>$val)
+{
+$COUNT=$cmf->selectrow_array('select count(*) from CMF_BUG where STATUS=?',$key);
+if($cmf->Param('f') == $key){ ?><a href="CMF_BUG.php?f=<?=$key?>" class="red"><?=$val?> (<?=$COUNT?>)</a>&#160;&#160;&#160;<?}
+else {?><a href="CMF_BUG.php?f=<?=$key?>"><?=$val?> (<?=$COUNT?>)</a>&#160;&#160;&#160;<? }
+}
+print <<<EOF
+</th>]]></filter>
+	</table>
+	<table name="CMF_FIELDS">
+		<name>Идентификатор поля</name>
+		<col type="0" name="CMF_FIELDS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название поля</name>
+			<comment>Название поля</comment>
+		</col>
+		<col type="1" name="TITLE" visuality="y" size="90">
+			<name>Имя поля</name>
+			<comment>Имя поля</comment>
+		</col>
+		<col type="10" name="TYPE" visuality="y">
+			<name>Тип поля</name>
+			<enum>
+				<option value="0">text</option>
+				<option value="1">radio</option>
+				<option value="2">checkbox</option>
+				<option value="3">select</option>
+				<option value="4">select multiple</option>
+				<option value="5">textarea</option>
+				<option value="6">file</option>
+			</enum>
+			<comment>Тип поля 0-поле ввода 1-радиобаттон 2-чекбокс 3-дропдаун 4-дропдаун с множественным выбором 5-текстовое поле 6-поле для загрузки файла</comment>
+		</col>
+		<col type="1" name="VALUE_" size="90">
+			<name>Значение по умолчанию(для типов отличных от select)</name>
+			<comment>Значение по умолчанию</comment>
+		</col>
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<col type="8" name="IS_MANDATORY" isstate="y" selectible="y">
+			<name>Обязательное</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<rowicon><![CDATA[<a href="CMF_FIELDS_LIST.php?pid=$V_CMF_FIELDS_ID"><img src="i/flt.gif" border="0" title="Список значений" hspace="5"/></a>]]></rowicon>
+	</table>
+	<table name="CMF_FIELDS_LIST" parentscript="CMF_FIELDS">
+		<name>Список возможных значений</name>
+		<col type="0" name="CMF_FIELDS_LIST_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+			<index order="2">1</index>
+		</col>
+		<col type="6" name="CMF_FIELDS_ID" parent="y">
+			<name>Атрибут</name>
+			<comment>Уникальный идентификатор атрибута</comment>
+			<ref>
+				<table>CMF_FIELDS</table>
+				<field>CMF_FIELDS_ID</field>
+				<visual>NAME</visual>
+			</ref>
+			<index order="1">1</index>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Значение</name>
+			<comment>Значение</comment>
+		</col>
+		<col type="8" name="STATUS" isstate="y" selectible="y">
+			<name>Вкл</name>
+			<comment>Флаг (0-вкл 1-выкл)</comment>
+		</col>
+	</table>
+	<table name="CMF_LANG" ordering="ORDERING asc" imagepath="/adm/">
+		<name>Языки</name>
+		<col type="0" name="CMF_LANG_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="1" name="SYSTEM_NAME" visuality="y" size="90">
+			<name>Системное имя</name>
+			<comment>Системное имя</comment>
+			<index unique="y">1</index>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<col type="8" name="IS_DEFAULT" default="0" selectible="y">
+			<name>Язык по умолчанию</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<col type="2" name="COMMENT_" rows="5" cols="90">
+			<name>Комментарий</name>
+			<comment>Комментарий</comment>
+		</col>
+		<!--
+        <col type="7" name="ICON" postfix="_ico">
+                <name>Иконка</name>
+                <comment>Иконка</comment>
+        </col>
+        -->
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+	</table>
+	<table name="CMF_ERRORS_GROUP" ordering="ORDERING asc">
+		<name>Группы системных ошибок</name>
+		<col type="0" name="CMF_ERRORS_GROUP_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Название группы</name>
+			<comment>Название группы</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+	</table>
+	<table name="CMF_ERRORS">
+		<name>Системные ошибки</name>
+		<col type="0" name="CMF_ERRORS_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор</comment>
+		</col>
+		<col type="6" name="CMF_ERRORS_GROUP_ID" visuality="y">
+			<index>1</index>
+			<name>Группа</name>
+			<ref>
+				<table>CMF_ERRORS_GROUP</table>
+				<field>CMF_ERRORS_GROUP_ID</field>
+				<visual>NAME</visual>
+				<where><![CDATA[ where STATUS=1 ]]></where>
+			</ref>
+			<comment>Идентификатор группы</comment>
+		</col>
+		<col type="1" name="SYSTEM_NAME" visuality="y" size="90">
+			<name>Системное имя</name>
+			<comment>Системное имя</comment>
+			<index unique="y">1</index>
+		</col>
+		<col type="1" name="NAME" visuality="y" size="90">
+			<name>Текст ошибки</name>
+			<comment>Текст ошибки</comment>
+		</col>
+		<col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+			<name>Вкл</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+		</col>
+		<joined name="CMF_ERRORS_LANGS">
+			<name>Тексты для других языков</name>
+			<col type="0" name="CMF_ERRORS_LANGS_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор</comment>
+			</col>
+			<col type="6" name="CMF_LANG_ID" visuality="y">
+				<index>1</index>
+				<name>Язык</name>
+				<ref>
+					<table>CMF_LANG</table>
+					<field>CMF_LANG_ID</field>
+					<visual>NAME</visual>
+					<where><![CDATA[ where STATUS=1 and SYSTEM_NAME!="ru" ]]></where>
+				</ref>
+				<comment>Идентификатор языка</comment>
+			</col>
+			<col type="1" name="NAME" visuality="y" size="90">
+				<name>Текст ошибки</name>
+				<comment>Текст ошибки</comment>
+			</col>
+		</joined>
+	</table>
+	<!-- Заказ -->
+	<table name="ZAKAZSTATUS">
+		<name>Статусы заказов</name>
+		<col type="0" name="ZAKAZSTATUS_ID" primary="y" visuality="y">
+			<index>1</index>
+			<name>N</name>
+			<comment>N</comment>
+		</col>
+		<col type="1" name="NAME" rows="5" cols="90" visuality="y">
+			<name>Название</name>
+			<comment>Название</comment>
+		</col>
+		<col type="11" name="ORDERING">
+			<name>Порядок сортировки</name>
+			<comment>Порядок сортировки</comment>
+		</col>
+	</table>
+	<table name="ZAKAZ" pagesize="20" ordering="DATA desc" type="7">
+		<name>Заказы</name>
+		<col type="0" name="ZAKAZ_ID" primary="y" visuality="y">
+			<name>N</name>
+			<comment>Уникальный идентификатор единицы измерения</comment>
+		</col>
+		<col type="12" name="DATA" visuality="y" calendar="y">
+			<index>2</index>
+			<name>Дата заказа</name>
+			<comment>Дата заказа</comment>
+		</col>
+		<col type="1" name="NAME" size="90" visuality="y">
+			<name>Имя</name>
+			<comment>Имя</comment>
+		</col>
+		<!--<col type="1" name="SURNAME" size="90" visuality="y">
+			<name>Фамилия</name>
+			<comment>Фамилия</comment>
+		</col>-->
+		<col type="1" name="EMAIL" size="90" visuality="y">
+			<name>E-mail</name>
+			<comment>E-mail</comment>
+		</col>
+		<col type="1" name="TELMOB" size="90" visuality="y">
+			<name>Телефон</name>
+			<comment>Телефон</comment>
+		</col>
+		<col type="1" name="CITY" size="90" visuality="y">
+			<name>Город</name>
+			<comment>Город</comment>
+		</col>
+		<col type="1" name="COMPANY" size="90" visuality="y">
+			<name>Компания</name>
+			<comment>Компания</comment>
+		</col>
+		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+			<name>Текст сообщения</name>
+			<comment>Текст сообщения</comment>
+		</col>
+		<col type="6" name="STATUS" default="1">
+			<name>Статус</name>
+			<comment>Флаг (1-вкл 0-выкл)</comment>
+			<ref>
+				<table>ZAKAZSTATUS</table>
+				<field>ZAKAZSTATUS_ID</field>
+				<visual>NAME</visual>
+				<none>- не задан -</none>
+			</ref>
+		</col>
+		<calccol>
+			<name>Купленный товар</name>
+			<comment>Товар купленный клиентом</comment>
+			<data><![CDATA[
+EOF;
+ $sth5=$cmf->execute(' select I.NAME, I.ITEM_ID, C.CATALOGUE_ID
+                     from ZAKAZ_ITEM  Z
+                       join  ITEM I using (ITEM_ID)
+                       join CATALOGUE C on  (C.CATALOGUE_ID = I.CATALOGUE_ID)
+                       where   Z.ZAKAZ_ID = ?',$V_ZAKAZ_ID);
+ while(list($VV_NAME, $VV_ITEM_ID, $VV_CATALOGUE_ID)=mysql_fetch_array($sth5, MYSQL_NUM))
+ {
+   echo "<a href = '/admin/ITEM.php?e=ED&id=$VV_ITEM_ID&pid=$VV_CATALOGUE_ID' target='_brank'>$VV_NAME</a>";
+ }
+print <<<EOF
+]]></data>
+		</calccol>
+		<addpager>&amp;f=$_REQUEST['f']</addpager>
+		<where><![CDATA[
+(($_REQUEST['f'] != '') ? ' STATUS='.$_REQUEST['f'] : ' 1=1 ').
+(($_REQUEST['DATE_FROM'] != '')? " and DATE(A.DATA) >= DATE(STR_TO_DATE('{$_REQUEST['DATE_FROM']}', '%Y-%m-%d %H:%i'))":'').
+(($_REQUEST['DATE_TO'] != '')? " and DATE(A.DATA) <= DATE(STR_TO_DATE('{$_REQUEST['DATE_TO']}', '%Y-%m-%d %H:%i'))":'')]]></where>
+		<filter cols="7"><![CDATA[
+                        <td colspan="7" class="main_tbl_title">
+EOF;
+                        
+                        $COUNT = $cmf->selectrow_array('select count(*) from ZAKAZ ');
+                        $countNotViewed = $cmf->selectrow_array("select count(*) from ZAKAZ where STATUS = 0 or STATUS is NULL");
+                        
+                        if ( $_REQUEST['f'] > 0 || $_REQUEST['f'] == '0') 
+                        {
+                                print '<a href="ZAKAZ.php?s='.$_REQUEST['s'].'">Все ('.$COUNT.')</a>&#160;&#160;&#160;';
+                        }
+                        else 
+                        {
+                                print '<a href="ZAKAZ.php?s='.$_REQUEST['s'].'" class="red">Все ('.$COUNT.')</a>&#160;&#160;&#160;';
+                        }
+                        
+                        if ( $_REQUEST['f'] == '0' ) 
+                        {
+                                print '<a href="ZAKAZ.php?f=0&amp;s='.$_REQUEST['s'].'" class="red">Необработанные ('.$countNotViewed.')</a>&#160;&#160;&#160;';
+                        }
+                        else 
+                        {
+                                print '<a href="ZAKAZ.php?f=0&amp;s='.$_REQUEST['s'].'">Необработанные ('.$countNotViewed.')</a>&#160;&#160;&#160;';
+                        }
+                        
+                        $vopr = $cmf->select('select ZAKAZSTATUS_ID,NAME from ZAKAZSTATUS order by ORDERING');
+                        $index = sizeof($vopr);
+                        for($i=0; $i<$index; $i++)
+                        {
+                                $V_ZAKAZSTATUS_ID       = $vopr[$i]['ZAKAZSTATUS_ID'];
+                                $V_NAME                         = $vopr[$i]['NAME'];
+                                
+                                $COUNT = $cmf->selectrow_array('select count(*) from ZAKAZ where STATUS=?',$V_ZAKAZSTATUS_ID);
+                                
+                                if($_REQUEST['f'] == $V_ZAKAZSTATUS_ID)
+                                {
+                                        print '<a href="ZAKAZ.php?f='.$V_ZAKAZSTATUS_ID.'&amp;s='.$_REQUEST['s'].'" class="red">'.$V_NAME.' ('.$COUNT.')</a>&#160;&#160;&#160;';
+                                }
+                                else 
+                                {
+                                        print '<a href="ZAKAZ.php?f='.$V_ZAKAZSTATUS_ID.'&amp;s='.$_REQUEST['s'].'">'.$V_NAME.' ('.$COUNT.')</a>&#160;&#160;&#160;'; 
+                                }
+                        }
+print <<<EOF
+<br/><b>C даты:</b><input type="hidden" id="DATE_FROM" name="DATE_FROM" value="{$_REQUEST['DATE_FROM']}" />
+EOF;
+
+if($_REQUEST['DATE_FROM']) $V_DAT_FROM = substr($_REQUEST['DATE_FROM'],8,2).".".substr($_REQUEST['DATE_FROM'],5,2).".".substr($_REQUEST['DATE_FROM'],0,4);//." ".substr($_REQUEST['DATE_FROM'],11,2).":".substr($_REQUEST['DATE_FROM'],14,2);
+else $V_DAT_FROM = '';
+
+
+        
+        @print <<<EOF
+        <div id="DATE_DATE_FROM">$V_DAT_FROM</div>
+        <img src="img/img.gif" id="f_trigger_DATE_FROM" style="cursor: pointer; border: 1px solid red;" title="Show calendar" onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
+        
+
+        
+        
+        <script type="text/javascript">
+        Calendar.setup({
+                       inputField     :    "DATE_FROM",
+                       displayArea    :    "DATE_DATE_FROM",
+                       ifFormat       :    "%Y-%m-%d %H:%M",
+                       daFormat       :    "%d.%m.%Y",
+                       showsTime      :    "true",
+                       timeFormat     :    "24",
+                       button         :    "f_trigger_DATE_FROM",
+                       align          :    "Tl",
+                       singleClick    :    false
+                       });
+        </script>
+<b>По дату:</b><input type="hidden" id="DATE_TO" name="DATE_TO" value="{$_REQUEST['DATE_TO']}" />
+EOF;
+
+if($_REQUEST['DATE_TO']) $V_DAT_TO = substr($_REQUEST['DATE_TO'],8,2).".".substr($_REQUEST['DATE_TO'],5,2).".".substr($_REQUEST['DATE_TO'],0,4);//." ".substr($V_DELIVERYDATA,11,2).":".substr($V_DELIVERYDATA,14,2);
+else $V_DAT_TO = '';
+
+
+        
+        @print <<<EOF
+        <div id="DATE_DATE_TO">$V_DAT_TO</div>
+        <img src="img/img.gif" id="f_trigger_DATE_TO" style="cursor: pointer; border: 1px solid red;" title="Show calendar" onmouseover="this.style.background='red';" onmouseout="this.style.background=''" />
+        
+            
+        
+        <script type="text/javascript">
+        Calendar.setup({
+                       inputField     :    "DATE_TO",
+                       displayArea    :    "DATE_DATE_TO",
+                       ifFormat       :    "%Y-%m-%d %H:%M",
+                       daFormat       :    "%d.%m.%Y",
+                       showsTime      :    "true",
+                       timeFormat     :    "24",
+                       button         :    "f_trigger_DATE_TO",
+                       align          :    "Tl",
+                       singleClick    :    false
+                       });
+        </script>
+
+<button type="submit" name="show" title="Показать">Показать</button>                        
+                        </td>
+                ]]></filter>
+		<joined name="ZAKAZ_ITEM">
+			<name>Товары</name>
+			<col type="3" name="ZAKAZ_ITEM_ID" primary="y" visuality="y">
+				<name>N</name>
+				<comment>Уникальный идентификатор единицы измерения</comment>
+			</col>
+			<col type="3" name="ITEM_ID" visuality="y">
+				<name>ИД товара</name>
+				<comment>Уникальный идентификатор товара</comment>
+			</col>
+			<col type="3" name="CATALOGUE_ID">
+				<name>Рубрика</name>
+				<comment>Рубрика</comment>
+			</col>
+			<col type="1" name="NAME" size="90" visuality="y">
+				<name>Наименование</name>
+				<comment>Наименование товара</comment>
+			</col>
+			<postvisible><![CDATA[
+                $CATALOGUE_ID = $cmf->selectrow_array("select CATALOGUE_ID FROM ITEM WHERE ITEM_ID=?",$V_ITEM_ID);
+                $CATALOGUE_NAME = $cmf->selectrow_array("select NAME FROM CATALOGUE WHERE CATALOGUE_ID=?",$CATALOGUE_ID);
+                $V_NAME = '<a href="ITEM.php?e=ED&id='.$V_ITEM_ID.'&pid='.$CATALOGUE_ID.'" target="_blank">'.$V_NAME.'</a>';
+                $V_NAME .= '<br/>Рубрика: <a href="ITEM.php?pid='.$CATALOGUE_ID.'" target="_blank">'.$CATALOGUE_NAME.'</a>';
+
+                ]]></postvisible>
+		</joined>
+		<extraevents><![CDATA[
+    if(empty($_REQUEST['DATE_FROM'])) $_REQUEST['DATE_FROM']='';
+    if(empty($_REQUEST['DATE_TO'])) $_REQUEST['DATE_TO']='';
+    $filtpath = "&amp;f={$_REQUEST['f']}&amp;DATE_FROM={$_REQUEST['DATE_FROM']}&amp;DATE_TO={$_REQUEST['DATE_TO']}";
+    $sumPrice = 0;  
+     $cur = $cmf->selectrow_array("select SNAME
+                          from CURRENCY
+                          where PRICE = 1
+                          and STATUS = 1");  
+    ]]></extraevents>
+		<lastrow><![CDATA[
+$sql = "select sum(IF(I.PRICE2>0,I.PRICE2,I.PRICE1))
+        from ITEM I join ZAKAZ_ITEM ZI USING (ITEM_ID)
+        join ZAKAZ Z USING (ZAKAZ_ID)
+        where 1";
+if($_REQUEST['f'] != '') 
+  $sql .= " and Z.STATUS = {$_REQUEST['f']}";
+$sql .=($_REQUEST['DATE_FROM'] != '')? " and DATE(Z.DATA) >= DATE(STR_TO_DATE('{$_REQUEST['DATE_FROM']}', '%Y-%m-%d %H:%i'))":'';
+$sql .=($_REQUEST['DATE_TO'] != '')? " and DATE(Z.DATA) <= DATE(STR_TO_DATE('{$_REQUEST['DATE_TO']}', '%Y-%m-%d %H:%i'))":'';
+$sumPrice = $cmf->selectrow_array($sql);
+@print <<<EOF
+<tr bgcolor="#f0f0f0"><th colspan="12"> 
+EOF;
+echo "Общая сумма: ".round($sumPrice,2)." $cur";
+@print <<<EOF
+</th></tr>
+EOF;
+    ]]></lastrow>
+		<previsible><![CDATA[
+print <<<EOF
+<input type="hidden" name="f" value="{$_REQUEST['f']}"/>
+EOF;
+    ]]></previsible>
+	</table>
+</config>

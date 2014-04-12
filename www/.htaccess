@@ -1,0 +1,147 @@
+DirectoryIndex index.htm index.php
+# 1 YEAR
+<FilesMatch "\.(ico|pdf|flv)$">
+Header set Cache-Control "max-age=29030400, public"
+</FilesMatch>
+
+# 1 WEEK
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+
+# 2 DAYS
+<FilesMatch "\.(xml|txt|css|js)$">
+Header set Cache-Control "max-age=604800, proxy-revalidate"
+</FilesMatch>
+
+# 1 MIN
+<FilesMatch "\.(html|htm|php)$">
+Header set Cache-Control "max-age=60, private, proxy-revalidate"
+</FilesMatch>
+
+RewriteEngine on
+
+RewriteRule cat/4/ http://ssk.ua/catalog/plastikovaya-tara/ [R=301,L]
+RewriteRule cat/plastic-tara/ http://ssk.ua/catalog/plastikovaya-tara/ [R=301,L]
+RewriteRule cat/firniture/ http://ssk.ua/catalog/metallicheskaya-mebel/ [R=301,L]
+RewriteRule cat/view/n/26/ http://ssk.ua/catalog/metallicheskaya-mebel/shkafi-phaiylovye-kartotechnye-173/ [R=301,L]
+RewriteRule catalog/podemnye-stoly/podemnye-stoly-marco/avtomobilnye-podemnye-stoly http://ssk.ua/catalog/podemnye-stoly/avtomobilnye-podemnye-stoly-247/ [R=301,L]
+RewriteRule catalog/stellagi-polochnye-i-arhivnie/universalnye-stellagi-nagruzka-na-polku-80-kg/ http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/nagruzka-na-polku-80-kg-236/ [R=301,L]
+RewriteRule ^articles/$ http://ssk.ua/press/articles/ [R=301,L]
+RewriteRule doc/about/ http://ssk.ua/about/ [R=301,L]
+RewriteRule ^news/$ http://ssk.ua/press/news/ [R=301,L]
+
+RewriteRule catalog/peregruzochnoe-oborudovanie/podemnye-stoly-marcolift/opcii-k-podemnym-stolam/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/opcii-k-podemnym-stolam/ [R=301,L]
+
+RewriteRule stellagi-skladskie/stellagi-gravitacionnye/stellagi-gravitacionnye/ http://ssk.ua/catalog/stellagi-skladskie/stellagi-gravitacionnye/gravitacionnye-stellagi/ [R=301,L]
+
+RewriteRule catalog/stellagi-skladskie/palletnye-stellagi/palletnyj-stellag/ http://ssk.ua/catalog/stellagi-skladskie/palletnyj-stellag/palletnye-stellagi/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/palletno-polochnye-stellagi-cash-carry/palletno-polochnyi-stellag-cash-carry/ http://ssk.ua/catalog/stellagi-skladskie/palletno-polochnye-stellagi-cash-carry/palletno-polochnye-stellagi-cash-carry/ [R=301,L]
+#RewriteRule catalog/stellagi-skladskie/mnogoyarusnye-stellagi-mezoniny/mnogoetagnaya-konstruciya-stellageiy-mezonin/ http://ssk.ua/catalog/stellagi-skladskie/mnogoyarusnye-stellagi-mezoniny/mnogoetagnaya-konstrukciya-stellageiy-mezonin/ [R=301,L]
+#RewriteRule catalog/stellagi-skladskie/mnogoyarusnye-stellagi-mezoniny/mnogoetagnaya-konstrukciya-stellageiy-mezonin/ http://ssk.ua/catalog/stellagi-skladskie/mnogoyarusnye-stellagi-mezoniny/mnogoetagnaya-konstrukciya-stellageiy-mezonin/ [R=301,L]
+RewriteRule catalog/plastikovaya-tara/plastikovye-yaschiki-klt/skladskie-lotki/ http://ssk.ua/catalog/plastikovaya-tara/plastikovye-yaschiki-klt/plastikovye-yaschiki-klt/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/uravnitelnye-platphormy-doklevellery/uravnitelnaya-platphorma-dokleveller/ http://ssk.ua/catalog/dock/docklevellers/uravnitelnaya-platphorma-dokleveller/ [R=301,L]
+
+RewriteRule catalog/peregruzochnoe-oborudovanie/podemnye-stoly-marcolift/nizkoprophilnyiy-podemnyiy-stol/ http://ssk.ua/catalog/dock/podemnye-stoly-marcolift/nizkoprophilnyiy-podemnyiy-stol/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/podemnye-stoly-marcolift/nizkobyudgetnyiy-podemnyiy-stol/ http://ssk.ua/catalog/dock/podemnye-stoly-marcolift/nizkobyudgetnyiy-podemnyiy-stol/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/podemnye-stoly-marcolift/dokovyiy-podemnyiy-stol/ http://ssk.ua/catalog/dock/podemnye-stoly-marcolift/dokovyiy-podemnyiy-stol/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/peregruzochnye-tambury/peregruzochnyiy-tambur/ http://ssk.ua/catalog/dock/tambur/peregruzochnyiy-tambur/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/otkidnye-mosty/otkidnoiy-most/ http://ssk.ua/catalog/dock/otkidnue-mostu/otkidnye-i-perenosnye-mosty/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/mobilnaya-rampa/mobilnaya-rampa/ http://ssk.ua/catalog/dock/mobile-ramp/mobilnaya-rampa-doorhan/ [R=301,L]
+#RewriteRule catalog/peregruzochnoe-oborudovanie/ http://ssk.ua/catalog/dock/ [R=301,L]
+RewriteRule catalog/metallicheskaya-mebel/shkafi-phaiylovye-kartotechnye/shkafi-phaiylovye-kartoteki/ http://ssk.ua/catalog/metallicheskaya-mebel/shkafi-phaiylovye-kartotechnye/shkafi-phaiylovye-kartotechnye/ [R=301,L]
+RewriteRule catalog/metallicheskaya-mebel/shkafi-garderobnye/shkafi-garderobnye/ http://ssk.ua/catalog/metallicheskaya-mebel/shkafi-garderobnye/shkafi-garderobnye-dlya-razdevalok/ [R=301,L]
+
+
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-medium-nagruzka-na-polku-do-300-kg/ http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-medium/nagruzka-na-polku-300-kg/ [R=301,L]
+
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/universalnye-stellagi-nagruzka-na-polku-80-kg/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/universalnye-stellagi/nagruzka-na-polku-80-kg/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-konstruktor-nagruzka-na-polku-do-150-kg/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-konstruktor/nagruzka-na-polku-150-kg/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-mega-nagruzka-do-1250-kg-na-polku/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-mega/nagruzka-na-polku-1250-kg/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-arhivnie-mobilnye/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-arhivnie/stellagi-arhivnie-mobilnye/ [R=301,L]
+
+
+
+RewriteRule catalog/peregruzochnoe-oborudovanie/podemnye-stoly-marcolift/	http://ssk.ua/catalog/podemnye-stoly/ [R=301,L]
+RewriteRule catalog/peregruzochnoe-oborudovanie/podemnye-stoly-marcolift/opcii-k-podemnym-stolam/	http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/opcii-k-podemnym-stolam/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/universalnye-stellagi/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/universalnye-stellagi/nagruzka-na-polku-80-kg/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/stellagi-b/u/stellagi-b/u/	http://ssk.ua/catalog/stellagi-skladskie/stellagi-b/u/stellagi-bu-/ [R=301,L]
+
+
+RewriteRule catalog/plastikovaya-tara/plastikovye-poddony/plastikovye-pallety/	http://ssk.ua/catalog/plastikovaya-tara/plastikovye-poddony/plastikovye-poddony/ [R=301,L]
+RewriteRule cat/view/n/63/	http://ssk.ua/catalog/podemnye-stoly/ [R=301,L]
+
+RewriteRule cat/item/n/98/it/164/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-arhivnie/stellagi-arhivnie-mobilnye/ [R=301,L]
+RewriteRule catalog/metallicheskaya-mebel/arhivnie-stellagi/arhivnie-stellagi-/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-arhivnie/stellagi-arhivnie-mobilnye/ [R=301,L]
+RewriteRule catalog/stellagi-arhivnie-mobilnye/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-arhivnie/stellagi-arhivnie-mobilnye/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/stellagi-arhivnie-mobilnye/stellagi-arhivnie-mobilnye/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-arhivnie/stellagi-arhivnie-mobilnye/ [R=301,L]
+RewriteRule cat/item/n/91/it/158/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/universalnye-stellagi/nagruzka-na-polku-80-kg/ [R=301,L]
+RewriteRule catalog/metallicheskaya-mebel/universalnye-stellagi/stellagi-universalnye/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/universalnye-stellagi/nagruzka-na-polku-80-kg/ [R=301,L]
+RewriteRule catalog/stellagi-universalnye/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/universalnye-stellagi/nagruzka-na-polku-80-kg/ [R=301,L]
+RewriteRule cat/stellag/	http://ssk.ua/catalog/stellagi-skladskie/ [R=301,L]
+
+
+
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/ http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/ [R=301,L]
+
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-konstruktor-nagruzka-na-polku-do-150-kg/ http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-konstruktor/nagruzka-na-polku-150-kg/ [R=301,L]
+
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-mega-nagruzka-do-1250-kg-na-polku/ http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-mega/nagruzka-na-polku-1250-kg/ [R=301,L]
+RewriteRule catalog/stellagi-skladskie/polochnye-stellagi/stellagi-arhivnie-mobilnye/	http://ssk.ua/catalog/stellagi-polochnye-i-arhivnie/stellagi-arhivnie/stellagi-arhivnie-mobilnye/ [R=301,L]
+
+RewriteRule catalog/dock/podemnye-stoly-marcolift/podemnyiy-stol-s-odinarnymi-nognicami/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/podemnye-stoly-s-odinarnymi-nognicami [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/vysokopodemnyiy-stol/	http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/vysokopodemnye-stoly [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/dokovyiy-podemnyiy-stol/	http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/dokovye-podemnye-stoly [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/dlinnorazmernyiy-podemnyiy-stol/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/dlinnorazmernye-podemnye-stoly [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/nizkoprophilnyiy-podemnyiy-stol/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/nizkoprophilnye-podemnye-stoly [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/podemnyiy-stol-telezhka/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/podemnye-stoly-telezhki [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/avtomobilnyiy-podemnyiy-stol/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/avtomobilnye-podemnye-stoly [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/podemnyiy-stol-s-naklonnoiy-platphormoiy/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/podemnye-stoly-s-naklonnoiy-platphormoiy [R=301,L]
+RewriteRule catalog/dock/podemnye-stoly-marcolift/opcii-k-podemnym-stolam/ http://ssk.ua/catalog/podemnye-stoly/podemnye-stoly-marco/opcii-k-podemnym-stolam [R=301,L]
+
+RewriteRule catalog/dock/podemnye-stoly-marcolift/ http://ssk.ua/catalog/podemnye-stoly/ [R=301,L]
+
+
+
+RewriteRule cat/view/n/21/ http://ssk.ua/cat/item/n/100/it/180/ [R=301,L]
+RewriteRule cat/view/n/22/ http://ssk.ua/cat/item/n/101/it/170/ [R=301,L]
+RewriteRule cat/view/n/23/ http://ssk.ua/cat/item/n/102/it/171/ [R=301,L]
+RewriteRule cat/view/n/24/ http://ssk.ua/cat/item/n/103/it/172/ [R=301,L]
+RewriteRule cat/view/n/25/ http://ssk.ua/cat/item/n/104/it/173/ [R=301,L]
+RewriteRule cat/view/n/26/ http://ssk.ua/cat/item/n/105/it/174/ [R=301,L]
+RewriteRule cat/view/n/41/ http://ssk.ua/cat/item/n/106/it/175/ [R=301,L]
+RewriteRule cat/view/n/42/ http://ssk.ua/cat/item/n/107/it/176/ [R=301,L]
+RewriteRule cat/view/n/43/ http://ssk.ua/cat/item/n/108/it/177/ [R=301,L]
+RewriteRule cat/view/n/27/ http://ssk.ua/cat/item/n/110/it/179/ [R=301,L]
+RewriteRule cat/view/n/28/ http://ssk.ua/cat/item/n/109/it/178/ [R=301,L]
+
+RewriteRule cat/item/n/6/it/111/ http://ssk.ua/cat/item/n/98/it/164/ [R=301,L]
+
+RewriteCond %{REQUEST_URI} !css
+RewriteCond %{REQUEST_URI} !js
+RewriteCond %{REQUEST_URI} !kcaptcha
+
+RewriteCond %{HTTP_HOST} ^www.ssk\.ua$ [NC]
+RewriteCond %{REQUEST_URI} !^/robots\.txt$
+RewriteRule ^(.*)$ http://ssk.ua/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^(.+[^/])$
+RewriteRule ^(.+[^/])$ http://ssk.ua/$1/ [R=301,L]
+
+#RewriteRule sitemap.xml sitemap.php [L]
+#RewriteRule sitemap1.xml sitemap.php?id=1 [L]
+#RewriteRule sitemap2.xml sitemap.php?id=2 [L]
+#RewriteRule sitemap3.xml sitemap.php?id=3 [L]
+
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^(.*)$ index.php/$1
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
+
+#php_flag display_errors off
+#php_value display_startup_errors off
+#php_flag mysql.trace_mode       off

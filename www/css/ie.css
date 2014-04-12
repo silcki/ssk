@@ -1,0 +1,4 @@
+.hits .tabs li.active{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='i/tabs-active.png', sizingmethod='crop');
+}
