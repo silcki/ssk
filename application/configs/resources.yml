@@ -1,0 +1,55 @@
+production:
+    resources:
+        frontController:
+            moduleControllerDirectoryName: controllers
+            defaultAction: index
+            defaultControllerName: index
+            throwerrors: 0
+            actionHelperPaths:
+                Core_Controller_Action_Helper: Core/Controller/Action/Helper
+            params:
+                displayExceptions: 0
+            env: APPLICATION_ENV
+        locale:
+            default: RU
+            force: 1
+            cache: locale
+        session:
+            use_cookies: 1
+            use_only_cookies: 1
+            cookie_httponly: 1
+            cache_expire: 5
+            gc_maxlifetime: 1200
+            remember_me_seconds: 864000
+        view:
+            defaultEngine: xlst
+            engines:
+                xlst:
+                    engine: xlst
+                    helperPath:
+                        Core_View_Helper: Core/View/Helpers
+                    file_extension: xsl
+
+staging:
+    _extends: production
+
+testing:
+    _extends: production
+
+development:
+    _extends: production
+    resources:
+        FrontController:
+            params:
+                displayExceptions: 1
+        zfDebug:
+            enabled: 1
+            params:
+                plugins:
+                    Exception:
+                    File:
+                        base_path: ROOT_PATH
+                    Log: null
+                    Time: true
+                    Variables: true
+                    Memory: true

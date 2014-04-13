@@ -5,47 +5,71 @@ $debug = false;
 if ($_SERVER['REMOTE_ADDR'] == '193.138.245.146') {
     $debug = true;
 }
-header('Content-type: text/html; charset=UTF-8');
+
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 
-// Set the application root path
+defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
+
 define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
-define('APPLICATION_MODELS', ROOT_PATH . '/application/models/');
-define('APPLICATION_HELPERS', ROOT_PATH . '/application/helpers/');
-define('APPLICATION_CONTROLLERS', ROOT_PATH . '/application/controllers/');
+define('APPLICATION_PATH', ROOT_PATH . '/application');
+define('CONFIG_PATH', APPLICATION_PATH . '/configs');
+define('LIB_PATH', ROOT_PATH . '/library');
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
             realpath(ROOT_PATH),
-            realpath(APPLICATION_MODELS),
-            realpath(APPLICATION_CONTROLLERS),
-            realpath(APPLICATION_HELPERS),
+            realpath(APPLICATION_PATH),
+            realpath(CONFIG_PATH),
+            realpath(LIB_PATH),
             get_include_path(),
         )));
 
-require 'include/DOMxml.class.php';
-require 'include/config.php';
-//require 'banner/bann.php';
+require_once ROOT_PATH . '/vendor/autoload.php';
 
-require 'application/controllers/CommonBaseController.php';
+/* Zend_Loader_Autoloader */
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
 
-require_once ZEND_PATH . '/Loader.php';
-require_once ZEND_PATH . '/Session/Namespace.php';
+$appConfig = new Zend_Config_Yaml(
+    CONFIG_PATH . '/application.yml',
+    APPLICATION_ENV,
+    array('allowModifications'=>true)
+);
 
-//Loading routing
-Zend_Loader::loadClass('Zend_Controller_Router_Rewrite');
-Zend_Loader::loadClass('Zend_Controller_Router_Route');
-Zend_Loader::loadClass('Zend_Controller_Request_Http');
-Zend_Loader::loadClass('Zend_Controller_Front');
-Zend_Loader::loadClass('Zend_Controller_Action');
-Zend_Loader::loadClass('Zend_Config_Ini');
-Zend_Loader::loadClass('Zend_Registry');
-Zend_Loader::loadClass('Zend_Db');
+$appConfig->merge(
+    new Zend_Config_Yaml(
+        CONFIG_PATH . '/database.yml',
+        APPLICATION_ENV,
+        array('allowModifications'=>true)
+    )
+);
 
-require 'application/models/ZendDBEntity.php';
+$appConfig->merge(
+    new Zend_Config_Yaml(
+        CONFIG_PATH . '/resources.yml',
+        APPLICATION_ENV,
+        array('allowModifications'=>true)
+    )
+);
 
-require ROOT_PATH . '/application/models/AnotherPages.php';
+/** Zend_Application */
+require_once 'Zend/Application.php';
+
+$application = new Zend_Application(
+    APPLICATION_ENV,
+    $appConfig
+);
+
+$application->bootstrap();
+Zend_Registry::getInstance()->set('bootstrap', $application->getBootstrap());
+$application->run();
+
+require_once ROOT_PATH . '/include/DOMxml.class.php';
+require_once APPLICATION_PATH . '/controllers/CommonBaseController.php';
+
+
+require_once APPLICATION_PATH . '/models/AnotherPages.php';
 $AnotherPages = new AnotherPages();
 
 if (!empty($_SERVER['PATH_INFO'])) {
@@ -103,18 +127,12 @@ if (preg_match($pattern, $_SERVER['REQUEST_URI'], $matches)) {
 
 Zend_Loader::loadClass('Zend_Controller_Action_Helper_ViewRenderer');
 
-// Start Session
-$session = new Zend_Session_Namespace('Zets');
-Zend_Registry::set('session', $session);
-
 //Front Controller
 $front = Zend_Controller_Front::getInstance();
 
-//$front->setParam('search', $search);
-
 $front->throwExceptions(true);
 $front->setControllerDirectory(ROOT_PATH . '/application/controllers');
-//Zend_Loader::loadClass('CommonBaseController');
+
 require_once('include/View_Xslt.php');
 $view = new View_Xslt;
 

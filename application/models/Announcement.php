@@ -1,6 +1,5 @@
 <?php
-
-class Announcement extends ZendDBEntity
+class Announcement extends Core_Db_Connect
 {
 
     protected $_name = 'ANNOUNCEMENT';

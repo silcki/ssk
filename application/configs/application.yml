@@ -1,0 +1,40 @@
+production:
+    phpSettings:
+        display_startup_errors: 0
+        display_errors: 0
+        date:
+            timezone: GMT
+        short_open_tag: 0
+    includePaths:
+        library: ROOT_PATH/library
+        vendor: ROOT_PATH/vendor
+    bootstrap:
+        path: APPLICATION_PATH/Bootstrap.php
+        class: Bootstrap
+    pluginPaths:
+        Core_Application_Resource: Core/Application/Resource
+    appnamespace: Application
+    autoloaderNamespaces:
+        -: Core_
+        -: Zend_
+        -: ZendX_
+        -: Appliaction_
+
+staging:
+    _extends: production
+
+testing:
+    _extends: production
+    phpSettings:
+        display_startup_errors: 1
+        display_errors: 1
+
+development:
+    _extends: production
+    phpSettings:
+        display_startup_errors: 1
+        display_errors: 1
+    resources:
+        frontController:
+            params:
+                displayExceptions: 1
