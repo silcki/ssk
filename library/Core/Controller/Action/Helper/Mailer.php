@@ -1,12 +1,10 @@
 <?php
-Zend_Loader::loadClass('Zend_Mail');
-Zend_Loader::loadClass('Zend_Mail_Transport_Smtp');
 /**
  * Отправка сообщений
  *
  * @author Dima <john.doe@example.com>
  */
-class Mailer
+class Core_Controller_Action_Helper_Mailer
 {
 
     /**

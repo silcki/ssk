@@ -5,7 +5,7 @@
  * @package Models
  * @author  Dima <john.doe@example.com>
  */
-class AnotherPages extends ZendDBEntity
+class AnotherPages extends Core_Connect
 {
 
     public function getDefaultLang()

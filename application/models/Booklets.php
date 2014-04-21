@@ -1,5 +1,5 @@
 <?php
-class Booklets extends ZendDBEntity
+class Booklets extends Core_Connect
 {
     protected $_name = 'BOOKLETS';
 

@@ -1,7 +1,7 @@
 production:
     resources:
         frontController:
-            moduleControllerDirectoryName: controllers
+            controllerDirectory: APPLICATION_PATH/controllers
             defaultAction: index
             defaultControllerName: index
             throwerrors: 0
@@ -10,10 +10,6 @@ production:
             params:
                 displayExceptions: 0
             env: APPLICATION_ENV
-        locale:
-            default: RU
-            force: 1
-            cache: locale
         session:
             use_cookies: 1
             use_only_cookies: 1
@@ -42,14 +38,3 @@ development:
         FrontController:
             params:
                 displayExceptions: 1
-        zfDebug:
-            enabled: 1
-            params:
-                plugins:
-                    Exception:
-                    File:
-                        base_path: ROOT_PATH
-                    Log: null
-                    Time: true
-                    Variables: true
-                    Memory: true

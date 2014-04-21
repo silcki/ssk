@@ -234,7 +234,8 @@ font-size: 14px;
     background:none;
     color:#ff7300;
 }
-.gallary_hold{
+
+html body div#main.main_index div.gallary_hold{
     background:url(../i/bg-gallery.png) repeat-x;
     height:217px;
     position:relative;
@@ -242,6 +243,16 @@ font-size: 14px;
     margin: 10px 9px 10px 11px;
 
 }
+
+html body div#main div.holder div#column div.gallary_hold{
+//    background:url(../i/bg-gallery.png) repeat-x;
+    height:217px;
+    position:relative;
+    /*    margin: 10px 10px;*/
+    margin: 10px 9px 10px 11px;
+
+}
+
 .gallary_hold .holder{
     position:relative;
 }
@@ -252,9 +263,21 @@ font-size: 14px;
     /*    position: relative;
     top: -2px;*/
 }
-.gallary_hold .number{
+
+html body div#main.main_index div.gallary_hold .number{
     position:absolute;
     z-index:41;
+    padding:10px 10px 10px 5px;
+/*    background:#eee;*/
+/*    top:183px;*/
+    top:195px;
+
+    left:0;
+}
+
+html body div#main div.holder div#column div.gallary_hold .number{
+    position:absolute;
+//    z-index:41;
     padding:10px 10px 10px 5px;
 /*    background:#eee;*/
 /*    top:183px;*/

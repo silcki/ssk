@@ -2,5 +2,12 @@
     "require": {
         "zendframework/zendframework1": "1.12.*@dev",
         "pimple/pimple": "2.0.*@dev"
+    },
+
+    "autoload": {
+        "classmap": [
+            "application/models/",
+            "application/helpers/"
+        ]
     }
 }

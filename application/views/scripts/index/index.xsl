@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
+<!DOCTYPE xsl:stylesheet SYSTEM "../symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 <!-- Catalogue -->
 <xsl:template match="cattree" mode="sub">
@@ -132,7 +132,7 @@
 			<xsl:apply-templates select="//data/news"/>
 		</ul>
 
-		<xsl:apply-templates select="//index_under_news/description"/>
+		<xsl:apply-templates select="/page/index_under_news/description"/>
 
 	<!--</div>-->
 </xsl:template>

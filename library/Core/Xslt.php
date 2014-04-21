@@ -1,13 +1,10 @@
 <?php
-require_once(APPLICATION_PATH . '/../library/App/View/Serializer.php');
-require_once(APPLICATION_PATH . '/../library/App/View/DOMxml.class.php');
-
 class Core_Xslt extends Zend_View_Abstract
 {
     /**
-     * @var DomXML
+     * @var Core_DomXML
      */
-    private $_serializer;
+    protected $_domXml;
 
     /**
      * Configuration
@@ -27,9 +24,17 @@ class Core_Xslt extends Zend_View_Abstract
     public function __construct($data = array())
     {
         $this->_config = $data;
-        $this->_serializer = new Core_DomXML();
+        $this->_domXml = new Core_DomXML();
 
         parent::__construct($data);
+    }
+
+    /**
+     * @return Core_DomXML
+     */
+    public function getDomXml()
+    {
+        return $this->_domXml;
     }
 
     /**
@@ -94,6 +99,7 @@ class Core_Xslt extends Zend_View_Abstract
         if (!empty($ext)) {
             $ext = substr($ext, 1);
         }
+
         if ($this->_config['file_extension'] != $ext) {
             if ($ext != '.xsl') {
                 $name = str_replace($ext, 'xsl', $name);
@@ -107,12 +113,9 @@ class Core_Xslt extends Zend_View_Abstract
     {
         $template = func_get_arg(0);
         $xslDoc = new DOMDocument();
-
         $xslDoc->load($template);
 
-        $name = '_test.xml';
-
-        $this->_serializer->saveXML($name);
+        $this->_domXml->saveXML('_test.xml');
 
         $xmlDoc = $this->toXml();
 
@@ -124,6 +127,6 @@ class Core_Xslt extends Zend_View_Abstract
 
     private function toXml()
     {
-        return $this->_serializer->getXMLobject();
+        return $this->_domXml->getXMLobject();
     }
 }

@@ -1,8 +1,6 @@
 <?php
-
-class FileTypes extends ZendDBEntity
+class FileTypes extends Core_Connect
 {
-
     protected $_name = 'FILE_TYPES';
 
     public function getFileTypesInfo($where)

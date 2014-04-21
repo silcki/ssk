@@ -1,6 +1,5 @@
 <?php
-
-class Article extends ZendDBEntity
+class Article extends Core_Connect
 {
 
     protected $_name = 'ARTICLE';

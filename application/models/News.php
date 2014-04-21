@@ -1,8 +1,6 @@
 <?php
-
-class News extends ZendDBEntity
+class News extends Core_Connect
 {
-
     public function getNewsIndexCount($amount)
     {
         $sql = "select count(*)

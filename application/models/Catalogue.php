@@ -1,8 +1,6 @@
 <?php
-
-class Catalogue extends ZendDBEntity
+class Catalogue extends Core_Connect
 {
-
     public function getTree($parentId = 0, $lang = 0)
     {
         if ($lang > 0) {
@@ -159,12 +157,16 @@ class Catalogue extends ZendDBEntity
 
     public function getAllParents($id, $path)
     {
-        $sql = "select PARENT_ID
-            from CATALOGUE
-            where CATALOGUE_ID={$id}
-              and STATUS=1";
+        if (empty($id)) {
+            return array();
+        }
 
-        $parent_id = $this->_db->fetchOne($sql);
+        $sql = "select PARENT_ID
+                from CATALOGUE
+                where CATALOGUE_ID = ?
+                  and STATUS=1";
+
+        $parent_id = $this->_db->fetchOne($sql, $id);
 
         if (!empty($parent_id)) {
             $path[count($path)] = $parent_id;

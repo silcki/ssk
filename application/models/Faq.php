@@ -1,8 +1,6 @@
 <?php
-
-class Faq extends ZendDBEntity
+class Faq extends Core_Connect
 {
-
     protected $_name = 'QUESTION';
 
     public function getGroupMessage($lang = 0)

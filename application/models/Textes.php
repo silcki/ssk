@@ -1,8 +1,6 @@
 <?php
-
-class Textes extends ZendDBEntity
+class Textes extends Core_Connect
 {
-
     protected $_name = 'TEXTES';
 
     public function getSysText($indent, $lang = 0)

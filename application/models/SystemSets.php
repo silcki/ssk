@@ -1,6 +1,5 @@
 <?php
-
-class SystemSets extends ZendDBEntity
+class SystemSets extends Core_Connect
 {
 
     public function getSettingValue($where)

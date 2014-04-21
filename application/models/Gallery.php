@@ -1,8 +1,6 @@
 <?php
-
-class Gallery extends ZendDBEntity
+class Gallery extends Core_Connect
 {
-
     protected $_name = 'GALLERY';
 
     public function getGalleryGroup($pid, $lang)

@@ -1,6 +1,5 @@
 <?php
-
-class Clients extends ZendDBEntity
+class Clients extends Core_Connect
 {
 
     protected $_name = 'CLIENT';

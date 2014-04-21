@@ -1,0 +1,19 @@
+<?php
+return array(
+    'Announcement',
+    'AnotherPages',
+    'Article',
+    'Booklets',
+    'Catalogue',
+    'Clients',
+    'Faq',
+    'FileTypes',
+    'Gallery',
+    'Guestbook',
+    'News',
+    'Projects',
+    'SectionAlign',
+    'SystemSets',
+    'Textes',
+    'Vopros',
+);

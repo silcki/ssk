@@ -1,8 +1,6 @@
 <?php
-
-class SectionAlign extends ZendDBEntity
+class SectionAlign extends Core_Connect
 {
-
     public function GetBanns($where)
     {
         $sql = "select ALIGN_ID

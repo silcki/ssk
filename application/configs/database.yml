@@ -8,6 +8,7 @@ production:
               username: root
               password:
               isDefaultTableAdapter: true
+              charset: utf8
 
 staging:
     _extends: production

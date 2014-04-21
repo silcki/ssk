@@ -1,20 +1,18 @@
 <?php
 date_default_timezone_set('Europe/Kiev');
 
-$debug = false;
-if ($_SERVER['REMOTE_ADDR'] == '193.138.245.146') {
-    $debug = true;
-}
-
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
 define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
 define('APPLICATION_PATH', ROOT_PATH . '/application');
 define('CONFIG_PATH', APPLICATION_PATH . '/configs');
 define('LIB_PATH', ROOT_PATH . '/library');
+
+if (APPLICATION_ENV != 'production') {
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+    ini_set("display_startup_errors", 1);
+}
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
@@ -26,10 +24,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
         )));
 
 require_once ROOT_PATH . '/vendor/autoload.php';
-
-/* Zend_Loader_Autoloader */
-require_once 'Zend/Loader/Autoloader.php';
-Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
 
 $appConfig = new Zend_Config_Yaml(
     CONFIG_PATH . '/application.yml',
@@ -65,10 +59,8 @@ $application->bootstrap();
 Zend_Registry::getInstance()->set('bootstrap', $application->getBootstrap());
 $application->run();
 
-require_once ROOT_PATH . '/include/DOMxml.class.php';
-require_once APPLICATION_PATH . '/controllers/CommonBaseController.php';
 
-
+/*
 require_once APPLICATION_PATH . '/models/AnotherPages.php';
 $AnotherPages = new AnotherPages();
 
@@ -124,34 +116,4 @@ if (preg_match($pattern, $_SERVER['REQUEST_URI'], $matches)) {
         $_SERVER['REQUEST_URI'] = $matches[2] . '/lng/' . $matches[1];
     }
 }
-
-Zend_Loader::loadClass('Zend_Controller_Action_Helper_ViewRenderer');
-
-//Front Controller
-$front = Zend_Controller_Front::getInstance();
-
-$front->throwExceptions(true);
-$front->setControllerDirectory(ROOT_PATH . '/application/controllers');
-
-require_once('include/View_Xslt.php');
-$view = new View_Xslt;
-
-$options = array();
-/*
- * изменение настроек ViewRenderer:
- * Инстанцировать и зарегистрировать свой объект ViewRenderer,
- * а затем передать его брокеру помощников.
- *
- * Во время инстанцирования контроллера действий производится вызов ViewRenderer
- * для инстанцирования объекта вида. Каждый раз, когда инстанцируется контроллер,
- * вызывается метод init() помощника ViewRenderer, что приводит к установке
- * свойства $view данного контроллера действий и вызову метода addScriptPath()
- * с путем относительно текущего модуля; он будет вызван с префиксом класса,
- * соответствующим имени текущего модуля, что эффективно разделяет пространства имен
- * всех классов помощников и фильтров, определенных для этого модуля.
- */
-$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer($view, $options);
-$viewRenderer->setViewSuffix('xsl');
-Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-
-$front->dispatch();
+*/

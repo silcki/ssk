@@ -1,6 +1,5 @@
 <?php
-
-class Vopros extends ZendDBEntity
+class Vopros extends Core_Connect
 {
 
     function getVopros($lang)

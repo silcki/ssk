@@ -1,8 +1,6 @@
 <?php
-
-class Guestbook extends ZendDBEntity
+class Guestbook extends Core_Connect
 {
-
     protected $_name = 'GUESTBOOK';
 
     public function insertMessage($data)

@@ -1,34 +1,49 @@
 <?php
-Zend_Loader::loadClass('Mailer');
-class IndexController extends CommonBaseController
+class IndexController extends Core_Controller_Action_Abstract
 {
-    public $http;
-
-    function init()
+    /**
+     * @var AnotherPages
+     */
+    private $_anotherPages;
+    
+    public function init()
     {
         parent::init();
-        $this->http = new Zend_Controller_Request_Http();
 
-        if ($this->http->getCookie('play_bool')) {
+        if ($this->requestHttp->get('play_bool')) {
             $this->domXml->set_tag('//page', true);
             $this->domXml->set_attribute(array('play_bool' => 1));
             $this->domXml->go_to_parent();
         }
 
-        $this->getSysText('page_main');
-        $this->getSysText('arc_vote');
-        $this->getSysText('all_news');
-        $this->getSysText('play_againe');
+        $this->_anotherPages = $this->getServiceManager()->getModel()->getAnotherPages();
+    }
 
-        $this->getSysText('text_our_clients');
-        $this->getSysText('text_index_news');
+    private function getSysText()
+    {
+        $textes = array(
+            'page_main',
+            'arc_vote',
+            'all_news',
+            'play_againe',
+            'text_our_clients',
+            'text_index_news',
+        );
 
-        Zend_Loader::loadClass('Clients');
+        $systemTextes = $this->getServiceManager()->getHelper()->getSystemTextes();
+        foreach ($textes as $indent) {
+            $systemTextes->getSysText($indent);
+        }
     }
 
     public function indexAction()
     {
-        $this->getDocMeta(1);
+        $params['langId'] = $this->lang_id;
+        $params['lang'] = $this->lang;
+
+        $this->getServiceManager()->getHelper()->getAnotherPages()
+            ->setParams($params)
+            ->getDocMeta(1);
 
         $o_data['id'] = 0;
         $o_data['is_start'] = 1;
@@ -37,28 +52,28 @@ class IndexController extends CommonBaseController
         $this->openData($o_data);
 
         $this->domXml->set_tag('//data', true);
+        $this->getServiceManager()->getHelper()->getAnotherPages()
+            ->setParams($params)
+            ->getHeader()
+            ->getDocInfo(1)
+            ->getDocXml($this->getPageId('/'), 0, true);
 
-        $this->getHeader();
-        $this->getClients();
+        $this->getServiceManager()->getHelper()->getClients()
+            ->setParams($params)
+            ->getClients();
 
         $this->getDocInfo(1);
 
         $news_index_amount = $this->getSettingValue('news_index_amount') ? $this->getSettingValue('news_index_amount'):2;
-        $this->getIndexNews($news_index_amount);
 
-        $this->domXml->set_tag('//data', true);
-
-        /* Вывод текста стартовой */
-        $this->getDocXml($this->getPageId('/'), 0, true);
-
-        $this->domXml->set_tag('//data', true);
-        $this->getBanners('index_under_news', 11, 16, 0);
+        $this->getServiceManager()->getHelper()->getNews()
+            ->setParams($params)
+            ->getIndexNews($news_index_amount);
     }
 
     public function mapsAction()
     {
-        $doc = $this->AnotherPages->getDocXml($this->getPageId('/index/map/'),
-                                                               0, $this->lang_id);
+        $doc = $this->AnotherPages->getDocXml($this->getPageId('/index/map/'), 0, $this->lang_id);
         echo stripslashes($doc);
         exit;
     }
@@ -75,10 +90,8 @@ class IndexController extends CommonBaseController
 
         $this->getDocInfo($ap_id);
 
-        if ($this->http->isPost()) {
-            if ($this->http->has('opr') && $this->http->getPost('opr')) {
-                $opr = $this->http->getPost('opr');
-            }
+        if ($this->requestHttp->isPost()) {
+            $opr = $this->requestHttp->getPost('opr', null);
 
             $vopros_id = $this->Vopros->getVoprosID($opr);
             $this->Vopros->voprosUp($vopros_id);
@@ -86,7 +99,7 @@ class IndexController extends CommonBaseController
 
             setcookie("sklad_vote", $vopros_id, time() + 3600 * 24 * 3, "/");
 
-            $this->_redirector->gotoUrl('/index/vote/');
+            $this->redirect('/index/vote/');
         }
 
         $this->befor_path[0]['name'] = 'Архив голосований';
@@ -100,10 +113,10 @@ class IndexController extends CommonBaseController
     public function clientvoteAction()
     {
         $client = $this->_getParam('client');
-        if ($this->http->isPost()) {
+        if ($this->requestHttp->isPost()) {
             $this->Vopros->setClientVopros($client);
 
-            $this->_redirector->gotoUrl('/index/votesuccess/');
+            $this->redirect('/index/votesuccess/');
         }
 
         $o_data['id'] = 1;
@@ -173,8 +186,9 @@ class IndexController extends CommonBaseController
 
             $this->domXml->set_tag('//page', true);
             $this->domXml->create_element('docinfo', '', 2);
-            $this->domXml->set_attribute(array('another_pages_id' => $info['ANOTHER_PAGES_ID']
-                , 'parent_id' => $info['PARENT_ID']
+            $this->domXml->set_attribute(array(
+                'another_pages_id' => $info['ANOTHER_PAGES_ID'],
+                'parent_id' => $info['PARENT_ID']
             ));
 
             $this->domXml->create_element('name', $info['NAME']);
@@ -184,11 +198,11 @@ class IndexController extends CommonBaseController
     public function callbackAction()
     {
 
-        if ($this->http->isPost()) {
-            $data['NAME'] = $this->http->getPost('name');
-            $data['PHONE'] = $this->http->getPost('phone');
-            $data['CALLBACK_TIME_ID'] = $this->http->getPost('callback_time_id');
-            $data['DESCRIPTION'] = $this->http->getPost('description');
+        if ($this->requestHttp->isPost()) {
+            $data['NAME'] = $this->requestHttp->getPost('name');
+            $data['PHONE'] = $this->requestHttp->getPost('phone');
+            $data['CALLBACK_TIME_ID'] = $this->requestHttp->getPost('callback_time_id');
+            $data['DESCRIPTION'] = $this->requestHttp->getPost('description');
 
             if (empty($data['NAME'])) {
                 $err = $this->Textes->getSysText('text_callback_errore_name');
@@ -208,10 +222,10 @@ class IndexController extends CommonBaseController
                 exit;
             }
 
-            $time = $this->AnotherPages->getCallbackTimeName($data['CALLBACK_TIME_ID']);
+            $time = $this->_anotherPages->getCallbackTimeName($data['CALLBACK_TIME_ID']);
 
-            $doc_id = $this->AnotherPages->getPageId('/callback/');
-            $letter_xml = $this->AnotherPages->getDocXml($doc_id, 0,
+            $doc_id = $this->_anotherPages->getPageId('/callback/');
+            $letter_xml = $this->_anotherPages->getDocXml($doc_id, 0,
                                                          $this->lang_id);
 
             $message_admin = $letter_xml;
@@ -266,7 +280,7 @@ class IndexController extends CommonBaseController
                         $mm = trim($mm);
                         if (!empty($mm)) {
                             $params['to'] = $mm;
-                            Mailer::send($params);
+                            Core_Controller_Action_Helper_Mailer::send($params);
                         }
                     }
                 }
@@ -312,8 +326,8 @@ class IndexController extends CommonBaseController
                 exit;
             }
 
-            $doc_id = $this->AnotherPages->getPageId('/complain/');
-            $letter_xml = $this->AnotherPages->getDocXml($doc_id, 0, $this->lang_id);
+            $doc_id = $this->_anotherPages->getPageId('/complain/');
+            $letter_xml = $this->_anotherPages->getDocXml($doc_id, 0, $this->lang_id);
 
             $message_admin = $letter_xml;
 
@@ -366,13 +380,13 @@ class IndexController extends CommonBaseController
                         $mm = trim($mm);
                         if (!empty($mm)) {
                             $params['to'] = $mm;
-                            Mailer::send($params);
+                            Core_Controller_Action_Helper_Mailer::send($params);
                         }
                     }
                 }
             }
 
-            $this->AnotherPages->insertData('COMPLAIN', $data);
+            $this->_anotherPages->insertData('COMPLAIN', $data);
             echo 1;
             exit;
         }
@@ -428,243 +442,15 @@ class IndexController extends CommonBaseController
         }
     }
 
-    public function getDocMeta($ap_id)
-    {
-        $info = $this->AnotherPages->getDocInfo($ap_id, $this->lang_id);
-        if ($info) {
-
-            $this->domXml->create_element('docinfo', '', 2);
-            $this->domXml->create_element('title', $info['TITLE']);
-
-            $descript = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;",
-                                     $info['DESCRIPTION']);
-            $descript = preg_replace("/\"/", "&#171;", $descript);
-            $this->domXml->create_element('description', $descript);
-
-            $keyword = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;",
-                                    $info['KEYWORDS']);
-            $keyword = preg_replace("/\"/", "&#171;", $keyword);
-            $this->domXml->create_element('keywords', $keyword);
-
-            $this->domXml->go_to_parent();
-        }
-    }
-
-    private function getIndexNews($news_index_amount)
-    {
-
-        $news = $this->News->getNewsIndex(0, $this->lang_id, $news_index_amount);
-        if (!empty($news)) {
-            if ($this->lang_id > 0) {
-                $lang = '/' . $this->lang;
-            } else {
-                $lang = '';
-            }
-
-            foreach ($news as $n_view) {
-                $url = '';
-                $is_url = 0;
-
-                if (!empty($n_view['URL']) && strpos($n_view['URL'], 'http://') !== false) {
-                    $is_lang = true;
-                    $href = $n_view['URL'];
-                } elseif (!empty($n_view['URL'])) {
-                    $href = $n_view['URL'];
-                    $is_url = 1;
-                } else {
-                    $is_lang = true;
-                    $href = '/news/view/n/' . $n_view['NEWS_ID'] . '/';
-                }
-
-                $_href = $this->AnotherPages->getSefURLbyOldURL($href);
-
-                if (!empty($_href) && $is_lang) {
-                    $href = $lang . $_href;
-                } elseif (!empty($_href) && !$is_lang) {
-                    $href = $_href;
-                }
-
-                $this->domXml->create_element('news', '', 2);
-                $this->domXml->set_attribute(array('id' => $n_view['NEWS_ID']
-                                                 , 'is_url' => $is_url
-                ));
-
-                $this->domXml->create_element('name', $n_view['NAME']);
-                $this->domXml->create_element('date', $n_view['date']);
-                $this->domXml->create_element('url', $href);
-
-                if (!empty($n_view['IMAGE1']) && strchr($n_view['IMAGE1'], "#")) {
-                    $tmp = explode('#', $n_view['IMAGE1']);
-                    $this->domXml->create_element('image1', '', 2);
-                    $this->domXml->set_attribute(array('src' => $tmp[0],
-                        'w' => $tmp[1],
-                        'h' => $tmp[2]
-                            )
-                    );
-                    $this->domXml->go_to_parent();
-                }
-
-                $this->setXmlNode($n_view['descript'], 'descript');
-                $this->domXml->go_to_parent();
-            }
-        }
-
-    }
-
-    /**
-     * Метод для получения информации о странице
-     * @access   public
-     * @param    integer $id
-     * @return   string xml
-     */
-    public function getDocInfo($ap_id)
-    {
-        $info = $this->AnotherPages->getDocInfo($ap_id, $this->lang_id);
-        if ($info) {
-            $this->domXml->set_tag('//data', true);
-
-            $this->domXml->create_element('docinfo', '', 2);
-            $this->domXml->set_attribute(array('another_pages_id' => $info['ANOTHER_PAGES_ID']
-                , 'parent_id' => $info['PARENT_ID']
-                    )
-            );
-
-            $this->domXml->create_element('name', $info['NAME']);
-
-            $this->getDocXml(1, 0, true, $this->lang_id);
-            $this->domXml->go_to_parent();
-
-            $this->domXml->create_element('sectioninfo', '', 2);
-
-            $image = $this->AnotherPages->getSectionImage($ap_id);
-
-            if (!empty($image) && strchr($image, "#")) {
-                $tmp = explode('#', $image);
-                $this->domXml->create_element('image', '', 2);
-                $this->domXml->set_attribute(array('src' => '/images/pg/'.$tmp[0]
-                    , 'w' => $tmp[1]
-                    , 'h' => $tmp[2]
-                ));
-                $this->domXml->go_to_parent();
-            }
-
-            $this->domXml->go_to_parent();
-        }
-    }
-
-    private function getHeader()
-    {
-        $headers = $this->AnotherPages->getHeader($this->lang_id);
-        if (!empty($headers)) {
-            foreach ($headers as $val) {
-                $this->domXml->create_element('headers', '', 2);
-
-                $this->domXml->create_element('url', $val['URL']);
-
-                $this->setXmlNode($val['DESCRIPTION'], 'description');
-                if (!empty($val['IMAGE']) && strchr($val['IMAGE'], "#")) {
-                    $tmp = explode('#', $val['IMAGE']);
-                    $this->domXml->create_element('image', '', 2);
-                    $this->domXml->set_attribute(array('src' => $tmp[0]
-                        , 'w' => $tmp[1]
-                        , 'h' => $tmp[2]
-                    ));
-                    $this->domXml->go_to_parent();
-                }
-
-                if (!empty($val['IMAGE1']) && strchr($val['IMAGE1'], "#")) {
-                    $tmp = explode('#', $val['IMAGE1']);
-                    $this->domXml->create_element('image_alt_text', '', 2);
-                    $this->domXml->set_attribute(array('src' => $tmp[0]
-                        , 'w' => $tmp[1]
-                        , 'h' => $tmp[2]
-                    ));
-                    $this->domXml->go_to_parent();
-                }
-
-                $this->domXml->go_to_parent();
-            }
-        }
-    }
-
-    private function getClients()
-    {
-        $Clients = new Clients();
-        $clients = $Clients->getClientsIndex($this->lang_id);
-        if ($clients) {
-            $i_li = 0;
-            $i_td = 0;
-            foreach ($clients as $view) {
-                if (($i_td > 0) && ($i_td % 3) == 0) {
-                    $this->domXml->go_to_parent();
-                }
-
-                if (($i_td > 0) && ($i_td % 12) == 0) {
-                    $this->domXml->go_to_parent();
-                }
-
-                if (($i_td % 12) == 0) {
-                    $this->domXml->create_element('clients_li', '', 2);
-                }
-
-                if (($i_td % 3) == 0) {
-                    $this->domXml->create_element('clients_td', '', 2);
-                }
-
-                $this->domXml->create_element('clients', '', 2);
-                $this->domXml->set_attribute(array('client_id' => $view['CLIENT_ID']));
-
-                $this->domXml->create_element('name', $view['NAME']);
-                $this->domXml->create_element('email', $view['EMAIL']);
-                $this->domXml->create_element('url', $view['URL']);
-                $this->domXml->create_element('description',
-                                              $view['DESCRIPTION']);
-
-                if (!empty($view['IMAGE1']) && strchr($view['IMAGE1'], "#")) {
-                    $tmp = explode('#', $view['IMAGE1']);
-                    $this->domXml->create_element('image', '', 2);
-                    $this->domXml->set_attribute(array('src' => $tmp[0]
-                        , 'w' => $tmp[1]
-                        , 'h' => $tmp[2]
-                    ));
-                    $this->domXml->go_to_parent();
-                }
-
-                $doc = $this->AnotherPages->getDocXml($view['CLIENT_ID'], 8,
-                                                      $this->lang_id);
-                if (!empty($doc)) {
-                    $this->domXml->create_element('is_doc', 1);
-                }
-
-                $this->domXml->go_to_parent();
-
-                $i_td++;
-            }
-        }
-    }
-
     public function caphainpAction()
     {
-        $caphainp = '';
-        if ($this->http->isGet()) {
-            if ($this->http->has('captcha'))
-                $caphainp = $this->http->getQuery('captcha');
+        $caphainp = $this->requestHttp->getQuery('captcha', null);
+        if ($caphainp == $_SESSION['biz_captcha']) {
+            echo 'true';
+        } else {
+            echo 'false';
         }
 
-        if ($caphainp == $_SESSION['biz_captcha'])
-            echo 'true';
-        else
-            echo 'false';
-
         exit;
     }
-
-    public function testAction()
-    {
-        var_dump($_FILES);
-        exit;
-    }
-
 }
-
-?>

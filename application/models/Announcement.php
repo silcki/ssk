@@ -1,5 +1,5 @@
 <?php
-class Announcement extends Core_Db_Connect
+class Announcement extends Core_Connect
 {
 
     protected $_name = 'ANNOUNCEMENT';

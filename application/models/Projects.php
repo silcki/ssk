@@ -1,5 +1,5 @@
 <?php
-class Projects extends ZendDBEntity
+class Projects extends Core_Connect
 {
     protected $_name = 'PROJECTS';
 
