@@ -141,17 +141,18 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
 
     public function getItems($catalogId, $itemId = 0)
     {
-        $this->domXml->create_element('itemnode', '', 1);
-        $this->domXml->set_tag('//itemnode', true);
+        $this->domXml->create_element('itemnode', '', 2);
+//        $this->domXml->set_tag('//itemnode', true);
 
         $this->getDocXml($catalogId, 2, true, $this->params['langId']);
 
         $data = $this->catalogue->getItems($catalogId, $this->params['langId']);
         if (!empty($data)) {
-            if ($this->params['langId'] > 0)
+            $lang = '';
+
+            if ($this->params['langId'] > 0) {
                 $lang = '/' . $this->params['lang'];
-            else
-                $lang = '';
+            }
 
             foreach ($data as $item) {
                 $this->domXml->create_element('items', '', 2);
@@ -189,6 +190,6 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
             }
         }
 
-        return $this->domXml;
+        $this->domXml->go_to_parent();
     }
 } 

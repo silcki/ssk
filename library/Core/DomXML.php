@@ -83,17 +83,17 @@ class Core_DomXML
 
             case 1:
                 if ($this->root) {
-                    $this->subroot =& $this->root->appendChild($this->xml->createElement($tag_name, $xml));
+                    $this->subroot = $this->root->appendChild($this->xml->createElement($tag_name, $xml));
                 } else {
-                    $this->root =& $this->xml->appendChild($this->xml->createElement($tag_name, $xml));
+                    $this->root = $this->xml->appendChild($this->xml->createElement($tag_name, $xml));
                 }
                 break;
 
             case 2:
                 if ($this->subroot) {
-                    $this->subroot =& $this->subroot->appendChild($this->xml->createElement($tag_name, $xml));
+                    $this->subroot = $this->subroot->appendChild($this->xml->createElement($tag_name, $xml));
                 } else {
-                    $this->root =& $this->root->appendChild($this->xml->createElement($tag_name, $xml));
+                    $this->root = $this->root->appendChild($this->xml->createElement($tag_name, $xml));
                 }
                 break;
 
@@ -101,11 +101,11 @@ class Core_DomXML
                 if ($this->subroot) {
                     $temp_ = $this->subroot;
                     if ($cdata == 1) {
-                        $this->subroot =& $this->subroot->appendChild($this->xml->createElement($tag_name));
+                        $this->subroot = $this->subroot->appendChild($this->xml->createElement($tag_name));
                         $value = $this->xml->createTextNode($xml);
                         $this->subroot->appendChild($value);
                     } else {
-                        $this->subroot =& $this->subroot->appendChild($this->xml->createElement($tag_name, $xml));
+                        $this->subroot = $this->subroot->appendChild($this->xml->createElement($tag_name, $xml));
                         if (!empty($attripute) && is_array($attripute)) {
                             foreach ($attripute as $key => $value) {
                                 $this->subroot->setAttribute($key, $this->string_convert($value));
@@ -116,11 +116,11 @@ class Core_DomXML
                 } else {
                     $temp_ = $this->root;
                     if ($cdata == 1) {
-                        $this->root =& $this->root->appendChild($this->xml->createElement($tag_name));
+                        $this->root = $this->root->appendChild($this->xml->createElement($tag_name));
                         $value = $this->xml->createTextNode($xml);
                         $this->root->appendChild($value);
                     } else {
-                        $this->root =& $this->root->appendChild($this->xml->createElement($tag_name, $xml));
+                        $this->root = $this->root->appendChild($this->xml->createElement($tag_name, $xml));
                         if (!empty($attripute) && is_array($attripute)) {
                             foreach ($attripute as $key => $value) {
                                 $this->root->setAttribute($key, $this->string_convert($value));
@@ -165,14 +165,14 @@ class Core_DomXML
 
         if (!$query) {
             $items = $this->xml->getElementsByTagName($tag_name);
-            $this->subroot =& $items->item(0);
+            $this->subroot = $items->item(0);
         } else {
             $xpath = new DOMXPath($this->xml);
 
             if ($xpath->evaluate($tag_name)) {
                 $r = $xpath->query($tag_name);
                 if ($r->item($position)) {
-                    $this->subroot =& $r->item($position);
+                    $this->subroot = $r->item($position);
                 }
             }
         }
@@ -215,12 +215,6 @@ class Core_DomXML
         }
     }
 
-    function set_curent_node()
-    {
-
-    }
-
-
     function go_to_parent()
     {
         $this->subroot =& $this->subroot->parentNode;
@@ -244,7 +238,6 @@ class Core_DomXML
         $param = false;
         $atrib = $elem_para->has_attributes();
         if (!empty($atrib)) {
-            //print_r($elem_para->attributes());
             $atrib = $elem_para->attributes();
             foreach ($atrib as $value) {
                 $param[$value->name] = $value->value;
@@ -275,7 +268,6 @@ class Core_DomXML
     {
         $root = $xml_para->document_element();
         $this->clone_elem($root);
-        //print_r($xml_para);
     }
 
     function clear_child_nodes()
@@ -318,5 +310,3 @@ class Core_DomXML
         if ($change_tree) $this->tag =& $new_Node;
     }
 }
-
-?>
