@@ -1,4 +1,5 @@
-<? require ('core.php');
+<?php
+require ('core.php');
 $cmf= new SCMF('INDEX');
 
 if (!$cmf->GetRights()) {header('Location: login.php'); exit;}

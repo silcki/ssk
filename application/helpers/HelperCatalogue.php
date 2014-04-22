@@ -128,10 +128,7 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
                     $params['lang_id'] = $this->params['langId'];
                     $params['lang'] = $this->params['lang'];
 
-//                    $catHelper = new Core_Controller_Action_Helper_CatHelper($params, $this->anotherPages, $this->catalogue);
-                    $domXml = $this->getItems($cat['CATALOGUE_ID'], $this->params['itemId']);
-
-//                    $this->domXml->appendXML($domXml->getXMLobject());
+                    $this->getItems($cat['CATALOGUE_ID'], $this->params['itemId']);
                 }
 
                 $this->domXml->go_to_parent();

@@ -21,7 +21,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
     /**
      * @var AnotherPages
      */
-    public $AnotherPages;
+    protected $AnotherPages;
 
     public $Article;
     public $Brands;
@@ -44,10 +44,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
     public $template;
     public $work_controller;
     public $work_action;
-    public $pathIDs = array();
-    public $pathMenuIDs = array();
-    public $doc_id = 0;
-    public $catalog_id = 0;
     public $befor_path = array();
     public $after_path = array();
 
@@ -73,8 +69,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->cmf = Zend_Controller_Front::getInstance()->getParam('cmf');
 
         $this->curURI = $this->requestHttp->getRequestUri();
-        $this->curURI = str_replace("/index/index", "", $this->curURI);
-        $this->curURI = str_replace('&', '&amp;', $this->curURI);
 
         preg_match("/\/print\/([^\/]*)/", $this->curURI, $m1);
         if (!empty($m1)) {
@@ -86,7 +80,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
             $this->domXml->set_attribute(array('print' => $this->print));
         }
 
-        $this->domXml->create_element('currentURL', $this->curURI, 1);
+//        $this->domXml->create_element('currentURL', $this->curURI, 1);
         $this->domXml->set_tag('//page', true);
 
         $this->AnotherPages = $this->getServiceManager()->getModel()->getAnotherPages();
@@ -98,6 +92,20 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
 
         $this->refererPhones();
         $this->getSokobamLevels();
+    }
+
+    /**
+     * Disable Renderer.
+     *
+     * @return Core_Controller_Action_Abstract
+     */
+    protected function _disableRender()
+    {
+        if($this->_helper->hasHelper('viewRenderer'))
+        {
+            $this->_helper->viewRenderer->setNoRender(true);
+        }
+        return $this;
     }
 
     public function preDispatch()
@@ -241,27 +249,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->domXml->create_element('get_our_banner', '', 2);
         $this->domXml->import_node($a, true);
         $this->domXml->go_to_parent();
-    }
-
-    /**
-     * Метод для получения ИД страницы(для doc страниц)
-     * @access   public
-     * @param    integer $id
-     * @return   string xml
-     */
-//    public function getDocId($id){
-//       return $this->AnotherPages->getDocId($id);
-//    }
-
-    /**
-     * Метод для получения ИД страницы(для всех остальных страниц)
-     * @access   public
-     * @param    integer $id
-     * @return   string xml
-     */
-    public function getPageId($id)
-    {
-        return $this->AnotherPages->getPageId($id);
     }
 
     /**
@@ -829,7 +816,9 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
 
     private function getSokobamLevels()
     {
-        $levels = $this->AnotherPages->getSokobamLevels();
+        $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
+
+        $levels = $anotherPagesModel->getSokobamLevels();
         if (!empty($levels)) {
             foreach ($levels as $val) {
                 $this->domXml->create_element('sokoban_levels', '', 2);

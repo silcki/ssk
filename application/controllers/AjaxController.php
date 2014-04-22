@@ -1,13 +1,5 @@
 <?php
-
-Zend_Loader::loadClass('Captcha');
-Zend_Loader::loadClass('Mailer');
-
-/**
- * Контроллер для отработки AJAX запросов
- *
- */
-class AjaxController extends CommonBaseController
+class AjaxController extends Core_Controller_Action_Abstract
 {
 
     const TEXT_FEEDBACK_SUBJECT = 'feedback_mail_subject';
@@ -29,26 +21,195 @@ class AjaxController extends CommonBaseController
     const FAQ_TEXT_SUBJECT = 'Оформление заказа';
     const ANOTHER_PAGES_PATH_ADMIN_ORDER = '/cat/orderadmin/';
 
-    /**
-     * Начаьлна инициализация
-     * первым делом отключаем рендеринг
-     *
-     */
-    function init()
+    public function mapsAction()
     {
-        $this->_helper->viewRenderer->setNoRender(true);
-        parent::init();
+        $this->_disableRender();
+
+        $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
+
+        $doc = $anotherPagesModel->getDocXml($this->AnotherPages->getPageId('/index/map/'), 0, $this->lang_id);
+        echo stripslashes($doc);
     }
 
-    /**
-     * Так надо что оно пустой!
-     * Переписываем postDispatch из CommonBaseController чтобы избавиться от рендеринга
-     * через XSLT Этот контроллер работает только с echo - view для него не делаем
-     *
-     */
-    public function postDispatch()
+    public function callbackAction()
     {
-        // TODO: Написать общий обработчик вывода на экран собранных данных. Сейчас это полный бардка - каждый метод что хочет то и товрит!
+        $textesModel = $this->getServiceManager()->getModel()->getTextes();
+        $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
+
+        if ($this->requestHttp->isPost()) {
+            $data['NAME'] = $this->requestHttp->getPost('name');
+            $data['PHONE'] = $this->requestHttp->getPost('phone');
+            $data['CALLBACK_TIME_ID'] = $this->requestHttp->getPost('callback_time_id');
+            $data['DESCRIPTION'] = $this->requestHttp->getPost('description');
+
+            $result = $errors = array();
+            if (empty($data['NAME'])) {
+                $err = $textesModel->getSysText('text_callback_errore_name');
+                $errors[] = $err['DESCRIPTION'];
+            }
+
+            if (empty($data['PHONE'])) {
+                $err = $textesModel->getSysText('text_callback_errore_phone');
+                $errors[] = $err['DESCRIPTION'];
+            }
+
+            if (empty($data['CALLBACK_TIME_ID'])) {
+                $err = $textesModel->getSysText('text_callback_errore_callback_time');
+                $errors[] = $err['DESCRIPTION'];
+            }
+
+            if (empty($errors)) {
+                $time = $anotherPagesModel->getCallbackTimeName($data['CALLBACK_TIME_ID']);
+
+                $message_admin = $anotherPagesModel->getDocXml($anotherPagesModel->getPageId('/callback/'), 0, $this->lang_id);
+                $message_admin = str_replace("##name##", $data['NAME'], $message_admin);
+                $message_admin = str_replace("##phone##", $data['PHONE'], $message_admin);
+                $message_admin = str_replace("##time##", $time, $message_admin);
+                $message_admin = str_replace("##description##", $data['DESCRIPTION'], $message_admin);
+
+                $message_admin = '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
+                    . $message_admin . '</body></html>';
+
+                $subject = $textesModel->getSysText('callback_subject', $this->lang_id);
+
+                $to = $this->getSettingValue('callback_email');
+                if ($to) {
+                    $email_from = $this->getSettingValue('email_from');
+                    $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
+                    preg_match($patrern, $email_from, $arr);
+
+                    $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
+                    $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
+
+                    $params = array_merge($params, $this->getMailTrasportData());
+
+                    $manager_emails_arr = explode(";", $to);
+                    if (!empty($manager_emails_arr)) {
+                        $params['message'] = $message_admin;
+                        $params['subject'] = $subject['DESCRIPTION'];
+
+                        foreach ($manager_emails_arr as $mm) {
+                            $mm = trim($mm);
+                            if (!empty($mm)) {
+                                $params['to'] = $mm;
+                                Core_Controller_Action_Helper_Mailer::send($params);
+                            }
+                        }
+                    }
+                }
+
+                $anotherPagesModel->insertData('CALLBACK', $data);
+
+                $result['status'] = 'ok';
+            } else {
+                $result['status'] = 'fail';
+                $result['errors'] = $errors;
+            }
+
+            $this->_disableRender();
+
+            $this->_helper->json($result);
+        }
+
+        $callback_time = $anotherPagesModel->getCallbackTime($this->lang_id);
+        if (!empty($callback_time)) {
+            foreach ($callback_time as $view) {
+                $this->domXml->create_element('callback_time', '', 2);
+                $this->domXml->set_attribute(array('id' => $view['CALLBACK_TIME_ID']
+                ));
+
+                $this->domXml->create_element('name', $view['NAME']);
+
+                $this->domXml->go_to_parent();
+            }
+        }
+    }
+
+    public function complainAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $data['NAME'] = $request->getPost('name');
+            $data['PHONE'] = $request->getPost('phone');
+            $data['EMAIL'] = $request->getPost('email');
+            $data['DESCRIPTION'] = $request->getPost('description');
+
+            if (empty($data['NAME'])) {
+                $err = $this->Textes->getSysText('text_complain_errore_name');
+                echo $err['DESCRIPTION'];
+                exit;
+            }
+
+            if (empty($data['DESCRIPTION'])) {
+                $err = $this->Textes->getSysText('text_complain_errore_description');
+                echo $err['DESCRIPTION'];
+                exit;
+            }
+
+            $doc_id = $this->AnotherPages->getPageId('/complain/');
+            $letter_xml = $this->AnotherPages->getDocXml($doc_id, 0, $this->lang_id);
+
+            $message_admin = $letter_xml;
+
+            if (!empty($data['NAME'])) {
+                $message_admin = str_replace("##name##", $data['NAME'], $message_admin);
+            } else {
+                $message_admin = str_replace("##name##", '', $message_admin);
+            }
+
+            if (!empty($data['PHONE'])) {
+                $message_admin = str_replace("##phone##", $data['PHONE'], $message_admin);
+            } else {
+                $message_admin = str_replace("##phone##", '', $message_admin);
+            }
+
+            if (!empty($data['EMAIL'])) {
+                $message_admin = str_replace("##email##", $data['EMAIL'], $message_admin);
+            } else {
+                $message_admin = str_replace("##email##", '', $message_admin);
+            }
+
+            if (!empty($data['DESCRIPTION'])) {
+                $message_admin = str_replace("##description##", $data['DESCRIPTION'], $message_admin);
+            } else {
+                $message_admin = str_replace("##description##", '', $message_admin);
+            }
+
+            $message_admin = '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
+                . $message_admin . '</body></html>';
+
+            $subject = $this->Textes->getSysText('complain_subject', $this->lang_id);
+
+            $to = $this->getSettingValue('complain_email');
+            if ($to) {
+                $email_from = $this->getSettingValue('email_from');
+                $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
+                preg_match($patrern, $email_from, $arr);
+
+                $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
+                $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
+
+                $params = array_merge($params, $this->getMailTrasportData());
+
+                $manager_emails_arr = explode(";", $to);
+                if (!empty($manager_emails_arr)) {
+                    $params['message'] = $message_admin;
+                    $params['subject'] = $subject['DESCRIPTION'];
+
+                    foreach ($manager_emails_arr as $mm) {
+                        $mm = trim($mm);
+                        if (!empty($mm)) {
+                            $params['to'] = $mm;
+                            Core_Controller_Action_Helper_Mailer::send($params);
+                        }
+                    }
+                }
+            }
+
+            $this->AnotherPages->insertData('COMPLAIN', $data);
+            echo 1;
+            exit;
+        }
     }
 
     /**
@@ -56,10 +217,11 @@ class AjaxController extends CommonBaseController
      */
     public function validatecaptchaAction()
     {
-        if (Captcha::validateCaptcha(new Zend_Controller_Request_Http()))
+        if (Core_Controller_Action_Helper_Captcha::validateCaptcha(new Zend_Controller_Request_Http())) {
             echo "true";
-        else
+        } else {
             echo "false";
+        }
     }
 
     /**
@@ -74,7 +236,7 @@ class AjaxController extends CommonBaseController
         $returnMessage['result'] = false;
         // Проверяем на валидность каптчу
         // Если не корректна - значит взлом
-        if (!Captcha::validateCaptcha(new Zend_Controller_Request_Http())) {
+        if (!Core_Controller_Action_Helper_Captcha::validateCaptcha(new Zend_Controller_Request_Http())) {
             $returnMessage['text'] = "Не верно введен код картинки";
             echo json_encode($returnMessage);
             return false;
@@ -149,10 +311,8 @@ class AjaxController extends CommonBaseController
             $returnMessage['text'] = "Заказ сохранён, но письмо отправить не удалось - ошибка почтового сервера";
             $returnMessage['result'] = false;
         }
-//        $this->_helper->json($returnMessage);
-        echo json_encode($returnMessage);
 
-//        $this->feedbacksProcess($orderField);
+        $this->_helper->json($returnMessage);
     }
 
     /**
@@ -171,16 +331,6 @@ class AjaxController extends CommonBaseController
             0, $this->lang_id
         );
         $message = str_replace("##item_name##", $orderField['item_name'],$message);
-//        $message .= "<table cellspacing='0' cellpadding='2' border='1'>
-//                    <tbody>
-//                        <tr>
-//                            <th>Наименование товара</th>
-//                        </tr>
-//                        <tr>
-//                            <th>" . $orderField['item_name'] . "</th>
-//                         </tr>
-//                       </tbody>
-//                      </table>";
 
         $subject = $this->Textes->getSysText(self::TEXT_ORDER_ADMIN_SUBJECT, $this->lang_id);
 
@@ -194,9 +344,6 @@ class AjaxController extends CommonBaseController
                 explode(";", $this->getSettingValue(self::EMAIL_MANAGERS)),
                 $subject['DESCRIPTION']
         );
-
-
-//        return $sendResult;
     }
 
     /**
@@ -209,16 +356,6 @@ class AjaxController extends CommonBaseController
         $message = $this->AnotherPages->getDocXml($this->AnotherPages->getPageId(self::ANOTHER_PAGES_PATH_ORDER),
             0, $this->lang_id);
         $message = str_replace("##item_name##", $orderField['item_name'],$message);
-//        $message .= "<table cellspacing='0' cellpadding='2' border='1'>
-//                    <tbody>
-//                        <tr>
-//                            <th>Наименование товара</th>
-//                        </tr>
-//                        <tr>
-//                            <th>" . $orderField['item_name'] . "</th>
-//                         </tr>
-//                       </tbody>
-//                      </table>";
 
         $sendResult = true;
         if (!empty($orderField['email'])) {
@@ -242,7 +379,6 @@ class AjaxController extends CommonBaseController
         $orderField['name'] = "Vasya";
         $orderField['lastname'] = 'Pupkin';
         $orderField['phone'] = '234234234';
-//        $orderField['description'] = 'Descript';
         $orderField['email'] = 'sdfsdf@sdfsdf.ru';
         $orderField['city'] = 'Kharkov';
         $orderField['company'] = 'KVN';
@@ -258,8 +394,8 @@ class AjaxController extends CommonBaseController
             $orderField['catalogue_id'] = $this->_getParam('catalogue');
         }
 
-
         $orderField['faq_text'] = "Текст ФАК";
+
         return $orderField;
     }
 
@@ -501,7 +637,7 @@ class AjaxController extends CommonBaseController
 
 
 
-                Mailer::send($params);
+                Core_Controller_Action_Helper_Mailer::send($params);
             }
         }
         $sendEmail = true;
@@ -509,64 +645,6 @@ class AjaxController extends CommonBaseController
         // Немного бредово - отправится только успешное уведомление последнего письма
         return $sendEmail;
     }
-
-//    private function sendMailToUser($item)
-//    {
-//        $zakaz_id = $this->Catalogue->insertZakaz($this->order);
-//        if (!empty($this->item_id)) {
-//            $zakaz_item = array();
-//
-//            $zakaz_item['ZAKAZ_ID'] = $zakaz_id;
-//            $zakaz_item['CATALOGUE_ID'] = $item['CATALOGUE_ID'];
-//            $zakaz_item['NAME'] = $item['NAME'];
-//            $zakaz_item['ITEM_ID'] = $this->item_id;
-//            $this->Catalogue->insertOrder($zakaz_item);
-//        }
-//
-//        $attach = '';
-//
-//        $table = "<table cellspacing='0' cellpadding='2' border='1'>
-//              <tbody>
-//                  <tr>
-//                      <th>Наименование товара</th>
-//                  </tr>
-//                  <tr>
-//                      <th>" . $item['NAME'] . "</th>
-//                   </tr>
-//                 </tbody>
-//                </table>";
-//
-//        $to = $this->order['EMAIL'];
-//        $subject = 'Оформление заказа';
-//        $doc_id = $this->AnotherPages->getPageId('/cat/order/');
-//        $letter_xml = $this->AnotherPages->getDocXml($doc_id, 0, $this->lang_id);
-//        $message = $letter_xml . $table;
-//        if (!empty($to)) {
-//            $this->sendMail2($to, $message, $subject);
-//        }
-//    }
-    // FEXME: Надо убрать - через контроллер генерация каптчи работает жутко медленно
-//    public function getcapthcaAction()
-//    {
-//        require ROOT_PATH . '/include/captcha/SimpleCaptcha.php';
-//
-//        $captcha = new SimpleCaptcha();
-//
-//        // OPTIONAL Change configuration...
-//        //$captcha->wordsFile = 'words/es.php';
-//        //$captcha->session_var = 'secretword';
-//        //$captcha->imageFormat = 'png';
-//        //$captcha->lineWidth = 3;
-//        //$captcha->scale = 3; $captcha->blur = true;
-//        //$captcha->resourcesPath = "/var/cool-php-captcha/resources";
-//
-//        $captcha->session_var = 'biz_captcha';
-//        $captcha->wordsFile = "words/en.php";
-//
-//        // Image generation
-//        ob_clean();
-//        $captcha->CreateImage();
-//    }
 
     public function sokobanAction()
     {

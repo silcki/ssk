@@ -5,7 +5,7 @@
  *
  * @author Ruslan Bocharov <helcy1@ya.ru>
  */
-class Captcha
+class Core_Controller_Action_Helper_Captcha
 {
 
     const RANDOM_LENGTH = 5;

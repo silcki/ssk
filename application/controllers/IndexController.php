@@ -1,14 +1,9 @@
 <?php
 class IndexController extends Core_Controller_Action_Abstract
 {
-    /**
-     * @var AnotherPages
-     */
-    private $_anotherPages;
-    
-    public function init()
+    public function preDispatch()
     {
-        parent::init();
+        parent::preDispatch();
 
         if ($this->requestHttp->get('play_bool')) {
             $this->domXml->set_tag('//page', true);
@@ -16,7 +11,7 @@ class IndexController extends Core_Controller_Action_Abstract
             $this->domXml->go_to_parent();
         }
 
-        $this->_anotherPages = $this->getServiceManager()->getModel()->getAnotherPages();
+        $this->getSysText();
     }
 
     private function getSysText()
@@ -56,7 +51,7 @@ class IndexController extends Core_Controller_Action_Abstract
             ->setParams($params)
             ->getHeader()
             ->getDocInfo(1)
-            ->getDocXml($this->getPageId('/'), 0, true);
+            ->getDocXml($this->AnotherPages->getPageId('/'), 0, true);
 
         $this->getServiceManager()->getHelper()->getClients()
             ->setParams($params)
@@ -69,13 +64,6 @@ class IndexController extends Core_Controller_Action_Abstract
         $this->getServiceManager()->getHelper()->getNews()
             ->setParams($params)
             ->getIndexNews($news_index_amount);
-    }
-
-    public function mapsAction()
-    {
-        $doc = $this->AnotherPages->getDocXml($this->getPageId('/index/map/'), 0, $this->lang_id);
-        echo stripslashes($doc);
-        exit;
     }
 
     public function voteAction()
@@ -192,203 +180,6 @@ class IndexController extends Core_Controller_Action_Abstract
             ));
 
             $this->domXml->create_element('name', $info['NAME']);
-        }
-    }
-
-    public function callbackAction()
-    {
-
-        if ($this->requestHttp->isPost()) {
-            $data['NAME'] = $this->requestHttp->getPost('name');
-            $data['PHONE'] = $this->requestHttp->getPost('phone');
-            $data['CALLBACK_TIME_ID'] = $this->requestHttp->getPost('callback_time_id');
-            $data['DESCRIPTION'] = $this->requestHttp->getPost('description');
-
-            if (empty($data['NAME'])) {
-                $err = $this->Textes->getSysText('text_callback_errore_name');
-                echo $err['DESCRIPTION'];
-                exit;
-            }
-
-            if (empty($data['PHONE'])) {
-                $err = $this->Textes->getSysText('text_callback_errore_phone');
-                echo $err['DESCRIPTION'];
-                exit;
-            }
-
-            if (empty($data['CALLBACK_TIME_ID'])) {
-                $err = $this->Textes->getSysText('text_callback_errore_callback_time');
-                echo $err['DESCRIPTION'];
-                exit;
-            }
-
-            $time = $this->_anotherPages->getCallbackTimeName($data['CALLBACK_TIME_ID']);
-
-            $doc_id = $this->_anotherPages->getPageId('/callback/');
-            $letter_xml = $this->_anotherPages->getDocXml($doc_id, 0,
-                                                         $this->lang_id);
-
-            $message_admin = $letter_xml;
-
-            if (!empty($data['NAME']))
-                $message_admin = str_replace("##name##", $data['NAME'],
-                                             $message_admin);
-            else
-                $message_admin = str_replace("##name##", '', $message_admin);
-
-            if (!empty($data['PHONE']))
-                $message_admin = str_replace("##phone##", $data['PHONE'],
-                                             $message_admin);
-            else
-                $message_admin = str_replace("##phone##", '', $message_admin);
-
-            if (!empty($time))
-                $message_admin = str_replace("##time##", $time, $message_admin);
-            else
-                $message_admin = str_replace("##time##", '', $message_admin);
-
-            if (!empty($data['DESCRIPTION']))
-                $message_admin = str_replace("##description##",
-                                             $data['DESCRIPTION'],
-                                             $message_admin);
-            else
-                $message_admin = str_replace("##description##", '',
-                                             $message_admin);
-
-            $message_admin = '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
-                    . $message_admin . '</body></html>';
-
-            $subject = $this->Textes->getSysText('callback_subject', $this->lang_id);
-
-            $to = $this->getSettingValue('callback_email');
-            if ($to) {
-                $email_from = $this->getSettingValue('email_from');
-                $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-                preg_match($patrern, $email_from, $arr);
-
-                $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
-                $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
-
-                $params = array_merge($params, $this->getMailTrasportData());
-
-                $manager_emails_arr = explode(";", $to);
-                if (!empty($manager_emails_arr)) {
-                    $params['message'] = $message_admin;
-                    $params['subject'] = $subject['DESCRIPTION'];
-
-                    foreach ($manager_emails_arr as $mm) {
-                        $mm = trim($mm);
-                        if (!empty($mm)) {
-                            $params['to'] = $mm;
-                            Core_Controller_Action_Helper_Mailer::send($params);
-                        }
-                    }
-                }
-            }
-
-            $this->AnotherPages->insertData('CALLBACK', $data);
-            echo 1;
-            exit;
-        }
-
-        $callback_time = $this->AnotherPages->getCallbackTime($this->lang_id);
-        if (!empty($callback_time)) {
-            foreach ($callback_time as $view) {
-                $this->domXml->create_element('callback_time', '', 2);
-                $this->domXml->set_attribute(array('id' => $view['CALLBACK_TIME_ID']
-                ));
-
-                $this->domXml->create_element('name', $view['NAME']);
-
-                $this->domXml->go_to_parent();
-            }
-        }
-    }
-
-    public function complainAction()
-    {
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $data['NAME'] = $request->getPost('name');
-            $data['PHONE'] = $request->getPost('phone');
-            $data['EMAIL'] = $request->getPost('email');
-            $data['DESCRIPTION'] = $request->getPost('description');
-
-            if (empty($data['NAME'])) {
-                $err = $this->Textes->getSysText('text_complain_errore_name');
-                echo $err['DESCRIPTION'];
-                exit;
-            }
-
-            if (empty($data['DESCRIPTION'])) {
-                $err = $this->Textes->getSysText('text_complain_errore_description');
-                echo $err['DESCRIPTION'];
-                exit;
-            }
-
-            $doc_id = $this->_anotherPages->getPageId('/complain/');
-            $letter_xml = $this->_anotherPages->getDocXml($doc_id, 0, $this->lang_id);
-
-            $message_admin = $letter_xml;
-
-            if (!empty($data['NAME'])) {
-                $message_admin = str_replace("##name##", $data['NAME'], $message_admin);
-            } else {
-                $message_admin = str_replace("##name##", '', $message_admin);
-            }
-
-            if (!empty($data['PHONE'])) {
-                $message_admin = str_replace("##phone##", $data['PHONE'], $message_admin);
-            } else {
-                $message_admin = str_replace("##phone##", '', $message_admin);
-            }
-
-            if (!empty($data['EMAIL'])) {
-                $message_admin = str_replace("##email##", $data['EMAIL'], $message_admin);
-            } else {
-                $message_admin = str_replace("##email##", '', $message_admin);
-            }
-
-            if (!empty($data['DESCRIPTION'])) {
-                $message_admin = str_replace("##description##", $data['DESCRIPTION'], $message_admin);
-            } else {
-                $message_admin = str_replace("##description##", '', $message_admin);
-            }
-
-            $message_admin = '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
-                . $message_admin . '</body></html>';
-
-            $subject = $this->Textes->getSysText('complain_subject', $this->lang_id);
-
-            $to = $this->getSettingValue('complain_email');
-            if ($to) {
-                $email_from = $this->getSettingValue('email_from');
-                $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-                preg_match($patrern, $email_from, $arr);
-
-                $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
-                $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
-
-                $params = array_merge($params, $this->getMailTrasportData());
-
-                $manager_emails_arr = explode(";", $to);
-                if (!empty($manager_emails_arr)) {
-                    $params['message'] = $message_admin;
-                    $params['subject'] = $subject['DESCRIPTION'];
-
-                    foreach ($manager_emails_arr as $mm) {
-                        $mm = trim($mm);
-                        if (!empty($mm)) {
-                            $params['to'] = $mm;
-                            Core_Controller_Action_Helper_Mailer::send($params);
-                        }
-                    }
-                }
-            }
-
-            $this->_anotherPages->insertData('COMPLAIN', $data);
-            echo 1;
-            exit;
         }
     }
 
