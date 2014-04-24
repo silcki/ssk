@@ -309,48 +309,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         return $parents;
     }
 
-    protected function getBeforPath()
-    {
-        if ($this->lang_id > 0)
-            $lang = '/' . $this->lang;
-        else
-            $lang = '';
-
-        foreach ($this->befor_path as $view) {
-            $this->domXml->create_element('breadcrumbs', '', 2);
-            $this->domXml->set_attribute(array('id' => 0
-                , 'parent_id' => 0
-            ));
-
-            $href = $view['url'];
-
-            $this->domXml->create_element('name', $view['name']);
-            $this->domXml->create_element('url', $href);
-            $this->domXml->go_to_parent();
-        }
-    }
-
-    protected function getAfterPath()
-    {
-        if ($this->lang_id > 0)
-            $lang = '/' . $this->lang;
-        else
-            $lang = '';
-
-        foreach ($this->after_path as $view) {
-            $this->domXml->create_element('breadcrumbs', '', 2);
-            $this->domXml->set_attribute(array('id' => 0
-                , 'parent_id' => 0
-            ));
-
-            $href = '/' . $view['url'];
-
-            $this->domXml->create_element('name', $view['name']);
-            $this->domXml->create_element('url', $href);
-            $this->domXml->go_to_parent();
-        }
-    }
-
     public function getPath($id)
     {
 //       $parent = $this->Catalogue->getParents($id);
@@ -419,59 +377,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         }
 
         $this->getAfterPath();
-    }
-
-    public function getDocPath($id)
-    {
-        $parent = $this->AnotherPages->getPath($id);
-        if (!empty($parent)) {
-            if ($this->lang_id > 0) {
-                $lang = '/' . $this->lang;
-            } else {
-                $lang = '';
-            }
-
-            $this->getRootPath();
-            $this->getBeforPath();
-
-            foreach ($parent as $view) {
-//                if ($view['PARENT_ID'] > 0 && $view['IS_NODE'] == 0) {
-                if ($view['PARENT_ID'] > 0) {
-                    $this->domXml->create_element('breadcrumbs', '', 2);
-                    $this->domXml->set_attribute(array('id' => $view['ANOTHER_PAGES_ID']
-                        , 'parent_id' => $view['PARENT_ID']
-                    ));
-
-                    $is_lang = false;
-                    if (!empty($view['URL']) && strpos($view['URL'], 'http://') !== false) {
-                        $is_lang = true;
-                        $href = $view['URL'];
-                    } elseif (!empty($view['URL'])) {
-                        $href = $view['URL'];
-                    } elseif (!empty($view['REALCATNAME']) && $view['REALCATNAME'] != '/') {
-                        $is_lang = true;
-                        //           $href = '/doc'.$view['REALCATNAME'];
-                        $href = $view['REALCATNAME'];
-                    } else {
-                        $is_lang = true;
-                        $href = '/doc/' . $view['ANOTHER_PAGES_ID'] . '/';
-                    }
-
-                    $_href = $this->AnotherPages->getSefURLbyOldURL($href);
-                    if (!empty($_href) && $is_lang) {
-                        $href = $lang . $_href;
-                    } elseif (!empty($_href) && !$is_lang) {
-                        $href = $_href;
-                    }
-
-                    $this->domXml->create_element('name', $view['NAME']);
-                    $this->domXml->create_element('url', $href);
-                    $this->domXml->go_to_parent();
-                }
-            }
-
-            $this->getAfterPath();
-        }
     }
 
     public function getGlobalPath()
@@ -632,7 +537,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         return $mailer->Send();
     }
 
-    public function max_post_str()
+    public function getMaxPostStr()
     {
         $upload_max_lit = ini_get('upload_max_filesize');
         $lit = substr($upload_max_lit, -1);

@@ -3,6 +3,7 @@ class HelperSystemTextes extends Core_Controller_Action_Helper_Abstract
 {
     protected static $systemTextes = array(
         'search_text',
+        'print_text',
         'image_map',
         'text_zakaz_callback',
         'text_callback_callback',

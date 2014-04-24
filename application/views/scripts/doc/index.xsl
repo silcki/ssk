@@ -17,7 +17,7 @@
 	<xsl:template match="data">
 		<div class="forprint">
 			<h1>
-				<xsl:value-of select="/page/docinfo/name" disable-output-escaping="yes"/>
+				<xsl:value-of select="docinfo/name" disable-output-escaping="yes"/>
 			</h1>
 			<p id="print">
 				<a title="{/page/print_text}" href="#" onclick="window.print();">

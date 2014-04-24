@@ -1,27 +1,6 @@
 <?php
 class DocController extends Core_Controller_Action_Abstract
 {
-    public $order = array();
-    public $error = array();
-    public $is_post = false;
-
-    public function init()
-    {
-        parent::init();
-
-//        $this->getBanners('banner_feedback_form', 6, 11);
-//
-//        $banner_attach_file = $this->SectionAlign->getBanner(7, 12, $this->lang_id);
-//        if (!empty($banner_attach_file)) {
-//            $banner_attach_file['DESCRIPTION'] = str_replace("##size##",
-//                                                             $this->max_post_str(),
-//                                                             $banner_attach_file['DESCRIPTION']);
-//            $this->getBannerFromVar('banner_attach_file', $banner_attach_file);
-//        }
-
-
-    }
-
     public function preDispatch()
     {
         $docId = $this->getParam('doc_id', null);
@@ -35,6 +14,18 @@ class DocController extends Core_Controller_Action_Abstract
         }
 
         parent::preDispatch();
+
+        $sectionAlignModel = $this->getServiceManager()->getModel()->getSectionAlign();
+
+        $bannerHelper = $this->getServiceManager()->getHelper()->getBanners();
+        $bannerHelper->getBanner('banner_feedback_form', array('align' => 6, 'section' => 11, 'preg' => 1));
+
+        $banner_attach_file = $sectionAlignModel->getBanner(7, 12, $this->lang_id);
+        if (!empty($banner_attach_file)) {
+            $banner_attach_file['DESCRIPTION'] = str_replace("##size##", $this->getMaxPostStr(), $banner_attach_file['DESCRIPTION']);
+
+            $bannerHelper->getBannerFromVar('banner_attach_file', $banner_attach_file);
+        }
 
         $this->getSysText();
     }
@@ -69,66 +60,15 @@ class DocController extends Core_Controller_Action_Abstract
     {
         $docId = $this->getParam('doc_id', null);
 
-        $this->getDocMeta();
-
         $o_data['ap_id'] = $docId;
         $o_data['is_vote'] = '';
         $this->openData($o_data);
 
         $this->domXml->set_tag('//data', true);
 
-        if (!empty($this->order)) {
-            $this->domXml->create_element('was_send', 1, 2);
-            $this->domXml->go_to_parent();
-        }
-
         $this->getServiceManager()->getHelper()->getAnotherPages()
              ->getDocMeta($docId)
-             ->getDocInfo($docId);
-
-        $this->getDocInfo($docId);
+             ->getDocInfo($docId)
+             ->getDocPath($docId);
     }
-
-    /**
-     * Метод для получения информации о странице
-     * @access   public
-     * @param    integer $id
-     * @return   string xml
-     */
-    public function getDocInfo($id)
-    {
-        $info = $this->AnotherPages->getDocInfo($id, $this->lang_id);
-        if ($info) {
-            $this->domXml->set_tag('//data', true);
-
-            $this->domXml->create_element('docinfo', '', 2);
-            $this->domXml->set_attribute(array('another_pages_id' => $info['ANOTHER_PAGES_ID']
-                , 'parent_id' => $info['PARENT_ID']
-                    )
-            );
-
-            $this->domXml->create_element('name', $info['NAME']);
-
-            $this->getDocXml($id, 0, true, $this->lang_id);
-            $this->domXml->go_to_parent();
-
-            $this->getDocPath($info['ANOTHER_PAGES_ID']);
-
-            $this->domXml->set_tag('//data', true);
-            $this->domXml->create_element('sectioninfo', '', 2);
-
-            $image = $this->AnotherPages->getSectionImage($id);
-
-            if (!empty($image) && strchr($image, "#")) {
-                $tmp = split('#', $image);
-                $this->domXml->create_element('image', '', 2);
-                $this->domXml->set_attribute(array('src' => '/images/pg/'.$tmp[0]
-                    , 'w' => $tmp[1]
-                    , 'h' => $tmp[2]
-                ));
-                $this->domXml->go_to_parent();
-            }
-        }
-    }
-
 }

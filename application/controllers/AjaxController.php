@@ -209,8 +209,6 @@ class AjaxController extends Core_Controller_Action_Abstract
         } else {
             echo 'false';
         }
-
-        exit;
     }
 
     /**
@@ -239,10 +237,9 @@ class AjaxController extends Core_Controller_Action_Abstract
         // Если не корректна - значит взлом
         if (!Core_Controller_Action_Helper_Captcha::validateCaptcha(new Zend_Controller_Request_Http())) {
             $returnMessage['text'] = "Не верно введен код картинки";
-            echo json_encode($returnMessage);
-            return false;
         }
-        return true;
+
+        $this->_helper->json($returnMessage);
     }
 
     /**

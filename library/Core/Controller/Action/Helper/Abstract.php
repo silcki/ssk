@@ -153,4 +153,52 @@ class Core_Controller_Action_Helper_Abstract
         $this->domXml->create_element('url', $href);
         $this->domXml->go_to_parent();
     }
+
+    /**
+     * @param array $beforPath
+     */
+    protected function getBeforPath($beforPath)
+    {
+        if (empty($beforPath) || !is_array($beforPath)) {
+            return false;
+        }
+
+        foreach ($beforPath as $view) {
+            $this->domXml->create_element('breadcrumbs', '', 2);
+            $this->domXml->set_attribute(array(
+                'id' => 0 ,
+                'parent_id' => 0
+            ));
+
+            $href = $view['url'];
+
+            $this->domXml->create_element('name', $view['name']);
+            $this->domXml->create_element('url', $href);
+            $this->domXml->go_to_parent();
+        }
+    }
+
+    /**
+     * @param array $afterPath
+     */
+    protected function getAfterPath($afterPath)
+    {
+        if (empty($afterPath) || !is_array($afterPath)) {
+            return false;
+        }
+
+        foreach ($afterPath as $view) {
+            $this->domXml->create_element('breadcrumbs', '', 2);
+            $this->domXml->set_attribute(array(
+                'id' => 0 ,
+                'parent_id' => 0
+            ));
+
+            $href = '/' . $view['url'];
+
+            $this->domXml->create_element('name', $view['name']);
+            $this->domXml->create_element('url', $href);
+            $this->domXml->go_to_parent();
+        }
+    }
 } 

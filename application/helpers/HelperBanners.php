@@ -45,12 +45,18 @@ class HelperBanners extends Core_Controller_Action_Helper_Abstract
     /**
      * Создать узел для указанного банера
      *
-     * @param string $block имя блока
+     * @param string $block      имя блока
+     * @param array  $customData кастомный блок
      */
-    public function getBanner($block)
+    public function getBanner($block, $customData = array())
     {
         try {
-            $value = self::$banners[$block];
+            if (!empty($customData)) {
+                $value = $customData;
+            } else {
+                $value = self::$banners[$block];
+            }
+
         } catch (Exception $e) {
             throw new Exception('Banner block ' .$block. ' not found');
         }
@@ -101,10 +107,12 @@ class HelperBanners extends Core_Controller_Action_Helper_Abstract
 
     /**
      * Метод для получения XML для баннерных мест
-     * @access   public
-     * @param    integer $lang
-     * @param    string $currency
-     * @return   string xml
+     *
+     * @access public
+     * @param  integer $lang
+     * @param  string $currency
+     *
+     * @return $this
      */
     public function getBannerFromVar($block, $banner)
     {
@@ -140,6 +148,8 @@ class HelperBanners extends Core_Controller_Action_Helper_Abstract
 
             $this->domXml->go_to_parent();
         }
+
+        return $this;
     }
 
     /**

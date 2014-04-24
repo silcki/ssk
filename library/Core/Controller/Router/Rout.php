@@ -33,6 +33,10 @@ class Core_Controller_Router_Rout
         $request = new Zend_Controller_Request_Http();
         $uri = $request->getRequestUri();
 
+        if ($uri == '/') {
+            return true;
+        }
+
         $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
 
         $is_page = false;

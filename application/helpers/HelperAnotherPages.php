@@ -100,6 +100,9 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function getHeader()
     {
         $headers = $this->anotherPages->getHeader($this->params['langId']);
@@ -137,6 +140,9 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function getLeftBanners()
     {
         $headers = $this->anotherPages->getLeftBanners($this->params['langId']);
@@ -182,9 +188,9 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
      *
      * @return  $this
      */
-    public function getDocInfo($ap_id)
+    public function getDocInfo($docId)
     {
-        $info = $this->anotherPages->getDocInfo($ap_id, $this->params['langId']);
+        $info = $this->anotherPages->getDocInfo($docId, $this->params['langId']);
         if ($info) {
             $this->domXml->set_tag('//data', true);
 
@@ -196,12 +202,12 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
 
             $this->domXml->create_element('name', $info['NAME']);
 
-            $this->getDocXml(1, 0, true, $this->params['langId']);
+            $this->getDocXml($docId, 0, true, $this->params['langId']);
             $this->domXml->go_to_parent();
 
             $this->domXml->create_element('sectioninfo', '', 2);
 
-            $image = $this->anotherPages->getSectionImage($ap_id);
+            $image = $this->anotherPages->getSectionImage($docId);
 
             if (!empty($image) && strchr($image, "#")) {
                 $tmp = explode('#', $image);
@@ -220,6 +226,8 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
     }
 
     /**
+     * Получить мета описание
+     *
      * @param $ap_id
      *
      * @return $this
@@ -240,6 +248,69 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
             $this->domXml->create_element('keywords', $keyword);
 
             $this->domXml->go_to_parent();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Получить бредкрамбс
+     *
+     * @param int   $id
+     * @param array $beforPath
+     * @param array $afterPath
+     *
+     * @return $this
+     */
+    public function getDocPath($id, $beforPath = array(), $afterPath = array())
+    {
+        $parent = $this->anotherPages->getPath($id);
+        if (!empty($parent)) {
+            $lang = '';
+            if ($this->params['langId'] > 0) {
+                $lang = '/' . $this->params['lang'];
+            }
+
+            $this->getRootPath();
+            $this->getBeforPath($beforPath);
+
+            foreach ($parent as $view) {
+//                if ($view['PARENT_ID'] > 0 && $view['IS_NODE'] == 0) {
+                if ($view['PARENT_ID'] > 0) {
+                    $this->domXml->create_element('breadcrumbs', '', 2);
+                    $this->domXml->set_attribute(array('id' => $view['ANOTHER_PAGES_ID']
+                    , 'parent_id' => $view['PARENT_ID']
+                    ));
+
+                    $is_lang = false;
+                    if (!empty($view['URL']) && strpos($view['URL'], 'http://') !== false) {
+                        $is_lang = true;
+                        $href = $view['URL'];
+                    } elseif (!empty($view['URL'])) {
+                        $href = $view['URL'];
+                    } elseif (!empty($view['REALCATNAME']) && $view['REALCATNAME'] != '/') {
+                        $is_lang = true;
+                        //           $href = '/doc'.$view['REALCATNAME'];
+                        $href = $view['REALCATNAME'];
+                    } else {
+                        $is_lang = true;
+                        $href = '/doc/' . $view['ANOTHER_PAGES_ID'] . '/';
+                    }
+
+                    $_href = $this->anotherPages->getSefURLbyOldURL($href);
+                    if (!empty($_href) && $is_lang) {
+                        $href = $lang . $_href;
+                    } elseif (!empty($_href) && !$is_lang) {
+                        $href = $_href;
+                    }
+
+                    $this->domXml->create_element('name', $view['NAME']);
+                    $this->domXml->create_element('url', $href);
+                    $this->domXml->go_to_parent();
+                }
+            }
+
+            $this->getAfterPath($afterPath);
         }
 
         return $this;
