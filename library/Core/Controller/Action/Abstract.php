@@ -117,7 +117,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $params['curURI'] = $this->curURI;
 
         $this->domXml->set_tag('//page', true);
-        $this->getOurBanner();
 
         $this->getServiceManager()->getHelper()->getLanguages()
             ->setParams($params)
@@ -236,50 +235,35 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->domXml->set_attribute($open_data);
     }
 
-    function getOurBanner()
-    {
-        $a = '';
-//      $a = S_bann(358);
-//      $a = str_replace('&','&amp;',$a);
-//      if($_SERVER["REMOTE_ADDR"]=="91.197.128.114"){
-//        var_dump($a);
-//        exit;
-//      }
-//      $this->setXmlNode($a, 'get_our_banner');
-        $this->domXml->create_element('get_our_banner', '', 2);
-        $this->domXml->import_node($a, true);
-        $this->domXml->go_to_parent();
-    }
-
     /**
      * Метод для получения информации о странице
      * @access   public
      * @param    integer $id
      * @return   string xml
      */
-    public function getDocInfo($id)
-    {
-        $info = $this->AnotherPages->getDocInfo($id, $this->lang_id);
-        if ($info) {
-            $this->domXml->set_tag('//data', true);
-
-            $this->domXml->create_element('sectioninfo', '', 2);
-
-            $image = $this->AnotherPages->getSectionImage($id);
-
-            if (!empty($image) && strchr($image, "#")) {
-                $tmp = explode('#', $image);
-                $this->domXml->create_element('image', '', 2);
-                $this->domXml->set_attribute(array('src' => '/images/pg/'.$tmp[0]
-                    , 'w' => $tmp[1]
-                    , 'h' => $tmp[2]
-                ));
-                $this->domXml->go_to_parent();
-            }
-
-            $this->domXml->go_to_parent();
-        }
-    }
+//    public function getDocInfo($id)
+//    {
+//        $info = $this->AnotherPages->getDocInfo($id, $this->lang_id);
+//        if ($info) {
+//            $this->domXml->set_tag('//data', true);
+//
+//            $this->domXml->create_element('sectioninfo', '', 2);
+//
+//            $image = $this->AnotherPages->getSectionImage($id);
+//
+//            if (!empty($image) && strchr($image, "#")) {
+//                $tmp = explode('#', $image);
+//                $this->domXml->create_element('image', '', 2);
+//                $this->domXml->set_attribute(array('src' => '/images/pg/'.$tmp[0]
+//                    , 'w' => $tmp[1]
+//                    , 'h' => $tmp[2]
+//                ));
+//                $this->domXml->go_to_parent();
+//            }
+//
+//            $this->domXml->go_to_parent();
+//        }
+//    }
 
     /**
      * Метод для получения XML постраничной навигации для новостей
@@ -323,28 +307,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         }
 
         return $parents;
-    }
-
-    protected  function getRootPath()
-    {
-        if ($this->lang_id > 0) {
-            $lang = '/' . $this->lang;
-        } else {
-            $lang = '';
-        }
-
-        $this->domXml->create_element('breadcrumbs', '', 2);
-        $this->domXml->set_attribute(array('id' => 9
-            , 'parent_id' => 0
-        ));
-
-        $href = $lang . '/';
-
-        $textes = $this->Textes->getSysText('page_main', $this->lang_id);
-
-        $this->domXml->create_element('name', $textes['DESCRIPTION']);
-        $this->domXml->create_element('url', $href);
-        $this->domXml->go_to_parent();
     }
 
     protected function getBeforPath()

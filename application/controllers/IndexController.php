@@ -36,10 +36,6 @@ class IndexController extends Core_Controller_Action_Abstract
         $params['langId'] = $this->lang_id;
         $params['lang'] = $this->lang;
 
-        $this->getServiceManager()->getHelper()->getAnotherPages()
-            ->setParams($params)
-            ->getDocMeta(1);
-
         $o_data['id'] = 0;
         $o_data['is_start'] = 1;
         $o_data['is_vote'] = 0;
@@ -50,14 +46,13 @@ class IndexController extends Core_Controller_Action_Abstract
         $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
             ->getHeader()
+            ->getDocMeta(1)
             ->getDocInfo(1)
             ->getDocXml($this->AnotherPages->getPageId('/'), 0, true);
 
         $this->getServiceManager()->getHelper()->getClients()
             ->setParams($params)
             ->getClients();
-
-        $this->getDocInfo(1);
 
         $news_index_amount = $this->getSettingValue('news_index_amount') ? $this->getSettingValue('news_index_amount'):2;
 
@@ -68,22 +63,28 @@ class IndexController extends Core_Controller_Action_Abstract
 
     public function voteAction()
     {
-        $ap_id = $this->AnotherPages->getPageId('/index/vote/');
+        $voprosModel = $this->getServiceManager()->getModel()->getVopros();
 
-        $this->getDocMeta($ap_id);
+        $params['langId'] = $this->lang_id;
+        $params['lang'] = $this->lang;
+
+        $docId = $this->AnotherPages->getPageId('/index/vote/');
 
         $o_data['id'] = 0;
         $o_data['is_vote'] = 1;
         $this->openData($o_data);
 
-        $this->getDocInfo($ap_id);
+        $this->getServiceManager()->getHelper()->getAnotherPages()
+            ->setParams($params)
+            ->getDocMeta($docId)
+            ->getDocInfo($docId);
 
         if ($this->requestHttp->isPost()) {
             $opr = $this->requestHttp->getPost('opr', null);
 
-            $vopros_id = $this->Vopros->getVoprosID($opr);
-            $this->Vopros->voprosUp($vopros_id);
-            $this->Vopros->otvetUp($opr);
+            $vopros_id = $voprosModel->getVoprosID($opr);
+            $voprosModel->voprosUp($vopros_id);
+            $voprosModel->otvetUp($opr);
 
             setcookie("sklad_vote", $vopros_id, time() + 3600 * 24 * 3, "/");
 
@@ -93,9 +94,11 @@ class IndexController extends Core_Controller_Action_Abstract
         $this->befor_path[0]['name'] = 'Архив голосований';
         $this->befor_path[0]['url'] = '';
 
-        $this->getDocPath($ap_id);
+        $this->getDocPath($docId);
 
-        $this->getAllVote();
+        $this->getServiceManager()->getHelper()->getVopros()
+            ->setParams($params)
+            ->getAllVote();
     }
 
     public function clientvoteAction()
@@ -157,7 +160,7 @@ class IndexController extends Core_Controller_Action_Abstract
         }
     }
 
-    function votesuccessAction()
+    public function votesuccessAction()
     {
         $o_data['id'] = 1;
         $o_data['is_start'] = 0;
@@ -181,67 +184,5 @@ class IndexController extends Core_Controller_Action_Abstract
 
             $this->domXml->create_element('name', $info['NAME']);
         }
-    }
-
-    private function getAllVote()
-    {
-        $all_vopros = $this->Vopros->getAllVopros($this->lang_id);
-        if (!empty($all_vopros)) {
-            $this->domXml->set_tag('//data', true);
-            foreach ($all_vopros as $view) {
-                $this->domXml->create_element('resultvopros', '', 2);
-                $this->domXml->set_attribute(array('id' => $view['VOPROS_ID']
-                    , 'count' => $view['COUNT_']
-                ));
-
-                $this->domXml->create_element('name', $view['NAME']);
-                $this->domXml->create_element('data_start', $view['data_start_result']);
-                $this->domXml->create_element('data_stop', $view['data_stop_result']);
-
-                $otvets = $this->Vopros->getOtvets($view['VOPROS_ID'],
-                                                   $this->lang_id);
-                $max_otvet_id = $this->Vopros->getMaxOtvet($view['VOPROS_ID'],
-                                                           $this->lang_id);
-                if (!empty($otvets)) {
-                    foreach ($otvets as $otvetsview) {
-                        $this->domXml->create_element('resultotvets', '', 2);
-
-                        if ($view['COUNT_'] > 0)
-                            $percent = round(($otvetsview['COUNT_'] * 100) / $view['COUNT_'],
-                                             2);
-                        else
-                            $percent = 0;
-
-                        if ($max_otvet_id == $otvetsview['COUNT_'])
-                            $is_max = 1;
-                        else
-                            $is_max = 0;
-
-                        $this->domXml->set_attribute(array('id' => $otvetsview['OTVETS_ID']
-                            , 'percent' => $percent
-                            , 'count' => $otvetsview['COUNT_']
-                            , 'is_max' => $is_max
-                        ));
-
-                        $this->domXml->create_element('name', $otvetsview['NAME']);
-
-                        $this->domXml->go_to_parent();
-                    }
-                }
-                $this->domXml->go_to_parent();
-            }
-        }
-    }
-
-    public function caphainpAction()
-    {
-        $caphainp = $this->requestHttp->getQuery('captcha', null);
-        if ($caphainp == $_SESSION['biz_captcha']) {
-            echo 'true';
-        } else {
-            echo 'false';
-        }
-
-        exit;
     }
 }

@@ -5,8 +5,8 @@
 	<!-- HEAD -->
 	<xsl:template name="title">
 		<xsl:choose>
-			<xsl:when test="//docinfo/title!=''">
-				<xsl:apply-templates select="//docinfo/title"/>
+			<xsl:when test="//doc_meta/title!=''">
+				<xsl:apply-templates select="//doc_meta/title"/>
 			</xsl:when>
 			<xsl:otherwise>СКЛАД СЕРВИС</xsl:otherwise>
 		</xsl:choose>
@@ -15,8 +15,8 @@
 	<xsl:template name="keywords">
 		<xsl:variable name="keywords">
 			<xsl:choose>
-				<xsl:when test="//docinfo/keywords!=''">
-					<xsl:apply-templates select="//docinfo/keywords"/>
+				<xsl:when test="//doc_meta/keywords!=''">
+					<xsl:apply-templates select="//doc_meta/keywords"/>
 				</xsl:when>
 				<xsl:otherwise>СКЛАД СЕРВИС</xsl:otherwise>
 			</xsl:choose>
@@ -40,8 +40,8 @@
 	<xsl:template name="description">
 		<xsl:variable name="description">
 			<xsl:choose>
-				<xsl:when test="//docinfo/description!=''">
-					<xsl:apply-templates select="//docinfo/description"/>
+				<xsl:when test="//doc_meta/description!=''">
+					<xsl:apply-templates select="//doc_meta/description"/>
 				</xsl:when>
 				<xsl:otherwise>СКЛАД СЕРВИС</xsl:otherwise>
 			</xsl:choose>
@@ -690,7 +690,7 @@
 									<xsl:apply-templates select="/page/banner_header_phone1/description"/>
 								</p>
 								<p class="call_holder">
-									<xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/index/callback/" class="callback fancybox.ajax" id="callback">
+									<xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
 										<xsl:value-of select="/page/text_callback_callback"/>
 									</a>
 								</p>

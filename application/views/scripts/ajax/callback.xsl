@@ -27,7 +27,7 @@
 		</div>-->
 		<form class="feedback-form" id="callback-phoneback" action="#" method="post">
 			<fieldset>
-				<div class="errhold"></div>
+				<div class="errhold"><ul></ul></div>
 				<table>
 					<col width="65" />
 					<tr>
@@ -57,7 +57,7 @@
 						</td>
 					</tr>
 				</table>
-				<div class="row"> <a class="btn_send" id="sendphone" href="/index/callback/"><xsl:value-of select="/page/text_callback_send"/></a> </div>
+				<div class="row"> <a class="btn_send" id="sendphone" href="/ajax/callback/"><xsl:value-of select="/page/text_callback_send"/></a> </div>
 			</fieldset>
 		</form>
 	</div>

@@ -9,8 +9,8 @@ class Core_Controller_Router_Rout
     private $_serviceManager;
 
     /**
-     * @param $router
-     * @param Core_ServiceManager $serviceManager
+     * @param Zend_Controller_Router_Interface $router
+     * @param Core_ServiceManager              $serviceManager
      */
     public function __construct($router, $serviceManager)
     {
@@ -20,10 +20,55 @@ class Core_Controller_Router_Rout
 
     public function setRouting()
     {
+        $this->_initChpu();
+
         $this->_initContorollerDefault();
 
         $this->_initAliasingAjax();
-//        $this->_initAliasingDoc();
+        $this->_initAliasingDoc();
+    }
+
+    private function _initChpu()
+    {
+        $request = new Zend_Controller_Request_Http();
+        $uri = $request->getRequestUri();
+
+        $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
+
+        $is_page = false;
+        $page = 1;
+        $pattern_page = '/(.*)page\/(\d*)\//is';
+        preg_match($pattern_page, $uri, $out);
+
+        if (!empty($out[1])) {
+            $is_page = true;
+            $page = $out[2];
+            $request->setRequestUri($out[1]);
+        }
+
+        $urlInfo = parse_url($_SERVER['REQUEST_URI']); // извлекаем части урла в массив
+
+        $sefuByOld = $anotherPagesModel->getSefURLbyOldURL($urlInfo['path']); // получаем ЧПУ-урл на основе старого урла
+
+        if (!empty($sefuByOld)) { // если существует ЧПУ-урл для старого урла, делаем 301 редирект со старого урла на ЧПУ
+            $helper = new Zend_Controller_Action_Helper_Redirector();
+            $helper->setCode(301);
+            $helper->gotoUrlAndExit($sefuByOld);
+
+        } else { // проверяем является ли пришедший урл ЧПУ-урлом из нашей базы
+            $siteURLbySEFU = $anotherPagesModel->getSiteURLbySEFU($urlInfo['path']);
+
+            if (!empty($siteURLbySEFU)) {  // если существует урл сайта для ЧПУ-урла, то формируем $_REQUEST['p_']
+                if ($is_page) {
+                    $siteURLbySEFU.='page/' . $page . '/';
+                }
+
+                $request->setRequestUri($siteURLbySEFU);
+            }
+        }
+
+        $front = Zend_Controller_Front::getInstance();
+        $front->setRequest($request);
     }
 
     /**
@@ -75,10 +120,10 @@ class Core_Controller_Router_Rout
             'doc/(.+)',
             array(
                 'controller' => 'doc',
-                'action' => 'view'
+                'action' => 'index'
             ),
             array(
-                1 => 'n'
+                1 => 'doc_id'
             )
         );
 
@@ -88,11 +133,11 @@ class Core_Controller_Router_Rout
             '(\w{2})/doc/(.+)\.html',
             array(
                 'controller' => 'doc',
-                'action' => 'view'
+                'action' => 'index'
             ),
             array(
                 1 => 'lang',
-                2 => 'n'
+                2 => 'doc_id'
 
             )
         );

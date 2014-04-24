@@ -29,10 +29,10 @@ class Core_Application_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initRouter()
     {
-        $serviceManager= $this->bootstrap('serviceManager');
+        $this->bootstrap('serviceManager');
 
         $router = Zend_Controller_Front::getInstance()->getRouter();
-        $rout = new Core_Controller_Router_Rout($router, $serviceManager);
+        $rout = new Core_Controller_Router_Rout($router, $this->serviceManager);
         $rout->setRouting();
 
         return $rout->getRouter();

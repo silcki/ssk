@@ -128,10 +128,10 @@ $(document).ready(function(){
         if ($.browser.msie){
             var transparentImage = "/i/transparent.gif";
 
-            oImg = $("img[src$=.png]");
-            lImg = $("img[src$=.png]").length;
+            oImg = $("img[src$='.png']");
+            lImg = $("img[src$='.png']").length;
 
-            for (i=0;i<lImg;i++){
+            for (var i=0; i < lImg; i++){
                 srcImg = $(oImg[i]).attr("src");
                 $(oImg[i]).attr({
                     src:transparentImage
@@ -236,53 +236,69 @@ $(document).ready(function(){
         }
     }
 
-    $("#sendphone").live("click", function(event){
+    $("#sendphone").live("click", function(event) {
         event.preventDefault();
-    });
-    $("#sendphone").live("click", function() {
+
         ajaxurl = $(this).attr("href");
-        var phone = $(this).parents("form").serialize();
+        var data = $(this).parents("form").serialize();
         thisBTN = $(this);
 
 
         $('.callback.phoneback').append('<div class="phoneback_back"><div class="phoneback_back_loader">&nbsp;</div></div>');
 
-        $.post(ajaxurl, phone, function(data) {
-            if (data==1) {
-                $('.callback.phoneback').html(callback_mess);
-                setTimeout('$("#fancybox-close").trigger("click")', 7000);
+        $.ajax({
+            url: ajaxurl,
+            type:'POST',
+            dataType:'json',
+            data: data,
+            success: function(data) {
+                if (data.status == 'ok') {
+                    $('.callback.phoneback').html(callback_mess);
+                    setTimeout('$("#fancybox-close").trigger("click")', 7000);
+                } else {
+                    var ul = $(thisBTN).parents("form").find(".errhold ul");
+                    ul.empty();
+
+                    $.each(data.errors, function(key, error){
+                        ul.append('<li>' + error + '</li>');
+                    });
+                }
+                $('.phoneback_back').remove();
+                $('.phoneback_back_loader').remove();
             }
-            else {
-                $(thisBTN).parents("form").find(".errhold").html(data);
-            }
-            $('.phoneback_back').remove();
-            $('.phoneback_back_loader').remove();
-        })
+        });
     });
 
-
-    $("#sendcomplain").live("click", function(event){
+    $("#sendcomplain").live("click", function(event) {
         event.preventDefault();
-    });
-    $("#sendcomplain").live("click", function() {
-        ajaxurl = $(this).attr("href");
-        var phone = $(this).parents("form").serialize();
-        thisBTN = $(this);
 
+        ajaxurl = $(this).attr("href");
+        var data = $(this).parents("form").serialize();
+        thisBTN = $(this);
 
         $('.callback.phoneback.complain').append('<div class="phoneback_back"><div class="phoneback_back_loader">&nbsp;</div></div>');
 
-        $.post(ajaxurl, phone, function(data) {
-            if (data==1) {
-                $('.callback.phoneback.complain').html(complain_mess);
-                setTimeout('$("#fancybox-close").trigger("click")', 7000);
+        $.ajax({
+            url: ajaxurl,
+            type:'POST',
+            dataType:'json',
+            data: data,
+            success: function(data) {
+                if (data.status == 'ok') {
+                    $('.callback.phoneback.complain').html(complain_mess);
+                    setTimeout('$("#fancybox-close").trigger("click")', 7000);
+                } else {
+                    var ul = $(thisBTN).parents("form").find(".errhold ul");
+                    ul.empty();
+
+                    $.each(data.errors, function(key, error){
+                        ul.append('<li>' + error + '</li>');
+                    });
+                }
+                $('.phoneback_back').remove();
+                $('.phoneback_back_loader').remove();
             }
-            else {
-                $(thisBTN).parents("form").find(".errhold").html(data);
-            }
-            $('.phoneback_back').remove();
-            $('.phoneback_back_loader').remove();
-        })
+        });
     });
 
     function popupchickClose() {

@@ -59,6 +59,8 @@ class AjaxController extends Core_Controller_Action_Abstract
             }
 
             if (empty($errors)) {
+                $anotherPagesModel->insertData('CALLBACK', $data);
+
                 $time = $anotherPagesModel->getCallbackTimeName($data['CALLBACK_TIME_ID']);
 
                 $message_admin = $anotherPagesModel->getDocXml($anotherPagesModel->getPageId('/callback/'), 0, $this->lang_id);
@@ -98,8 +100,6 @@ class AjaxController extends Core_Controller_Action_Abstract
                     }
                 }
 
-                $anotherPagesModel->insertData('CALLBACK', $data);
-
                 $result['status'] = 'ok';
             } else {
                 $result['status'] = 'fail';
@@ -127,89 +127,90 @@ class AjaxController extends Core_Controller_Action_Abstract
 
     public function complainAction()
     {
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $data['NAME'] = $request->getPost('name');
-            $data['PHONE'] = $request->getPost('phone');
-            $data['EMAIL'] = $request->getPost('email');
-            $data['DESCRIPTION'] = $request->getPost('description');
+        $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
+        $textesModel = $this->getServiceManager()->getModel()->getTextes();
 
+        if ($this->requestHttp->isPost()) {
+            $data['NAME'] = $this->requestHttp->getPost('name');
+            $data['PHONE'] = $this->requestHttp->getPost('phone');
+            $data['EMAIL'] = $this->requestHttp->getPost('email');
+            $data['DESCRIPTION'] = $this->requestHttp->getPost('description');
+
+            $result = $errors = array();
             if (empty($data['NAME'])) {
-                $err = $this->Textes->getSysText('text_complain_errore_name');
-                echo $err['DESCRIPTION'];
-                exit;
+                $err = $textesModel->getSysText('text_complain_errore_name');
+                $errors[] = $err['DESCRIPTION'];
             }
 
             if (empty($data['DESCRIPTION'])) {
-                $err = $this->Textes->getSysText('text_complain_errore_description');
-                echo $err['DESCRIPTION'];
-                exit;
+                $err = $textesModel->getSysText('text_complain_errore_description');
+                $errors[] = $err['DESCRIPTION'];
             }
 
-            $doc_id = $this->AnotherPages->getPageId('/complain/');
-            $letter_xml = $this->AnotherPages->getDocXml($doc_id, 0, $this->lang_id);
+            if (empty($errors)) {
+                $anotherPagesModel->insertData('COMPLAIN', $data);
 
-            $message_admin = $letter_xml;
+                $doc_id = $anotherPagesModel->getPageId('/complain/');
+                $message_admin = $anotherPagesModel->getDocXml($doc_id, 0, $this->lang_id);
 
-            if (!empty($data['NAME'])) {
                 $message_admin = str_replace("##name##", $data['NAME'], $message_admin);
-            } else {
-                $message_admin = str_replace("##name##", '', $message_admin);
-            }
-
-            if (!empty($data['PHONE'])) {
                 $message_admin = str_replace("##phone##", $data['PHONE'], $message_admin);
-            } else {
-                $message_admin = str_replace("##phone##", '', $message_admin);
-            }
-
-            if (!empty($data['EMAIL'])) {
                 $message_admin = str_replace("##email##", $data['EMAIL'], $message_admin);
-            } else {
-                $message_admin = str_replace("##email##", '', $message_admin);
-            }
-
-            if (!empty($data['DESCRIPTION'])) {
                 $message_admin = str_replace("##description##", $data['DESCRIPTION'], $message_admin);
-            } else {
-                $message_admin = str_replace("##description##", '', $message_admin);
-            }
 
-            $message_admin = '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
-                . $message_admin . '</body></html>';
+                $message_admin = '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
+                    . $message_admin . '</body></html>';
 
-            $subject = $this->Textes->getSysText('complain_subject', $this->lang_id);
+                $subject = $textesModel->getSysText('complain_subject', $this->lang_id);
 
-            $to = $this->getSettingValue('complain_email');
-            if ($to) {
-                $email_from = $this->getSettingValue('email_from');
-                $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-                preg_match($patrern, $email_from, $arr);
+                $to = $this->getSettingValue('complain_email');
+                if ($to) {
+                    $email_from = $this->getSettingValue('email_from');
+                    $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
+                    preg_match($patrern, $email_from, $arr);
 
-                $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
-                $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
+                    $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
+                    $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
 
-                $params = array_merge($params, $this->getMailTrasportData());
+                    $params = array_merge($params, $this->getMailTrasportData());
 
-                $manager_emails_arr = explode(";", $to);
-                if (!empty($manager_emails_arr)) {
-                    $params['message'] = $message_admin;
-                    $params['subject'] = $subject['DESCRIPTION'];
+                    $manager_emails_arr = explode(";", $to);
+                    if (!empty($manager_emails_arr)) {
+                        $params['message'] = $message_admin;
+                        $params['subject'] = $subject['DESCRIPTION'];
 
-                    foreach ($manager_emails_arr as $mm) {
-                        $mm = trim($mm);
-                        if (!empty($mm)) {
-                            $params['to'] = $mm;
-                            Core_Controller_Action_Helper_Mailer::send($params);
+                        foreach ($manager_emails_arr as $mm) {
+                            $mm = trim($mm);
+                            if (!empty($mm)) {
+                                $params['to'] = $mm;
+                                Core_Controller_Action_Helper_Mailer::send($params);
+                            }
                         }
                     }
                 }
+
+                $result['status'] = 'ok';
+            } else {
+                $result['status'] = 'fail';
+                $result['errors'] = $errors;
             }
 
-            $this->AnotherPages->insertData('COMPLAIN', $data);
-            echo 1;
-            exit;
+            $this->_disableRender();
+
+            $this->_helper->json($result);
         }
+    }
+
+    public function caphainpAction()
+    {
+        $caphainp = $this->requestHttp->getQuery('captcha', null);
+        if ($caphainp == $_SESSION['biz_captcha']) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
+
+        exit;
     }
 
     /**

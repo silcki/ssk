@@ -35,10 +35,9 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
     {
         $menu = $this->anotherPages->getTree($parentID, $this->params['langId']);
         if (!empty($menu)) {
+            $lang = '';
             if ($this->params['langId'] > 0) {
                 $lang = '/' . $this->params['lang'];
-            } else {
-                $lang = '';
             }
 
             foreach ($menu as $view) {
@@ -177,9 +176,11 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
 
     /**
      * Метод для получения информации о странице
+     *
      * @access   public
      * @param    integer $id
-     * @return   string xml
+     *
+     * @return  $this
      */
     public function getDocInfo($ap_id)
     {
@@ -218,12 +219,16 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
         return $this;
     }
 
+    /**
+     * @param $ap_id
+     *
+     * @return $this
+     */
     public function getDocMeta($ap_id)
     {
         $info = $this->anotherPages->getDocInfo($ap_id, $this->params['langId']);
         if ($info) {
-
-            $this->domXml->create_element('docinfo', '', 2);
+            $this->domXml->create_element('doc_meta', '', 2);
             $this->domXml->create_element('title', $info['TITLE']);
 
             $descript = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;", $info['DESCRIPTION']);

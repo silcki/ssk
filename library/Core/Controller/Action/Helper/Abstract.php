@@ -132,4 +132,25 @@ class Core_Controller_Action_Helper_Abstract
 
         return "<a " . $matches[1] . " href=\"" . $matches[2] . "\"";
     }
+
+    protected  function getRootPath()
+    {
+        $lang = '';
+        if ($this->params['langId'] > 0) {
+            $lang = '/' . $this->params['lang'];
+        }
+
+        $this->domXml->create_element('breadcrumbs', '', 2);
+        $this->domXml->set_attribute(array('id' => 9
+        , 'parent_id' => 0
+        ));
+
+        $href = $lang . '/';
+
+        $textes = $this->getServiceManager()->getModel()->getTextes()->getSysText('page_main', $this->params['langId']);
+
+        $this->domXml->create_element('name', $textes['DESCRIPTION']);
+        $this->domXml->create_element('url', $href);
+        $this->domXml->go_to_parent();
+    }
 } 

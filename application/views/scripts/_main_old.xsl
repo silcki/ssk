@@ -695,7 +695,7 @@
 									<xsl:apply-templates select="/page/banner_header_phone1/description"/>
 								</p>
 								<p class="call_holder">
-									<xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/index/callback/" class="callback fancybox.ajax" id="callback">
+									<xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
 										<xsl:value-of select="/page/text_callback_callback"/>
 									</a>
 								</p>

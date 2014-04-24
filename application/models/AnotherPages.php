@@ -449,46 +449,33 @@ class AnotherPages extends Core_Connect
 
     public function getSefURLbyOldURL($oldURL)
     {
-//      $oldURL = preg_replace("/\/$/", "", $oldURL); // СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёР№ СЃР»СЌС€
         $oldURL = str_replace("&amp;", "&", $oldURL);
         $oldURL = str_replace("&", "&amp;", $oldURL);
 
-//      $this->_db->getProfiler()->setEnabled(true);
-        // FEXME: Не рабочий
-//        $sql = "select S.SEF_URL
-//              from OLD_SEF_URL O join SEF_SITE_URL S using (SEF_SITE_URL_ID)
-//              where O.NAME rlike '^$oldURL.?$'";
-
         $sql = "select S.SEF_URL
-              from OLD_SEF_URL O join SEF_SITE_URL S using (SEF_SITE_URL_ID)
-              where O.NAME = '$oldURL'";
-              
-//        $resultURL = $this->_db->fetchOne($sql);
-//      $query = $this->_db->getProfiler()->getLastQueryProfile();
-//      echo $query->getQuery();
-//      exit;
+                from OLD_SEF_URL O join SEF_SITE_URL S using (SEF_SITE_URL_ID)
+                where O.NAME = '$oldURL'";
 
-        return  str_replace('&amp;', '&', $this->_db->fetchOne($sql));
-//        return $resultURL;
+
+        return str_replace('&amp;', '&', $this->_db->fetchOne($sql));
     }
 
     public function getSiteURLbySEFU($sefURL)
     {
-        $sefURL = preg_replace("/\/$/", "", $sefURL); // СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёР№ СЃР»СЌС€
+        $sefURL = preg_replace("/\/$/", "", $sefURL);
         $sefURL = str_replace('&amp;', '&', $sefURL);
         $sefURL = str_replace('&', '&amp;', $sefURL);
         $sefURLDecode = urldecode($sefURL);
-        $sefURL = mysql_escape_string($sefURL);
-        $sefURLDecode = mysql_escape_string($sefURLDecode);
+        $sefURL = mysql_real_escape_string($sefURL);
+        $sefURLDecode = mysql_real_escape_string($sefURLDecode);
+
         $sql = "select SITE_URL 
                 from SEF_SITE_URL 
                 where SEF_URL rlike '^{$sefURL}.?$' 
                    or SEF_URL rlike '^$sefURLDecode.?$'
                 order by SEF_SITE_URL_ID desc";
-//      echo $sql;die;
-//      exit;
-        $res = $this->_db->fetchOne($sql);
-        return $res;
+
+        return $this->_db->fetchOne($sql);
     }
 
     /**

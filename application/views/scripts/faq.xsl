@@ -37,7 +37,7 @@ $().ready(function() {
 		rules: {
 			captcha: {
 				required: true,
-				remote: "/index/caphainp/"
+				remote: "/ajax/caphainp/"
 			},
 			name: {
 				required: true,

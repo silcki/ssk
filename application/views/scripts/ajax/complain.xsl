@@ -9,7 +9,7 @@
 		</div>-->
 		<form class="feedback-form" id="complain-phoneback" action="#" method="post">
 			<fieldset>
-				<div class="errhold"></div>
+				<div class="errhold"><ul></ul></div>
 				<table>
 					<col width="65" />
 					<tr>
@@ -37,7 +37,7 @@
 						</td>
 					</tr>
 				</table>
-				<div class="row"> <a class="btn_send" id="sendcomplain" href="/index/complain/"><xsl:value-of select="/page/text_complain_send"/></a> </div>
+				<div class="row"> <a class="btn_send" id="sendcomplain" href="/ajax/complain/"><xsl:value-of select="/page/text_complain_send"/></a> </div>
 			</fieldset>
 		</form>
 	</div>
