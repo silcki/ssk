@@ -133,7 +133,10 @@ class Core_Controller_Action_Helper_Abstract
         return "<a " . $matches[1] . " href=\"" . $matches[2] . "\"";
     }
 
-    protected  function getRootPath()
+    /**
+     * Создать ссылку на коренб сайта в бредкрамбе
+     */
+    public function getRootPath()
     {
         $lang = '';
         if ($this->params['langId'] > 0) {

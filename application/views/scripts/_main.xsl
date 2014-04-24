@@ -424,6 +424,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
 	<xsl:template match="banner_left_page|banner_left_side_menu|banner_left_side">
 		<xsl:variable name="target">
 			<xsl:choose>
@@ -516,6 +517,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
 	<xsl:template match="vopros">
 		<div>
 			<xsl:choose>

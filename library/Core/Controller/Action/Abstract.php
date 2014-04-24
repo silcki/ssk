@@ -16,25 +16,17 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
      */
     public $lang_id;
 
-    public $base;
-
     /**
      * @var AnotherPages
      */
     protected $AnotherPages;
 
-    public $Article;
     public $Brands;
-    public $Clients;
-
     public $SystemSets;
     public $GoodsGroup;
-    public $SectionAlign;
     public $Item;
     public $Textes;
     public $Gallery;
-
-    public $News;
 
     private $print;
 
@@ -44,8 +36,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
     public $template;
     public $work_controller;
     public $work_action;
-    public $befor_path = array();
-    public $after_path = array();
 
     /**
      * @var Core_ServiceManager
@@ -85,10 +75,10 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
 
         $this->AnotherPages = $this->getServiceManager()->getModel()->getAnotherPages();
 
-        if ($this->print) {
-            $this->getSysText('print_top_right_text');
-            $this->domXml->create_element('referer', $_SERVER['SERVER_NAME'], 1);
-        }
+//        if ($this->print) {
+//            $this->getSysText('print_top_right_text');
+//            $this->domXml->create_element('referer', $_SERVER['SERVER_NAME'], 1);
+//        }
 
         $this->refererPhones();
         $this->getSokobamLevels();
@@ -140,7 +130,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
 
         $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
-            ->initPathIDs($this->_getParam('doc_id', null))
+            ->initPathIDs($this->getParam('doc_id', null))
             ->getLeftBanners()
             ->makeMenu(1);
 
@@ -152,7 +142,11 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->getServiceManager()->getHelper()->getVopros()
             ->setParams($params)
             ->getVopros($siteVote);
+
+        $this->_getSysText();
     }
+
+    protected function _getSysText(){}
 
     private function initLangs()
     {
@@ -235,53 +229,73 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->domXml->set_attribute($open_data);
     }
 
-    /**
-     * Метод для получения информации о странице
-     * @access   public
-     * @param    integer $id
-     * @return   string xml
-     */
-//    public function getDocInfo($id)
-//    {
-//        $info = $this->AnotherPages->getDocInfo($id, $this->lang_id);
-//        if ($info) {
-//            $this->domXml->set_tag('//data', true);
-//
-//            $this->domXml->create_element('sectioninfo', '', 2);
-//
-//            $image = $this->AnotherPages->getSectionImage($id);
-//
-//            if (!empty($image) && strchr($image, "#")) {
-//                $tmp = explode('#', $image);
-//                $this->domXml->create_element('image', '', 2);
-//                $this->domXml->set_attribute(array('src' => '/images/pg/'.$tmp[0]
-//                    , 'w' => $tmp[1]
-//                    , 'h' => $tmp[2]
-//                ));
-//                $this->domXml->go_to_parent();
-//            }
-//
-//            $this->domXml->go_to_parent();
-//        }
-//    }
-
-    /**
-     * Метод для получения XML постраничной навигации для новостей
-     * @access   public
-     * @param    integer $group
-     * @param    integer $page
-     * @param    integer $pageSize
-     * @return   string xml
-     */
-    public function makeSectionInfo($group, $page, $pageSize)
+    public function makeSectionInfo($count, $page, $pageSize, $fileName)
     {
-        $sectionInfo = $this->News->makeSectionInfo($group, $page, $pageSize);
+        $sectionInfo['pcount'] = ceil($count / $pageSize);
+        $sectionInfo['count'] = $count;
+
         $this->domXml->set_tag('//page/data', true);
         $this->domXml->create_element('section', '', 2);
+        $cntMiddlePages = 7;
+        $cntRightLeft = 3;
+
+        list($relPrev, $relNext) = $this->getNexrPrevRel($page, $sectionInfo['pcount'], $fileName);
+
+        if ($sectionInfo['pcount'] > $cntMiddlePages) {
+            $prev = $page - $cntRightLeft;
+            if ($prev < 1) {
+                $start_number = 1;
+            } elseif (($sectionInfo['pcount'] - $prev) < $cntMiddlePages - 1) {
+                $start_number = $sectionInfo['pcount'] - $cntMiddlePages - 1;
+            } else {
+                $start_number = $prev;
+            }
+
+
+            //$last = $start_number + 10;
+            $last = $start_number + $cntRightLeft;
+            if ($last > $sectionInfo['pcount'])
+                $last = $sectionInfo['pcount'];
+
+            $pages = array();
+            for ($i = $start_number; $i <= $last; $i++)
+                $pages[] = $i;
+
+            $first_pages = array();
+            if ($prev > 1)
+                $first_pages[] = '1';
+            if ($prev > 2)
+                $first_pages[] = '2';
+            if ($prev > 3)
+                $first_pages[] = '3';
+
+            for ($i = 0; $i < sizeof($first_pages); $i++) {
+                if (!in_array($first_pages[$i], $pages)) {
+                    $this->domXml->create_element('first_pages', '', 2);
+                    $this->domXml->create_element('fpg', $first_pages[$i]);
+                    $this->domXml->go_to_parent();
+                }
+            }
+
+            $last_pages = array($sectionInfo['pcount'] - 2, $sectionInfo['pcount'] - 1, $sectionInfo['pcount']);
+
+            for ($i = 0; $i < sizeof($last_pages); $i++) {
+                if (!in_array($last_pages[$i], $pages)) {
+                    $this->domXml->create_element('last_pages', '', 2);
+                    $this->domXml->create_element('index', $i);
+                    $this->domXml->create_element('lpg', $last_pages[$i]);
+                    $this->domXml->go_to_parent();
+                }
+            }
+        }
         $this->domXml->set_attribute(array('count' => $sectionInfo['count']
-            , 'page' => $sectionInfo['page']
-            , 'pcount' => $sectionInfo['pcount']
+        , 'page' => $page
+        , 'pcount' => $sectionInfo['pcount']
+        , 'sortId' => ''
+        , 'rel_prev' => $relPrev
+        , 'rel_next' => $relNext
         ));
+        $this->domXml->go_to_parent();
     }
 
     /**

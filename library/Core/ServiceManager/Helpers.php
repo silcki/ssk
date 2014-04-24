@@ -32,6 +32,16 @@ class Core_ServiceManager_Helpers extends Core_ServiceManager_Abstract
     }
 
     /**
+     * Получить помощника HelperArticles
+     *
+     * @return HelperArticles
+     */
+    public function getArticles()
+    {
+        return $this->getHelper('HelperArticles');
+    }
+
+    /**
      * Получить помощника HelperBanners
      *
      * @return HelperBanners

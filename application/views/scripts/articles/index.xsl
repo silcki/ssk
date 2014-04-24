@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 	<!-- Catalog -->
 	<xsl:template match="articles">
@@ -39,10 +39,10 @@
 
 <xsl:template match="data">
 	<div class="forprint">
-		<h1><xsl:value-of select="/page/docinfo/name"  disable-output-escaping="yes"/></h1>
+		<h1><xsl:value-of select="docinfo/name"  disable-output-escaping="yes"/></h1>
 	</div>
 	<div class="text">
-		<xsl:apply-templates select="/page/docinfo/txt"/>
+		<xsl:apply-templates select="docinfo/txt"/>
 	</div>
 	<ul class="catnews">
 		<xsl:if test="@article_id &gt; 0"><li><a href="{/page/lang_name}/articles/"><xsl:value-of select="/page/all_articles" /></a></li></xsl:if>

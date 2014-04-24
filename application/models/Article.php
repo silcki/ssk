@@ -26,7 +26,7 @@ class Article extends Core_Connect
         return $this->_db->fetchAll($sql);
     }
 
-    public function getArticleCount($article_group_id)
+    public function getArticleCount($article_group_id = 0)
     {
         $where = '';
         if (!empty($article_group_id))

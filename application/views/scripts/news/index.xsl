@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 	<!-- Catalog -->
 	<xsl:template match="news">
@@ -28,7 +28,7 @@
 	
 <xsl:template name="section_url">
 	<xsl:choose>
-		<xsl:when test="//data/@news_id &gt; 0"><xsl:apply-templates select="/page/lang_name"/>/news/all/n/<xsl:apply-templates select="/page/data/@news_id"/>/</xsl:when>
+		<xsl:when test="//data/@news_id &gt; 0"><xsl:apply-templates select="/page/lang_name"/>/news/n/<xsl:apply-templates select="/page/data/@news_id"/>/</xsl:when>
 		<xsl:otherwise><xsl:apply-templates select="/page/lang_name"/><xsl:value-of select="//data/@file_name"/></xsl:otherwise>
 	</xsl:choose>		
 </xsl:template>
@@ -54,10 +54,10 @@
 	</div>-->
 	<!--<p id="print"><a href="#">Печать</a></p>-->
 	<div class="forprint">
-		<h1><xsl:value-of select="/page/docinfo/name"  disable-output-escaping="yes"/></h1>
+		<h1><xsl:value-of select="docinfo/name"  disable-output-escaping="yes"/></h1>
 	</div>
 	<div class="text">
-		<xsl:apply-templates select="/page/docinfo/txt"/>
+		<xsl:apply-templates select="docinfo/txt"/>
 	</div>
 	<ul class="catnews">
 		<xsl:if test="@news_id &gt; 0"><li><a href="{/page/lang_name}/news/"><xsl:value-of select="/page/all_news" /></a></li></xsl:if>

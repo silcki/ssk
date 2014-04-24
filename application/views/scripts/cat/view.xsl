@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 	<!-- Catalog -->
 	<xsl:template match="catalogue" mode="sub">
 		<li><a href="{url}"><xsl:value-of select="name"/></a></li>
 	</xsl:template>
-	
-	<xsl:template match="catalogue">
-		<xsl:variable name="cid">
-			<xsl:value-of select="@catalogue_id"/>
-		</xsl:variable>
+
+	<xsl:template match="cattree" mode="catview">
+		<xsl:param name="ccount"/>
+		<xsl:variable name="pos" select="$ccount + position() + 1"/>
 		<li>
-			<xsl:if test="(position()-2) mod 3=0">
+			<xsl:if test="$pos mod 3=0">
 				<xsl:attribute name="class">midle</xsl:attribute>
 			</xsl:if>
 			<a href="{url}">
 				<xsl:if test="image1/@src!=''">
 					<img src="/images/cat/{image1/@src}" alt="{name}" width="{image1/@w}" height="{image1/@h}"/>
+				</xsl:if>
+				<span><xsl:value-of select="name" disable-output-escaping="yes"/></span>
+			</a>
+		</li>
+	</xsl:template>
+	
+	<xsl:template match="items">	
+		<li>
+			<xsl:if test="(position()-2) mod 3=0">
+				<xsl:attribute name="class">midle</xsl:attribute>
+			</xsl:if>
+			<a href="{url}">
+				<xsl:if test="image/@src!=''">
+					<img src="/images/it/{image/@src}" alt="{name}" width="{image/@w}" height="{image/@h}"/>
 				</xsl:if>
 				<span><xsl:value-of select="name" disable-output-escaping="yes"/></span>
 			</a>
@@ -34,26 +47,24 @@
 	</xsl:template>
 	<!-- Catalog -->
 	
-	<xsl:template match="catalog_article">
-		<div class="news">
-			<p class="date"><xsl:value-of select="date"/></p>
-			<p class="text"><a href="{url}"><xsl:value-of select="name"/></a></p>
-		</div>
-	</xsl:template>
-
 <xsl:template match="data">
-	<!--<p id="print"><a href="#">Печать</a></p>-->
 	<div class="forprint">
-		<h1><xsl:value-of select="//docinfo/name" disable-output-escaping="yes"/></h1>
+		<h1><xsl:value-of select="//catinfo/name" disable-output-escaping="yes"/></h1>
 	</div>
 	<ul class="catalog">
-		<xsl:apply-templates select="catalogue" />
+		<xsl:variable name="pid" select="@cat_id"/>		
+		<xsl:apply-templates select="itemnode/items"/>		
+		<xsl:apply-templates select="//cattree[@parent_id=$pid]" mode="catview">
+			<xsl:with-param name="ccount" select="count(itemnode/items)"/>
+		</xsl:apply-templates>
 	</ul>
-	<xsl:if test="txt!=''">
+	
+	<xsl:if test="itemnode/txt!=''">
 		<div class="text" style="clear: both;">
-			<xsl:apply-templates select="txt" />
+			<xsl:apply-templates select="itemnode/txt" />
 		</div>
 	</xsl:if>
-</xsl:template>
+	
+</xsl:template>	
 
 </xsl:stylesheet>

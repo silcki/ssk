@@ -1,17 +1,10 @@
 <?php
-
-class MenuHelper
+class Core_Controller_Action_Helper_Menu
 {
-
-    private $AnotherPages;
     private $domXml;
 
     public function __construct($domXml)
     {
-        Zend_Loader::loadClass('AnotherPages');
-
-        $this->AnotherPages = new AnotherPages();
-
         $this->domXml = $domXml;
     }
 
@@ -32,6 +25,8 @@ class MenuHelper
                 $value->setAttribute((string) $attrName, (string) $attrValue);
             }
         }
+
+        return $this->domXml;
     }
 
 }

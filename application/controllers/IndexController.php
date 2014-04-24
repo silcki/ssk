@@ -10,11 +10,9 @@ class IndexController extends Core_Controller_Action_Abstract
             $this->domXml->set_attribute(array('play_bool' => 1));
             $this->domXml->go_to_parent();
         }
-
-        $this->getSysText();
     }
 
-    private function getSysText()
+    protected function _getSysText()
     {
         $textes = array(
             'page_main',
@@ -52,7 +50,7 @@ class IndexController extends Core_Controller_Action_Abstract
 
         $this->getServiceManager()->getHelper()->getClients()
             ->setParams($params)
-            ->getClients();
+            ->getIndexClients();
 
         $news_index_amount = $this->getSettingValue('news_index_amount') ? $this->getSettingValue('news_index_amount'):2;
 

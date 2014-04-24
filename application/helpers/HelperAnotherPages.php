@@ -22,8 +22,10 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
      */
     public function initPathIDs($docId)
     {
-        $this->_pathMenuIDs = $this->anotherPages->getParents($docId);
-        $this->_pathMenuIDs[count($this->_pathMenuIDs)] = $docId;
+        if (empty($this->_pathMenuIDs)) {
+            $this->_pathMenuIDs = $this->anotherPages->getParents($docId);
+            $this->_pathMenuIDs[count($this->_pathMenuIDs)] = $docId;
+        }
 
         return $this;
     }
@@ -228,16 +230,22 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
     /**
      * Получить мета описание
      *
-     * @param $ap_id
+     * @param int    $docId
+     * @param string $titleAdd
      *
      * @return $this
      */
-    public function getDocMeta($ap_id)
+    public function getDocMeta($docId, $titleAdd = null)
     {
-        $info = $this->anotherPages->getDocInfo($ap_id, $this->params['langId']);
+        $info = $this->anotherPages->getDocInfo($docId, $this->params['langId']);
         if ($info) {
+            $title = $info['TITLE'];
+            if (!is_null($titleAdd)) {
+                $title.= $titleAdd;
+            }
+
             $this->domXml->create_element('doc_meta', '', 2);
-            $this->domXml->create_element('title', $info['TITLE']);
+            $this->domXml->create_element('title', $title);
 
             $descript = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;", $info['DESCRIPTION']);
             $descript = preg_replace("/\"/", "&#171;", $descript);

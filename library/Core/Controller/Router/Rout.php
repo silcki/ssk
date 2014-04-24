@@ -26,6 +26,8 @@ class Core_Controller_Router_Rout
 
         $this->_initAliasingAjax();
         $this->_initAliasingDoc();
+        $this->_initAliasingNews();
+        $this->_initAliasingArticles();
     }
 
     private function _initChpu()
@@ -47,10 +49,10 @@ class Core_Controller_Router_Rout
         if (!empty($out[1])) {
             $is_page = true;
             $page = $out[2];
-            $request->setRequestUri($out[1]);
+            $uri = $out[1];
         }
 
-        $urlInfo = parse_url($_SERVER['REQUEST_URI']); // извлекаем части урла в массив
+        $urlInfo = parse_url($uri); // извлекаем части урла в массив
 
         $sefuByOld = $anotherPagesModel->getSefURLbyOldURL($urlInfo['path']); // получаем ЧПУ-урл на основе старого урла
 
@@ -151,5 +153,101 @@ class Core_Controller_Router_Rout
 // $values3 = $routed_lang->match('/en/doc/prodvizhenie-sajtov.html');
 // print_r($values3);
 // exit;
+    }
+
+    private function _initAliasingNews() {
+
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'news/page/(\d+)',
+            array(
+                'controller' => 'news',
+                'action' => 'index'
+            ),
+            array(
+                1 => 'page'
+            )
+        );
+
+        $this->_router->addRoute('news', $routed);
+
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'news/view/n/(\d+)',
+            array(
+                'controller' => 'news',
+                'action' => 'view'
+            ),
+            array(
+                1 => 'n'
+            )
+        );
+
+        $this->_router->addRoute('news_view', $routed);
+
+        $routed_lang = new Zend_Controller_Router_Route_Regex(
+            '(\w{2})/news/view/n/(\d+)',
+            array(
+                'controller' => 'news',
+                'action' => 'view'
+            ),
+            array(
+                1 => 'lang',
+                2 => 'n'
+
+            )
+        );
+
+        $this->_router->addRoute('news_view_multilingual', $routed_lang);
+
+//         $values3 = $routed->match('/news/view/n/123/');
+//         print_r($values3);
+//         exit;
+    }
+
+    private function _initAliasingArticles() {
+
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'articles/page/(\d+)',
+            array(
+                'controller' => 'articles',
+                'action' => 'index'
+            ),
+            array(
+                1 => 'page'
+            )
+        );
+
+        $this->_router->addRoute('articles', $routed);
+
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'articles/view/n/(\d+)',
+            array(
+                'controller' => 'articles',
+                'action' => 'view'
+            ),
+            array(
+                1 => 'n'
+            )
+        );
+
+        $this->_router->addRoute('articles_view', $routed);
+
+        $routed_lang = new Zend_Controller_Router_Route_Regex(
+            '(\w{2})/articles/view/n/(\d+)',
+            array(
+                'controller' => 'news',
+                'action' => 'view'
+            ),
+            array(
+                1 => 'lang',
+                2 => 'n'
+
+            )
+        );
+
+        $this->_router->addRoute('articles_view_multilingual', $routed_lang);
+
+//         $values3 = $routed->match('/news/view/n/123/');
+//         print_r($values3);
+//         exit;
     }
 } 

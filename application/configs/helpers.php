@@ -1,6 +1,7 @@
 <?php
 return array(
     'HelperAnotherPages',
+    'HelperArticles',
     'HelperBanners',
     'HelperCatalogue',
     'HelperClients',

@@ -26,11 +26,9 @@ class DocController extends Core_Controller_Action_Abstract
 
             $bannerHelper->getBannerFromVar('banner_attach_file', $banner_attach_file);
         }
-
-        $this->getSysText();
     }
 
-    private function getSysText()
+    protected function _getSysText()
     {
         $textes = array(
             'page_main',
@@ -58,6 +56,9 @@ class DocController extends Core_Controller_Action_Abstract
 
     public function indexAction()
     {
+        $params['langId'] = $this->lang_id;
+        $params['lang'] = $this->lang;
+
         $docId = $this->getParam('doc_id', null);
 
         $o_data['ap_id'] = $docId;
@@ -67,6 +68,7 @@ class DocController extends Core_Controller_Action_Abstract
         $this->domXml->set_tag('//data', true);
 
         $this->getServiceManager()->getHelper()->getAnotherPages()
+             ->setParams($params)
              ->getDocMeta($docId)
              ->getDocInfo($docId)
              ->getDocPath($docId);

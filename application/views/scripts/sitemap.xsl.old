@@ -137,7 +137,7 @@
 	<xsl:if test="count(news_group) &gt; 0">
 		<ul class="map">		
 			<li>
-				<a href="{/page/lang_name}/news/all/"><xsl:value-of select="/page/sitemap_news"/></a>
+				<a href="{/page/lang_name}/news/"><xsl:value-of select="/page/sitemap_news"/></a>
 				<ul>
 					<xsl:apply-templates select="news_group"/>
 				</ul>

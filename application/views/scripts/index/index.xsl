@@ -132,7 +132,7 @@
 			<xsl:apply-templates select="//data/news"/>
 		</ul>
 
-		<xsl:apply-templates select="/page/index_under_news/description"/>
+		<xsl:apply-templates select="//index_under_news/description"/>
 
 	<!--</div>-->
 </xsl:template>
