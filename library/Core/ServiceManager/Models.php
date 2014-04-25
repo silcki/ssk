@@ -112,16 +112,6 @@ class Core_ServiceManager_Models extends Core_ServiceManager_Abstract
     }
 
     /**
-     * Получить модель Guestbook
-     *
-     * @return Guestbook
-     */
-    public function getGuestbook()
-    {
-        return $this->getModel('Guestbook');
-    }
-
-    /**
      * Получить модель News
      *
      * @return News

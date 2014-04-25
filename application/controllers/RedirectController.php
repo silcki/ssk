@@ -1,31 +1,20 @@
 <?php
 
-class RedirectController extends CommonBaseController
+class RedirectController extends Zend_Controller_Action
 {
-
-    function init()
+    public function indexAction()
     {
-        parent::init();
-
-        Zend_Controller_Front::getInstance()->getRequest()->setActionName('all');
-    }
-
-    public function allAction()
-    {
-        $url = '';
-        if ($this->_hasParam('url'))
-            $url = $this->_getParam('url');
+        $url = $this->getParam('url');
 
         if (!empty($url)) {
             $pattern = '/^(http:\/\/|https:\/\/)?(.+)/i';
             preg_match($pattern, $url, $out);
 
-            if (empty($out[1]))
+            if (empty($out[1])) {
                 $url = 'http://' . $url;
-            $this->_redirector->gotoUrl($url);
+            }
+
+            $this->redirect($url);
         }
     }
-
 }
-
-?>

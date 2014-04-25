@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 	<xsl:template match="main_menu" mode="tree">
 		<xsl:variable name="target">
@@ -12,11 +12,38 @@
 		</xsl:variable>
 		<li>
 			<a href="{url}" target="{$target}"><xsl:value-of select="name"/></a>
-			<xsl:if test="count(main_menu) &gt; 0">
-				<ul>
-					<xsl:apply-templates select="main_menu" mode="tree"/>
-				</ul>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="spec_url = '/cat/all/' ">
+					<ul>
+						<xsl:apply-templates select="//page/cattree" mode="tree"/>
+					</ul>
+				</xsl:when>
+				<xsl:when test="spec_url = '/gallery/' ">
+					<ul>
+						<xsl:apply-templates select="//data/gallery_group"/>
+					</ul>
+				</xsl:when>
+				<xsl:when test="spec_url = '/videogallery/' ">
+					<ul>
+						<xsl:apply-templates select="//data/video_gallery_group"/>
+					</ul>
+				</xsl:when>
+				<xsl:when test="spec_url = '/news/' ">
+					<ul>
+						<xsl:apply-templates select="//news"/>
+					</ul>
+				</xsl:when>
+				<xsl:when test="spec_url = '/articles/' ">
+					<ul>
+						<xsl:apply-templates select="//articles"/>
+					</ul>
+				</xsl:when>
+				<xsl:when test="count(main_menu) &gt; 0 ">
+					<ul>
+						<xsl:apply-templates select="main_menu" mode="tree"/>
+					</ul>
+				</xsl:when>
+			</xsl:choose>
 		</li>
 	</xsl:template>
 	<!-- Top menu -->
@@ -51,9 +78,20 @@
 	<xsl:template match="gallery_group">
 		<li>
 			<a href="{url}"><xsl:value-of select="name"/></a>
-			<xsl:if test="count(gallery_group) &gt; 0">
+			<xsl:if test="count(gallery_group) &gt; 0 and @level &lt; 2">
 				<ul>
 					<xsl:apply-templates select="gallery_group"/>
+				</ul>
+			</xsl:if>
+		</li>
+	</xsl:template>
+	
+	<xsl:template match="video_gallery_group">
+		<li>
+			<a href="{url}"><xsl:value-of select="name"/></a>
+			<xsl:if test="count(video_gallery_group) &gt; 0 and @level &lt; 2">
+				<ul>
+					<xsl:apply-templates select="video_gallery_group"/>
 				</ul>
 			</xsl:if>
 		</li>
@@ -101,58 +139,9 @@
 
 <xsl:template match="data">
 	<h1><xsl:value-of select="//docinfo/name" disable-output-escaping="yes"/></h1>
-	<xsl:if test="count(/page/cattree) &gt; 0">
-		<ul class="map">		
-			<li>
-				<a href="{/page/lang_name}/cat/all/"><xsl:value-of select="/page/item_catalog"/></a>
-				<ul>
-					<xsl:apply-templates select="/page/cattree" mode="tree"/>
-				</ul>
-			</li>
-		</ul>		
-	</xsl:if>
-	
 	<xsl:if test="count(/page/main_menu) &gt; 0">
 		<ul class="map">		
-			<li>
-				<a><xsl:value-of select="/page/sitemap_another_pages"/></a>
-				<ul>
-					<xsl:apply-templates select="/page/main_menu" mode="tree"/>
-				</ul>
-			</li>
-		</ul>
-	</xsl:if>
-	
-	<xsl:if test="count(gallery_group) &gt; 0">
-		<ul class="map">		
-			<li>
-				<a href="{/page/lang_name}/gallery/"><xsl:value-of select="/page/sitemap_gallary"/></a>
-				<ul>
-					<xsl:apply-templates select="gallery_group"/>
-				</ul>
-			</li>
-		</ul>
-	</xsl:if>
-
-	<xsl:if test="count(news_group) &gt; 0">
-		<ul class="map">		
-			<li>
-				<a href="{/page/lang_name}/news/"><xsl:value-of select="/page/sitemap_news"/></a>
-				<ul>
-					<xsl:apply-templates select="news_group"/>
-				</ul>
-			</li>
-		</ul>
-	</xsl:if>
-	
-	<xsl:if test="count(article_group) &gt; 0">
-		<ul class="map">		
-			<li>
-				<a href="{/page/lang_name}/articles/"><xsl:value-of select="/page/sitemap_articles"/></a>
-				<ul>
-					<xsl:apply-templates select="article_group"/>
-				</ul>
-			</li>
+			<xsl:apply-templates select="/page/main_menu" mode="tree"/>
 		</ul>
 	</xsl:if>
 </xsl:template>

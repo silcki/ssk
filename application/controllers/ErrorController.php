@@ -68,34 +68,12 @@ class ErrorController extends Core_Controller_Action_Abstract
         return $log;
     }
 
-    public function postDispatch()
-    {
-        if ($this->template)
-            $template = $this->template . ".xsl";
-//        else
-//            $template = $this->work_controller . '_' . $this->work_action . '.xsl';
-
-        $path_ = $this->view->getScriptPath($template);
-        if (!is_file($path_)) {
-            $path_ = $this->work_controller . '.xsl';
-        } else {
-            $path_ = $template;
-        }
-
-
-        echo $this->view->render($path_);
-    }
-
     /**
      * Выполняется перед ZEND-диспетчиризацией.
      * Обеспечивает невыполнение стандартного ZEND-рендеринга.
      */
     public function preDispatch()
     {
-        // disable view script autorendering
-        // we created own render
-        $this->_helper->viewRenderer->setNoRender();
+        $this->_disableRender();
     }
-
 }
-

@@ -21,21 +21,23 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
      */
     protected $AnotherPages;
 
-    public $Brands;
-    public $SystemSets;
-    public $GoodsGroup;
-    public $Item;
-    public $Textes;
-    public $Gallery;
-
     private $print;
 
-    public $def_lang;
-    public $curURI;
-    public $lang_panel;
-    public $template;
-    public $work_controller;
-    public $work_action;
+
+    /**
+     * @var string
+     */
+    protected $def_lang;
+
+    /**
+     * @var string
+     */
+    protected $work_controller;
+
+    /**
+     * @var string
+     */
+    protected $work_action;
 
     /**
      * @var Core_ServiceManager
@@ -56,32 +58,10 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->requestHttp = new Zend_Controller_Request_Http();
         $this->domXml = $this->view->getDomXml();
 
-        $this->cmf = Zend_Controller_Front::getInstance()->getParam('cmf');
-
-        $this->curURI = $this->requestHttp->getRequestUri();
-
-        preg_match("/\/print\/([^\/]*)/", $this->curURI, $m1);
-        if (!empty($m1)) {
-            $this->print = $m1[1];
-        }
-
         $this->domXml->create_element('page', "", 1);
-        if ($this->print == 'yes') {
-            $this->domXml->set_attribute(array('print' => $this->print));
-        }
-
-//        $this->domXml->create_element('currentURL', $this->curURI, 1);
         $this->domXml->set_tag('//page', true);
 
         $this->AnotherPages = $this->getServiceManager()->getModel()->getAnotherPages();
-
-//        if ($this->print) {
-//            $this->getSysText('print_top_right_text');
-//            $this->domXml->create_element('referer', $_SERVER['SERVER_NAME'], 1);
-//        }
-
-        $this->refererPhones();
-        $this->getSokobamLevels();
     }
 
     /**
@@ -102,9 +82,11 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
     {
         $this->initLangs();
 
+        $this->refererPhones();
+        $this->getSokobamLevels();
+
         $params['langId'] = $this->lang_id;
         $params['lang'] = $this->lang;
-        $params['curURI'] = $this->curURI;
 
         $this->domXml->set_tag('//page', true);
 

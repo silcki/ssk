@@ -21,8 +21,9 @@ class Core_Controller_Action_Helper_Captcha
      */
     static function validateCaptcha(Zend_Controller_Request_Http $httpHeaders)
     {
-
         try {
+            var_dump($_SESSION);
+            exit;
 
             // Если в POST нет параметра captcha то валидацию не провести - это ошибка
             if (!$httpHeaders->getPost(self::POST_CAPTCHA_NAME))
@@ -33,9 +34,8 @@ class Core_Controller_Action_Helper_Captcha
 
             // Сменим код в сессии для каптчи в сессии сразу после валидации
             // Иначе можно будет долбать через curl пока не подберёт
-            $_SESSION[SESSION_CAPTCHA_VAR_NAME] = substr(str_shuffle(self::$_chars),
-                                                                     0,
-                                                                     self::RANDOM_LENGTH);
+            $_SESSION[SESSION_CAPTCHA_VAR_NAME] = substr(str_shuffle(self::$_chars), 0, self::RANDOM_LENGTH);
+
             return false;
         } catch (Exception $e) {
             echo $e->getTraceAsString();

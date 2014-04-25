@@ -231,15 +231,7 @@ class AjaxController extends Core_Controller_Action_Abstract
      */
     private function validateCaptcha()
     {
-        $returnMessage['text'] = "";
-        $returnMessage['result'] = false;
-        // Проверяем на валидность каптчу
-        // Если не корректна - значит взлом
-        if (!Core_Controller_Action_Helper_Captcha::validateCaptcha(new Zend_Controller_Request_Http())) {
-            $returnMessage['text'] = "Не верно введен код картинки";
-        }
-
-        $this->_helper->json($returnMessage);
+        return Core_Controller_Action_Helper_Captcha::validateCaptcha(new Zend_Controller_Request_Http());
     }
 
     /**
@@ -249,30 +241,29 @@ class AjaxController extends Core_Controller_Action_Abstract
      */
     public function sendquestionAction()
     {
-        // TODO: каммент нужен только для отладки - в рабочей версии убрать!
-        if (!$this->validateCaptcha())
-            return false;
+        $result = array();
 
-        $orderField = $this->getOrderFields();
+        $result['status'] = 'fail';
 
-//        $orderField = $this->getFixtureOrderFiels();
+        if ($this->validateCaptcha()) {
+            $orderField = $this->getOrderFields();
 
-        $subject = self::FAQ_TEXT_SUBJECT;
+            $sendResult = $this->sendEmail(
+                $this->getBaseEmailBody(
+                    $orderField,
+                    $this->AnotherPages->getDocXml(
+                        $this->AnotherPages->getPageId('/faq/send/'), 0,
+                        $this->lang_id
+                    )
+                ),
+                explode(";", $this->getSettingValue(self::EMAIL_FAQ_VAR)),
+                self::FAQ_TEXT_SUBJECT
+            );
 
-//        $letter_xml = $this->AnotherPages->getDocXml($this->AnotherPages->getPageId('/faq/send/'),
-//                                                                                    0,
-//                                                                                    $this->lang_id);
+            $result['status'] = 'ok';
+        }
 
-        $sendResult = $this->sendEmail(
-            $this->getBaseEmailBody(
-                $orderField,
-                $this->AnotherPages->getDocXml(
-                    $this->AnotherPages->getPageId('/faq/send/'), 0,
-                    $this->lang_id
-                )
-            ), explode(";", $this->getSettingValue(self::EMAIL_FAQ_VAR)),
-            $subject
-        );
+        $this->_helper->json($result);
     }
 
     /**
@@ -363,38 +354,6 @@ class AjaxController extends Core_Controller_Action_Abstract
         }
 
         return $sendResult;
-    }
-
-    /**
-     * Метод нужен только для тестирования
-     *
-     * @test
-     */
-    private function getFixtureOrderFiels()
-    {
-        $http = new Zend_Controller_Request_Http();
-
-        $orderField['name'] = "Vasya";
-        $orderField['lastname'] = 'Pupkin';
-        $orderField['phone'] = '234234234';
-        $orderField['email'] = 'sdfsdf@sdfsdf.ru';
-        $orderField['city'] = 'Kharkov';
-        $orderField['company'] = 'KVN';
-
-        if (null !== $http->getParam('item')) {
-            $orderField['item_id'] = $this->_getParam('item');
-            $item = $this->Catalogue->getItemInfo($orderField['item_id'],
-                $this->lang_id);
-            $orderField['item_name'] = $item['NAME'];
-        }
-
-        if (null !== $http->getParam('catalogue')) {
-            $orderField['catalogue_id'] = $this->_getParam('catalogue');
-        }
-
-        $orderField['faq_text'] = "Текст ФАК";
-
-        return $orderField;
     }
 
     /**

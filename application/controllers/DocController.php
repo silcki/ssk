@@ -65,8 +65,6 @@ class DocController extends Core_Controller_Action_Abstract
         $o_data['is_vote'] = '';
         $this->openData($o_data);
 
-        $this->domXml->set_tag('//data', true);
-
         $this->getServiceManager()->getHelper()->getAnotherPages()
              ->setParams($params)
              ->getDocMeta($docId)

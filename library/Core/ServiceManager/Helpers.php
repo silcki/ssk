@@ -71,6 +71,17 @@ class Core_ServiceManager_Helpers extends Core_ServiceManager_Abstract
         return $this->getHelper('HelperClients');
     }
 
+
+    /**
+     * Получить помощника HelperFaq
+     *
+     * @return HelperFaq
+     */
+    public function getHelperFaq()
+    {
+        return $this->getHelper('HelperFaq');
+    }
+
     /**
      * Получить помощника HelperFileTypes
      *
@@ -82,6 +93,16 @@ class Core_ServiceManager_Helpers extends Core_ServiceManager_Abstract
     }
 
     /**
+     * Получить помощника HelperGallery
+     *
+     * @return HelperGallery
+     */
+    public function getGallery()
+    {
+        return $this->getHelper('HelperGallery');
+    }
+
+    /**
      * Получить помощника HelperLanguages
      *
      * @return HelperLanguages
@@ -89,6 +110,17 @@ class Core_ServiceManager_Helpers extends Core_ServiceManager_Abstract
     public function getLanguages()
     {
         return $this->getHelper('HelperLanguages');
+    }
+
+
+    /**
+     * Получить помощника HelperProjects
+     *
+     * @return HelperProjects
+     */
+    public function getProjects()
+    {
+        return $this->getHelper('HelperProjects');
     }
 
     /**
@@ -109,6 +141,36 @@ class Core_ServiceManager_Helpers extends Core_ServiceManager_Abstract
     public function getSystemTextes()
     {
         return $this->getHelper('HelperSystemTextes');
+    }
+
+    /**
+     * Получить помощника HelperSearch
+     *
+     * @return HelperSearch
+     */
+    public function getSearch()
+    {
+        return $this->getHelper('HelperSearch');
+    }
+
+    /**
+     * Получить помощника HelperSitemap
+     *
+     * @return HelperSitemap
+     */
+    public function getSitemap()
+    {
+        return $this->getHelper('HelperSitemap');
+    }
+
+    /**
+     * Получить помощника HelperVideogallery
+     *
+     * @return HelperVideogallery
+     */
+    public function getVideogallery()
+    {
+        return $this->getHelper('HelperVideogallery');
     }
 
     /**

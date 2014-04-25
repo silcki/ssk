@@ -70,10 +70,4 @@ class ClientsController extends Core_Controller_Action_Abstract
             ->getClientData($clientId)
             ->getClientMeta($clientId);
     }
-
-
-
-
-
-
 }

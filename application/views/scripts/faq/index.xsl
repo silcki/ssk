@@ -3,10 +3,12 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:import href="../_feedbackForm.xsl"/>
 	<xsl:import href="../_main.xsl"/>
+
 	<xsl:template name="javaScript">
 		<script type="text/javascript" src="/js/jquery.validate.js"/>
 		<script type="text/javascript" src="/js/validate.js?v=0"/>
 	</xsl:template>
+
 	<xsl:template match="faq_group">
 		<p class="zagol">
 			<xsl:value-of select="name"/>
@@ -15,6 +17,7 @@
 		<br/>
 		<br/>
 	</xsl:template>
+
 	<xsl:template match="faq">
 		<div class="faq">
 			<div class="ask">
@@ -29,37 +32,9 @@
 			</div>
 		</div>
 	</xsl:template>
-<!--	<xsl:variable name="validate"><![CDATA[
-<script>
-$().ready(function() {
-  $("#feedbackk").validate({
-		errorLabelContainer: $("#feedbackk div.errhold"),
-		rules: {
-			captcha: {
-				required: true,
-				remote: "/ajax/caphainp/"
-			},
-			name: {
-				required: true,
-				minlength: 2
-			},
-			email: {
-				required: true,
-				email: true
-			}
-		},
-		messages: {
-			name: "Поле Имя пустое",
-			email: "Поле Email пустое или заполнено не правильно",
-			captcha: "Укажите правильные символы на картинке."
-		},
-		onkeyup: false
-	});
-});
-</script>]]></xsl:variable>-->
+
 	<xsl:template match="data">
-<!--		<script type="text/javascript" src="/js/jquery.validate.js"/>
-		<xsl:value-of select="$validate" disable-output-escaping="yes"/>-->
+
 		<div class="forprint">
 			<h1>
 				<xsl:value-of select="/page/docinfo/name" disable-output-escaping="yes"/>
@@ -166,10 +141,10 @@ $().ready(function() {
                 </div>
 				<xsl:if test="was_send=1">
 					<script>
-				$(document).ready(function(){
-					$("body").scrollTo( $(".feedback-form"), 800);
-				});
-			</script>
+                        $(document).ready(function(){
+                            $("body").scrollTo( $(".feedback-form"), 800);
+                        });
+                    </script>
 				</xsl:if>
 			</div>
 		</xsl:if>

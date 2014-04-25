@@ -9,11 +9,11 @@ return array(
     'Faq',
     'FileTypes',
     'Gallery',
-    'Guestbook',
     'News',
     'Projects',
     'SectionAlign',
     'SystemSets',
+    'Textes',
     'Textes',
     'Vopros',
 );
