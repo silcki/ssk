@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 	<!-- Gallery -->
 	<xsl:template match="gallery">
@@ -14,16 +14,20 @@
 					<xsl:attribute name="class">midle2</xsl:attribute>
 				</xsl:when>
 			</xsl:choose>
-			<a href="/images/gallery/{image2/@src}" rel="gallery" title="{description}" class="fotofancybox" data-fancybox-group="button">
+			<a title="{name}" class="fotofancybox fancybox.ajax">
 				<xsl:choose>
-					<xsl:when test="description != ''">
-						<xsl:attribute name="title"><xsl:value-of select="description"/></xsl:attribute>
+					<xsl:when test="code_video!=''">
+						<xsl:attribute name="href">/videogallery/tube/n/<xsl:value-of select="@gallery_id" />/</xsl:attribute>					
 					</xsl:when>
-					<xsl:otherwise>
-						<xsl:attribute name="title"><xsl:value-of select="name"/></xsl:attribute>
-					</xsl:otherwise>
+					<xsl:when test="image2/@src!=''">
+						<xsl:attribute name="href">/videogallery/video/n/<xsl:value-of select="@gallery_id" />/</xsl:attribute>					
+					</xsl:when>
 				</xsl:choose>
-				<img src="/images/gallery/{image1/@src}" alt="{name}" height="{image1/@h}" width="{image1/@w}"/><!--<span><xsl:apply-templates select="description"/></span>--></a></li>
+				<img src="/images/gallery_video/{image1/@src}" alt="{name}" height="{image1/@h}" width="{image1/@w}"/>
+				<div class="video_button">&#160;</div>
+				<span><xsl:apply-templates select="description"/></span>
+			</a>
+		</li>
 	</xsl:template>
 	<!-- Gallery -->
 <xsl:template match="data">

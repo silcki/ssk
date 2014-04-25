@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:import href="_main.xsl"/>
+<xsl:import href="../_main.xsl"/>
 
 	<!-- Gallery -->
 	<xsl:template match="gallery_group">
@@ -9,7 +9,7 @@
 			<xsl:if test="(position()-2) mod 3=0">
 				<xsl:attribute name="class">midle</xsl:attribute>
 			</xsl:if>
-			<a href="{url}"><img src="/images/gallery_video/{image1/@src}" alt="{name}" height="{image1/@h}"/><span><xsl:value-of select="name" disable-output-escaping="yes"/></span></a> </li>
+			<a href="{url}"><img src="/images/gallery_group/{image1/@src}" alt="{name}" height="{image1/@h}"/><span><xsl:value-of select="name" disable-output-escaping="yes"/></span></a> </li>
 		<!--<p><xsl:value-of select="description" disable-output-escaping="yes"/></p>-->
 	</xsl:template>
 	<!-- Gallery -->

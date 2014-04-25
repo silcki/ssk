@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:import href="_feedbackForm.xsl"/>
-	<xsl:import href="_main.xsl"/>
+	<xsl:import href="../_feedbackForm.xsl"/>
+	<xsl:import href="../_main.xsl"/>
 	<xsl:template name="javaScript">
 		<script type="text/javascript" src="/js/jquery.validate.js"/>
 		<script type="text/javascript" src="/js/validate.js?v=0"/>
