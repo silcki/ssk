@@ -43,6 +43,9 @@ class ClientsController extends Core_Controller_Action_Abstract
 
         $this->getServiceManager()->getHelper()->getClients()
              ->setParams($params)
+             ->getScope()
+             ->getProductType()
+             ->getCountry()
              ->getClients();
     }
 

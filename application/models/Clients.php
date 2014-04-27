@@ -75,6 +75,37 @@ class Clients extends Core_Connect
         return $this->_db->fetchRow($sql);
     }
 
-}
+    public function getCountry()
+    {
+        $sql = "select C.*
+                from COUNTRY C
+                inner join CLIENT CL on (Cl.COUNTRY_ID = C.COUNTRY_ID)
+                where C.STATUS = 1
+                order by C.NAME";
 
-?>
+        return $this->_db->fetchAll($sql);
+    }
+
+    public function getScope()
+    {
+        $sql = "select S.*
+                from SCOPE S
+                inner join CLIENT CL on (Cl.SCOPE_ID = S.SCOPE_ID)
+                where S.STATUS = 1
+                order by S.NAME";
+
+        return $this->_db->fetchAll($sql);
+    }
+
+    public function getProductType()
+    {
+        $sql = "select PT.*
+                from PRODUCT_TYPE PT
+                inner join CLIENT_PRODUCT_TYPE CPT on (CPT.PRODUCT_TYPE_ID = PT.PRODUCT_TYPE_ID)
+                where PT.STATUS = 1
+                order by PT.NAME";
+
+        return $this->_db->fetchAll($sql);
+    }
+
+}

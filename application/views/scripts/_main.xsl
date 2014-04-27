@@ -926,6 +926,7 @@ var google_remarketing_only = true;
 						</xsl:apply-templates>
 					</ul>
 				</xsl:if>
+
 				<xsl:if test="count(gallery_tree) &gt; 0">
 					<ul class="menucat">
 						<xsl:apply-templates select="//data/gallery_tree" mode="left">
@@ -933,6 +934,27 @@ var google_remarketing_only = true;
 						</xsl:apply-templates>
 					</ul>
 				</xsl:if>
+
+                <xsl:if test="count(client_country) &gt; 0">
+                    <div>Страны:</div>
+                    <ul class="menucat client_country">
+                        <xsl:apply-templates select="client_country"/>
+                    </ul>
+                </xsl:if>
+                
+                <xsl:if test="count(client_scope) &gt; 0">
+                    <div>Сфера деятельности:</div>
+                    <ul class="menucat client_scope">
+                        <xsl:apply-templates select="client_scope"/>
+                    </ul>
+                </xsl:if>
+                
+                <xsl:if test="count(client_product_type) &gt; 0">
+                    <div>Тип продукции:</div>
+                    <ul class="menucat client_product_type">
+                        <xsl:apply-templates select="client_product_type"/>
+                    </ul>
+                </xsl:if>
 				
 				<xsl:if test="count(//page/left_banner) &gt; 0">
 					<div class="gallary_hold" style="height: 370px; margin: 10px 6px;">

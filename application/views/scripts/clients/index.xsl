@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
+<!DOCTYPE xsl:stylesheet SYSTEM "../symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:import href="../_main.xsl"/>
+
+    <xsl:template match="client_country">
+        <li>
+            <label for="country{@id}"><xsl:value-of select="name"/></label>
+            <input type="checkbox" id="country{@id}" value="{@id}" name="client_country[]"/>
+        </li>
+    </xsl:template>
+    
+    <xsl:template match="client_scope">
+        <li>
+            <label for="client_scope{@id}"><xsl:value-of select="name"/></label>
+            <input type="checkbox" id="client_scope{@id}" value="{@id}" name="client_scope[]"/>
+        </li>
+    </xsl:template>
+    
+    <xsl:template match="client_product_type">
+        <li>
+            <label for="client_product_type{@id}"><xsl:value-of select="name"/></label>
+            <input type="checkbox" id="client_product_type{@id}" value="{@id}" name="client_product_type[]"/>
+        </li>
+    </xsl:template>
 	
 	<xsl:template match="clients">
 		<td><img src="/images/cl/{image1/@src}" alt="{name}" height="{image1/@h}" width="{image1/@w}"/></td>

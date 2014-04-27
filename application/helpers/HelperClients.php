@@ -166,4 +166,82 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
 
         return $this;
     }
+
+    /**
+     * @param array $countryIds
+     *
+     * @return $this
+     */
+    public function getCountry($countryIds = array())
+    {
+        $country = $this->clients->getCountry();
+        if (!empty($country)) {
+            foreach ($country as $view) {
+                $this->domXml->create_element('client_country', '', 2);
+                $this->domXml->set_attribute(
+                    array(
+                    'id' => $view['COUNTRY_ID'],
+                    'active' => in_array($view['COUNTRY_ID'], $countryIds) ? 1:0
+                ));
+
+                $this->domXml->create_element('name', $view['NAME']);
+
+                $this->domXml->go_to_parent();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $scopeIds
+     *
+     * @return $this
+     */
+    public function getScope($scopeIds = array())
+    {
+        $scope = $this->clients->getScope();
+        if (!empty($scope)) {
+            foreach ($scope as $view) {
+                $this->domXml->create_element('client_scope', '', 2);
+                $this->domXml->set_attribute(
+                    array(
+                        'id' => $view['SCOPE_ID'],
+                        'active' => in_array($view['SCOPE_ID'], $scopeIds) ? 1:0
+                    ));
+
+                $this->domXml->create_element('name', $view['NAME']);
+
+                $this->domXml->go_to_parent();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $productTypeIds
+     *
+     * @return $this
+     */
+    public function getProductType($productTypeIds = array())
+    {
+        $productType = $this->clients->getProductType();
+        if (!empty($productType)) {
+            foreach ($productType as $view) {
+                $this->domXml->create_element('client_product_type', '', 2);
+                $this->domXml->set_attribute(
+                    array(
+                        'id' => $view['PRODUCT_TYPE_ID'],
+                        'active' => in_array($view['PRODUCT_TYPE_ID'], $productTypeIds) ? 1:0
+                    ));
+
+                $this->domXml->create_element('name', $view['NAME']);
+
+                $this->domXml->go_to_parent();
+            }
+        }
+
+        return $this;
+    }
 } 
