@@ -1,6 +1,16 @@
 <?php
 class ArticlesController extends Core_Controller_Action_Abstract
 {
+    public function preDispatch()
+    {
+        $docId = $this->AnotherPages->getPageId('/articles/');
+
+        $this->getServiceManager()->getHelper()->getAnotherPages()
+            ->initPathIDs($docId);
+
+        parent::preDispatch();
+    }
+
     protected function getSysText()
     {
         $textes = array(
@@ -76,7 +86,7 @@ class ArticlesController extends Core_Controller_Action_Abstract
         $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
             ->getDocInfo($docId)
-            ->getDocPath($docId, array(), array('url'=>''));
+            ->getDocPath($docId, array(), array(array('url'=>'', 'name'=>'')));
 
         $this->getServiceManager()->getHelper()->getArticles()
             ->setParams($params)

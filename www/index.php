@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Kiev');
 
+define('SESSION_CAPTCHA_VAR_NAME',  'biz_captcha');
+
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
 define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));

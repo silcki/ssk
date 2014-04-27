@@ -6,37 +6,6 @@ function reloadCaptcha(){
 };
 
 $(document).ready(function() {
-//    $('#feedbackk').ajaxForm({
-//        beforeSubmit: function(a,f,o) {
-//            return formStatus;
-//        },
-//        success: function(data) {
-//            alert(1);
-//            var dateJSON = {};
-//            try
-//            {
-//                dateJSON = $.parseJSON(data);
-//            }
-//            catch(e)
-//            {
-//                dateJSON['text'] = data;
-//            }
-
-//            message =   '<div class="okhold-false">'+ dateJSON['text'] +'</div>';
-//            if (dateJSON['result']){
-//                form.reset();
-//                message = '<div class="okhold">'+ dateJSON['text'] +'</div>';
-//            }
-//            else {
-//                form.captcha.value = '';
-//            }
-
-//            reloadCaptcha();
-//            $.fancybox(dateJSON['text']);
-//            $('.phoneback_back').remove();
-//        }
-//    });
-
     $("#feedbackk").validate({
         errorLabelContainer: $("#feedbackk div.errhold"),
         submitHandler: function(form) {
@@ -83,9 +52,7 @@ $(document).ready(function() {
                     url: VALIDATE_FEEDBACK_CAPTCHA,
                     type: "post"
                 }
-            }
-
-            ,
+            },
             name: {
                 required: true,
                 minlength: 2

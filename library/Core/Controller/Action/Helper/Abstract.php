@@ -204,4 +204,20 @@ class Core_Controller_Action_Helper_Abstract
             $this->domXml->go_to_parent();
         }
     }
+
+    public function getSettingValue($name)
+    {
+        return $this->getServiceManager()->getModel()->getSystemSets()->getSettingValue($name);
+    }
+
+    protected function getMailTrasportData()
+    {
+        $mailTransportConfig['port'] = 25;
+        $mailTransportConfig['auth'] = 'login';
+        $mailTransportConfig['username'] = $this->getSettingValue('mail_transport_username');
+        $mailTransportConfig['password'] = $this->getSettingValue('mail_transport_password');
+        $mailTransportConfig['host'] = $this->getSettingValue('mail_transport_host');
+
+        return $mailTransportConfig;
+    }
 } 

@@ -21,14 +21,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
      */
     protected $AnotherPages;
 
-    private $print;
-
-
-    /**
-     * @var string
-     */
-    protected $def_lang;
-
     /**
      * @var string
      */
@@ -75,6 +67,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         {
             $this->_helper->viewRenderer->setNoRender(true);
         }
+
         return $this;
     }
 
@@ -93,7 +86,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $this->getServiceManager()->getHelper()->getLanguages()
             ->setParams($params)
             ->getLanguageInfo()
-            ->getLangs();
+            ->getLangs($this->getRequest()->getRequestUri());
 
         $this->domXml->set_tag('//page', true);
 
@@ -107,7 +100,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         $params['itemId'] = $this->_getParam('it', null);
         $this->getServiceManager()->getHelper()->getCatalogue()
             ->setParams($params)
-            ->initPathIDs($this->_getParam('catalog_id', null))
             ->getCatTree();
 
         $this->getServiceManager()->getHelper()->getAnotherPages()
@@ -132,54 +124,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
 
     private function initLangs()
     {
-        //Язык системы по умолчанию
-        $this->def_lang = $this->getDefaultLang();
-        if ($this->def_lang == '') {
-            $this->def_lang = 'ru';
-        }
-
-        //Текущий язык при открытии страницы
-        if (preg_match("/\/lng\/([^\/]*)/", $this->curURI, $matches)) {
-            $curr_lng = $matches[1];
-        } else {
-            $curr_lng = 'ru';
-        }
-
-        if (!empty($curr_lng)) {
-            $this->lang = $curr_lng;
-            setcookie("site_lang", "", time() - 3600);
-            setcookie("site_lang", $this->lang, time() + 3600 * 24 * 3, "/");
-        } else {
-            //Определяем, первый это заход или нет
-            if ($this->requestHttp->get('site_first')) {
-                $first = $this->requestHttp->get('site_first');
-            } else {
-                $first = '';
-            }
-
-            if ($first == '') {
-                //Первый заход
-                if ($this->requestHttp->get('site_lang')) {
-                    $this->lang = $this->requestHttp->get('site_lang');
-                } else {
-                    $this->lang = '';
-                }
-
-                setcookie("site_lang", "", time() - 3600);
-                setcookie("site_lang", $this->lang, time() + 3600 * 24 * 3, "/");
-                setcookie("site_first", "1", 0, "/");
-            } else {
-                if ($this->requestHttp->get('site_lang')) {
-                    $this->lang = $this->requestHttp->get('site_lang');
-                } else {
-                    $this->lang = '';
-                }
-
-                setcookie("site_lang", "", time() - 3600);
-                setcookie("site_lang", $this->lang, time() + 3600 * 24 * 3, "/");
-            }
-        }
-
+        $this->lang = $this->getParam('lang', 'ru');
         $this->lang_id = $this->getLanguageId($this->lang);
     }
 
@@ -192,12 +137,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
     }
 
 
-    public function postDispatch()
-    {
-        if ($this->print) {
-            $this->view->setScriptPath('print.xsl');
-        }
-    }
+    public function postDispatch() {}
 
     /**
      * Метод для инициализации основного XML шаблона страницы
@@ -291,165 +231,10 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         exit;
     }
 
-    public function initParents($catalogue_id)
-    {
-        $parents = array();
-        $parents[] = $catalogue_id;
-
-        while ($catalogue_id > 0) {
-            $cat = $this->Catalogue->getParents($catalogue_id);
-            $parents[] = $cat['CATALOGUE_ID'];
-            $catalogue_id = $cat['PARENT_ID'];
-        }
-
-        return $parents;
-    }
-
-    public function getPath($id)
-    {
-//       $parent = $this->Catalogue->getParents($id);
-        $childs = array();
-        $childs[count($childs)] = $id;
-        $parent = $id;
-
-        while ($parent > 0) {
-            $cat = $this->Catalogue->getParents($parent, $this->lang_id);
-            $parent = $cat['PARENT_ID'];
-            if ($parent == 0)
-                break;
-            $childs[count($childs)] = $cat['PARENT_ID'];
-        }
-
-        $this->getRootPath();
-        $this->getBeforPath();
-
-        if (!empty($childs)) {
-            $childs = array_reverse($childs);
-            if ($this->lang_id > 0)
-                $lang = '/' . $this->lang;
-            else
-                $lang = '';
-
-            foreach ($childs as $view) {
-                $parent = $this->Catalogue->getParents($view, $this->lang_id);
-                if (!empty($parent)) {
-                    $this->domXml->create_element('breadcrumbs', '', 2);
-                    $this->domXml->set_attribute(array('id' => $parent['CATALOGUE_ID'],
-                        'parent_id' => $parent['PARENT_ID']
-                            )
-                    );
-
-                    $children_item_count = $this->Catalogue->getItemsCount($parent['CATALOGUE_ID']);
-
-                    $href = '';
-                    $is_lang = false;
-                    if ($children_item_count > 0) {
-                        $is_lang = true;
-                        $href = '/cat/view/n/' . $parent['CATALOGUE_ID'] . '/';
-                    } else {
-                        if (!empty($parent['URL'])) {
-                            $is_lang = true;
-                            $href = $parent['URL'];
-                        } elseif (!empty($parent['REALCATNAME']) && $parent['REALCATNAME'] != '/') {
-                            $is_lang = true;
-                            $href = '/cat' . $parent['REALCATNAME'];
-                        } else {
-                            $is_lang = true;
-                            $href = '/cat/' . $parent['CATALOGUE_ID'] . '/';
-                        }
-                    }
-
-                    $_href = $this->AnotherPages->getSefURLbyOldURL($href);
-                    if (!empty($_href) && $is_lang)
-                        $href = $lang . $_href;
-                    elseif (!empty($_href) && !$is_lang)
-                        $href = $_href;
-
-                    $this->domXml->create_element('name', trim($parent['NAME']));
-                    $this->domXml->create_element('url', $href);
-                    $this->domXml->go_to_parent();
-                }
-            }
-        }
-
-        $this->getAfterPath();
-    }
-
-    public function getGlobalPath()
-    {
-        $this->getRootPath();
-        $this->getBeforPath();
-        $this->getAfterPath();
-    }
-
     public function getSettingValue($name)
     {
         return $this->getServiceManager()->getModel()->getSystemSets()->getSettingValue($name);
     }
-
-    public function form_processing($data)
-    {
-        if (!empty($data) && is_array($data)) {
-            foreach ($data as $k => $view) {
-                $view = trim($view);
-                $tmp_ = $k . '_strip';
-                if (isset($data[$tmp_]) && $data[$tmp_] === false) {
-
-                } else {
-                    $view = strip_tags($view);
-                }
-
-                $data[$k] = addslashes($view);
-            }
-        }
-
-        return $data;
-    }
-
-    public function viewErrors($err)
-    {
-        if (!empty($err) && is_array($err)) {
-            foreach ($err as $k => $view) {
-                $this->domXml->create_element('error_messages', '', 2);
-                $this->domXml->create_element('err_mess', $view);
-                $this->domXml->go_to_parent();
-            }
-        }
-    }
-
-    public function sendErrorData($data)
-    {
-        if (!empty($data)) {
-            foreach ($data as $k => $view) {
-                $tag_name = strtolower($k) . "_err";
-                $this->domXml->create_element($tag_name, $view, 2);
-                $this->domXml->go_to_parent();
-            }
-        }
-    }
-
-    public function sessionExist()
-    {
-        if (isset($_SESSION['ses_user_id']) && !empty($_SESSION['ses_user_id'])) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Метод получающий основной язык системы
-     * @access   public
-     * @param
-     * @param
-     * @return  string xml
-     */
-    public function getDefaultLang()
-    {
-        return $this->AnotherPages->getDefaultLang();
-    }
-
-
 
     /**
      * Метод для получения ИД выбранного языка
@@ -460,77 +245,6 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
     public function getLanguageId($lang)
     {
         return $this->AnotherPages->getLanguageId($lang);
-    }
-
-    /**
-     * отправка писем
-     *
-     * @param $to      == куда
-     * @param $message == текст сообщения
-     * @param $subject == тема
-     * @return результат отправки
-     */
-    public function sendMail($to, $message, $subject, $attach = '', $name = '', $attach_type = ''){
-        Zend_Loader::loadClass('Zend_Mail');
-
-        $email_from = $this->getSettingValue('email_from');
-        $pattern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-        preg_match_all($pattern, $email_from, $arr);
-
-        $mailerFrom = empty($arr[2][0]) ? '' : trim($arr[2][0]);
-        $mailerFromName = empty($arr[1][0]) ? '' : trim($arr[1][0]);
-
-        $this->mailer = new Zend_Mail('utf-8');
-
-        $this->mailer->setFrom($mailerFrom, $mailerFromName);
-        $this->mailer->setSubject($subject);
-        $this->mailer->addTo($to);
-        $this->mailer->setBodyHtml($message, 'UTF-8', Zend_Mime::ENCODING_BASE64);
-
-        if (!empty($attach)) {
-            $logo = new Zend_Mime_part(file_get_contents($attach));
-            $logo->type = $attach_type;
-            $logo->disposition = Zend_Mime::DISPOSITION_INLINE;
-            $logo->encoding = Zend_Mime::ENCODING_BASE64;
-            $logo->filename = $name;
-
-            $at = $this->mailer->addAttachment($logo);
-        }
-        try {
-            $this->mailer->send();
-        } catch (Exception $ex) {
-            echo "Ошибка отправки электронного письма на ящик " . $to;
-            exit;
-        }
-    }
-
-    public function sendMail2($to, $message, $subject, $attach = '', $name = '', $attach_type = '')
-    {
-        require_once 'include/mail/Phpmailer.class.php';
-        require_once 'include/mail/Smtp.class.php';
-
-        $email_from = $this->getSettingValue('email_from');
-        $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-        preg_match($patrern, $email_from, $arr);
-
-        $mailer = new PHPMailer();
-        $mailer->Subject = $subject;
-        $mailer->ContentType = 'plain/html';          // SMTP password
-        $mailer->CharSet = 'utf-8';          // SMTP password
-        $mailer->From = empty($arr[2]) ? '' : trim($arr[2]);
-        $mailer->FromName = empty($arr[1]) ? '' : trim($arr[1]);
-        $mailer->AddReplyTo('');
-        $mailer->WordWrap = 50;
-        $mailer->IsHTML(true);
-
-        if (!empty($attach)) {
-            $mailer->AddAttachment($attach, $name);
-        }
-
-        $mailer->Body = $message;
-        $mailer->AddAddress($to);
-
-        return $mailer->Send();
     }
 
     public function getMaxPostStr()
@@ -583,6 +297,25 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
         }
     }
 
+    protected function formProcessing($data)
+    {
+        if (!empty($data) && is_array($data)) {
+            foreach ($data as $k => $view) {
+                $view = trim($view);
+                $tmp_ = $k . '_strip';
+                if (isset($data[$tmp_]) && $data[$tmp_] === false) {
+
+                } else {
+                    $view = strip_tags($view);
+                }
+
+                $data[$k] = addslashes($view);
+            }
+        }
+
+        return $data;
+    }
+
     /**
      * Проверить телефон по URI
      *
@@ -590,7 +323,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
      *
      * @return null|string
      */
-    private function  initQueryPhone($getData)
+    private function initQueryPhone($getData)
     {
         $getDataKeys = array_keys($getData);
         $referer = $this->AnotherPages->getRefererPhones();
@@ -623,7 +356,7 @@ abstract class Core_Controller_Action_Abstract extends Zend_Controller_Action
      *
      * @return null|string
      */
-    private function  initDommenPhone($domen)
+    private function initDommenPhone($domen)
     {
         $referer = $this->AnotherPages->getRefererPhones();
 

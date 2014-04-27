@@ -75,12 +75,11 @@ class GalleryController extends Core_Controller_Action_Abstract
         $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
             ->getDocMeta($docId)
-            ->getDocInfo($docId)
             ->getDocPath($docId);
 
         $galleryHelper
-            ->getGalleryGroupMeta($galleryId)
             ->getGallaryPath($galleryId)
+            ->getGalleryGroupMeta($galleryId)
             ->getGallery($galleryId)
             ->getGalleryLeftMenu($galleryId);
     }

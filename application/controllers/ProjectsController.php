@@ -70,7 +70,7 @@ class ProjectsController extends Core_Controller_Action_Abstract
             ->setParams($params)
             ->getDocMeta($docId)
             ->getDocInfo($docId)
-            ->getDocPath($docId, array(), array('url'=>''));
+            ->getDocPath($docId, array(), array(array('url'=>'', 'name'=>'')));
 
         $this->getServiceManager()->getHelper()->getProjects()
             ->setParams($params)

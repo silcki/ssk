@@ -201,26 +201,18 @@ class AjaxController extends Core_Controller_Action_Abstract
         }
     }
 
-    public function caphainpAction()
-    {
-        $caphainp = $this->requestHttp->getQuery('captcha', null);
-        if ($caphainp == $_SESSION['biz_captcha']) {
-            echo 'true';
-        } else {
-            echo 'false';
-        }
-    }
-
     /**
      * Action для проверки каптчи из форм
      */
     public function validatecaptchaAction()
     {
-        if (Core_Controller_Action_Helper_Captcha::validateCaptcha(new Zend_Controller_Request_Http())) {
+        if ($this->validateCaptcha()) {
             echo "true";
         } else {
             echo "false";
         }
+
+        $this->_disableRender();
     }
 
     /**
@@ -314,14 +306,11 @@ class AjaxController extends Core_Controller_Action_Abstract
      */
     private function _sendMangersEmail($orderField)
     {
-
-        $message = $this->AnotherPages->getDocXml(
-            $this->AnotherPages->getPageId(self::ANOTHER_PAGES_PATH_ADMIN_ORDER),
-            0, $this->lang_id
+        $message = $this->AnotherPages->getDocXml( $this->AnotherPages->getPageId(self::ANOTHER_PAGES_PATH_ADMIN_ORDER), 0, $this->lang_id
         );
         $message = str_replace("##item_name##", $orderField['item_name'],$message);
 
-        $subject = $this->Textes->getSysText(self::TEXT_ORDER_ADMIN_SUBJECT, $this->lang_id);
+        $subject = $this->getServiceManager()->getModel()->getTextes()->getSysText(self::TEXT_ORDER_ADMIN_SUBJECT, $this->lang_id);
 
         // Заглушка на случай если не нашли тему для данного $emailSubjectSysText
         if (!$subject) {
@@ -342,8 +331,7 @@ class AjaxController extends Core_Controller_Action_Abstract
      */
     private function sendUserEmail($orderField)
     {
-        $message = $this->AnotherPages->getDocXml($this->AnotherPages->getPageId(self::ANOTHER_PAGES_PATH_ORDER),
-            0, $this->lang_id);
+        $message = $this->AnotherPages->getDocXml($this->AnotherPages->getPageId(self::ANOTHER_PAGES_PATH_ORDER), 0, $this->lang_id);
         $message = str_replace("##item_name##", $orderField['item_name'],$message);
 
         $sendResult = true;
@@ -373,14 +361,14 @@ class AjaxController extends Core_Controller_Action_Abstract
         $orderField['city'] = $request->getPost('city');
         $orderField['company'] = $request->getPost('company');
 
-        if (null !== $this->_getParam('item')) {
-            $orderField['item_id'] = $this->_getParam('item');
-            $item = $this->Catalogue->getItemInfo($orderField['item_id'], $this->lang_id);
+        if (null !== $this->getParam('item')) {
+            $orderField['item_id'] = $this->getParam('item');
+            $item = $this->getServiceManager()->getModel()->getCatalogue()->getItemInfo($orderField['item_id'], $this->lang_id);
             $orderField['item_name'] = $item['NAME'];
         }
 
-        if (null !== $this->_getParam('catalogue')) {
-            $orderField['catalogue_id'] = $this->_getParam('catalogue');
+        if (null !== $this->getParam('catalogue')) {
+            $orderField['catalogue_id'] = $this->getParam('catalogue');
         }
 
         $orderField['faq_text'] = $request->getPost('faq_text');
@@ -400,7 +388,7 @@ class AjaxController extends Core_Controller_Action_Abstract
 
 
         // Получить тему письма
-        $subject = $this->Textes->getSysText(self::TEXT_FEEDBACK_SUBJECT,
+        $subject = $this->getServiceManager()->getModel()->getTextes()->getSysText(self::TEXT_FEEDBACK_SUBJECT,
             $this->lang_id);
 
         // Заглушка на случай если не нашли тему для данного $emailSubjectSysText
@@ -450,54 +438,20 @@ class AjaxController extends Core_Controller_Action_Abstract
      */
     private function getBaseEmailBody($orderField, $textInjection = "")
     {
-
-        if (!empty($orderField['name']))
-            $textInjection = str_replace("##name##", $orderField['name'],
-                $textInjection);
-        else
-            $textInjection = str_replace("##name##", '', $textInjection);
-
-        if (!empty($orderField['lastname']))
-            $textInjection = str_replace("##lastname##",
-                $orderField['lastname'], $textInjection);
-        else
-            $textInjection = str_replace("##lastname##", '', $textInjection);
-
-        if (!empty($orderField['phone']))
-            $textInjection = str_replace("##phone##", $orderField['phone'],
-                $textInjection);
-        else
-            $textInjection = str_replace("##phone##", '', $textInjection);
-
-        if (!empty($orderField['city']))
-            $textInjection = str_replace("##city##", $orderField['city'],
-                $textInjection);
-        else
-            $textInjection = str_replace("##city##", '', $textInjection);
-
-        if (!empty($orderField['company']))
-            $textInjection = str_replace("##company##", $orderField['company'],
-                $textInjection);
-        else
-            $textInjection = str_replace("##company##", '', $textInjection);
-
-        if (!empty($orderField['email']))
-            $textInjection = str_replace("##email##", $orderField['email'],
-                $textInjection);
-        else
-            $textInjection = str_replace("##email##", '', $textInjection);
+        $textInjection = str_replace("##name##", $orderField['name'], $textInjection);
+        $textInjection = str_replace("##lastname##", $orderField['lastname'], $textInjection);
+        $textInjection = str_replace("##phone##", $orderField['phone'], $textInjection);
+        $textInjection = str_replace("##city##", $orderField['city'], $textInjection);
+        $textInjection = str_replace("##company##", $orderField['company'], $textInjection);
+        $textInjection = str_replace("##email##", $orderField['email'], $textInjection);
 
         if (!empty($orderField['description'])) {
-            $textInjection = str_replace("##description##",
-                $orderField['description'], $textInjection
-            );
+            $textInjection = str_replace("##description##", $orderField['description'], $textInjection);
         } elseif (!empty($orderField['faq_text'])) {
-            $textInjection = str_replace("##description##",
-                $orderField['faq_text'], $textInjection
-            );
-        } else
+            $textInjection = str_replace("##description##",$orderField['faq_text'], $textInjection);
+        } else {
             $textInjection = str_replace("##description##", '', $textInjection);
-
+        }
 
         return '<html><head><meta  http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
             . $textInjection . '</body></html>';
@@ -510,6 +464,7 @@ class AjaxController extends Core_Controller_Action_Abstract
      */
     private function saveOrderInDB($orderField)
     {
+        $catalogueModel = $this->getServiceManager()->getModel()->getCatalogue();
 
         $order['NAME'] = $orderField['name'];
         $order['TELMOB'] = $orderField['phone'];
@@ -520,40 +475,17 @@ class AjaxController extends Core_Controller_Action_Abstract
 
         $order['DATA'] = date("Y-m-d H:i:s");
 
-        $zakaz_id = $this->Catalogue->insertZakaz($order);
+        $zakaz_id = $catalogueModel->insertZakaz($order);
         if ($zakaz_id && !empty($orderField['item_id'])) {
-//            $zakaz_item = array();
-            $item = $this->Catalogue->getItemInfo($orderField['item_id'],
-                $this->lang_id);
+
+            $item = $catalogueModel->getItemInfo($orderField['item_id'], $this->lang_id);
             $zakaz_item['ZAKAZ_ID'] = $zakaz_id;
             $zakaz_item['CATALOGUE_ID'] = $orderField['catalogue_id'];
             $zakaz_item['NAME'] = $item['NAME'];
             $zakaz_item['ITEM_ID'] = $orderField['item_id'];
-            $this->Catalogue->insertOrder($zakaz_item);
+            $catalogueModel->insertOrder($zakaz_item);
         }
     }
-
-//    private function feedbacksProcess($orderField, $emailSubjectSysText)
-//    {
-//        $subject = $this->Textes->getSysText($emailSubjectSysText,
-//                                             $this->lang_id);
-//
-//        // Заглушка на случай если не нашли тему для данного $emailSubjectSysText
-//        if (!$subject)
-//            $subject['DESCRIPTION'] = '';
-//
-//        return $this->sendEmail(
-//                        $this->getBaseEmailBody(
-//                                $orderField,
-//                                $this->AnotherPages->getDocXml($this->AnotherPages->getPageId('/feedback/'),
-//                                                                                              0,
-//                                                                                              $this->lang_id)
-//                        ),
-//                                                                                              explode(";",
-//                                                                                                      $this->getSettingValue('email_feedback')),
-//                                                                                                                             $subject['DESCRIPTION']
-//        );
-//    }
 
     /**
      * Отпарвка мыла манагерам и админам
@@ -592,13 +524,11 @@ class AjaxController extends Core_Controller_Action_Abstract
                 $params['message'] = $message;
                 $params['subject'] = $subject;
 
-
-
                 Core_Controller_Action_Helper_Mailer::send($params);
             }
         }
         $sendEmail = true;
-//        print_r($sendEmail);
+
         // Немного бредово - отправится только успешное уведомление последнего письма
         return $sendEmail;
     }
@@ -631,11 +561,11 @@ class AjaxController extends Core_Controller_Action_Abstract
 
             if ($hasLevel) {
                 $result['finish'] = 0;
-                $text = $this->Textes->getSysText('sokoban_next_level', $this->lang_id);
+                $text = $this->getServiceManager()->getModel()->getTextes()->getSysText('sokoban_next_level', $this->lang_id);
                 $result['message'] = $text['DESCRIPTION'].'<br/> <a href="#" class="sokoban_next">Следующий</a>';
             } else {
                 $result['finish'] = 1;
-                $text = $this->Textes->getSysText('sokoban_finish', $this->lang_id);
+                $text = $this->getServiceManager()->getModel()->getTextes()->getSysText('sokoban_finish', $this->lang_id);
                 $result['message'] = $text['DESCRIPTION'].'<br/> <a href="#" class="sokoban_new">Начать сначало</a>';
             }
         }

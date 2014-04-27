@@ -85,7 +85,7 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
                 $this->domXml->create_element('url', $href);
                 $this->domXml->create_element('spec_url', $view['URL']);
 
-                if ($view['URL'] == '/cat/all/') {
+                if ($view['URL'] == '/cat/') {
                     $this->getServiceManager()->getHelper()->getCatalogue()
                         ->setParams($this->params)
                         ->getCatTree(0, 'main_menu');

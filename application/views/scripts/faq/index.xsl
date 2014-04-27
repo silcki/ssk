@@ -37,7 +37,7 @@
 
 		<div class="forprint">
 			<h1>
-				<xsl:value-of select="/page/docinfo/name" disable-output-escaping="yes"/>
+				<xsl:value-of select="docinfo/name" disable-output-escaping="yes"/>
 			</h1>
 			<p id="print">
 				<a title="{/page/print_text}" href="#" onclick="window.print();">
@@ -46,7 +46,7 @@
 			</p>
 		</div>
 		<div class="text">
-			<xsl:apply-templates select="/page/docinfo/txt"/>
+			<xsl:apply-templates select="docinfo/txt"/>
 		</div>
 		<div class="faqs">
 			<xsl:apply-templates select="faq_group"/>

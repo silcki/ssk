@@ -1,6 +1,16 @@
 <?php
 class FaqController extends Core_Controller_Action_Abstract
 {
+    public function preDispatch()
+    {
+        $docId = $this->AnotherPages->getPageId('/faq/');
+
+        $this->getServiceManager()->getHelper()->getAnotherPages()
+            ->initPathIDs($docId);
+
+        parent::preDispatch();
+    }
+
     protected function _getSysText()
     {
         $textes = array(

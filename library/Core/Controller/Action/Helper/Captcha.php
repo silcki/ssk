@@ -7,7 +7,6 @@
  */
 class Core_Controller_Action_Helper_Captcha
 {
-
     const RANDOM_LENGTH = 5;
     const POST_CAPTCHA_NAME = 'captcha';
 
@@ -15,22 +14,20 @@ class Core_Controller_Action_Helper_Captcha
 
     /**
      *
-     * @param Zend_Controller_Request_Http $httpHeaders
+     * @param Zend_Controller_Request_Http $request
      * @return boolean
      * @throws Exception
      */
-    static function validateCaptcha(Zend_Controller_Request_Http $httpHeaders)
+    static function validateCaptcha(Zend_Controller_Request_Http $request)
     {
         try {
-            var_dump($_SESSION);
-            exit;
-
             // Если в POST нет параметра captcha то валидацию не провести - это ошибка
-            if (!$httpHeaders->getPost(self::POST_CAPTCHA_NAME))
+            if (!$request->getPost(self::POST_CAPTCHA_NAME))
                 throw new Exception('You should take a "captcha" into Post');
 
-            if ($_SESSION[SESSION_CAPTCHA_VAR_NAME] === $httpHeaders->getPost(self::POST_CAPTCHA_NAME))
+            if ($_SESSION[SESSION_CAPTCHA_VAR_NAME] === $request->getPost(self::POST_CAPTCHA_NAME)) {
                 return true;
+            }
 
             // Сменим код в сессии для каптчи в сессии сразу после валидации
             // Иначе можно будет долбать через curl пока не подберёт

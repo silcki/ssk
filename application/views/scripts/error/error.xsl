@@ -19,7 +19,7 @@ $().ready(function() {
 		rules: {
 			captcha: {
 				required: true,
-				remote: "/ajax/caphainp/"
+				remote: "/ajax/validatecaptcha/"
 			},
 			name: {
 				required: true,

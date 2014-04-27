@@ -6,6 +6,13 @@ class Core_Application_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected $serviceManager;
 
+    protected function _initSession()
+    {
+        $session = new Zend_Session_Namespace();
+
+        return $session;
+    }
+
     protected function _initDatabase(){
         $config = $this->getOptions();
 

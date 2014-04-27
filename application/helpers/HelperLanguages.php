@@ -21,22 +21,10 @@ class HelperLanguages extends Core_Controller_Action_Helper_Abstract
             $lang_sys_name = "";
         }
 
-        if (strchr($this->params['curURI'], "/lng")) {
-            $clearURI = substr($this->params['curURI'], 0, strpos($this->params['curURI'], "/lng"));
-        } else {
-            $clearURI = substr($this->params['curURI'], 1);
-        }
-
-
-        if ($clearURI == "/index/" || $clearURI == "//") {
-            $clearURI = "/";
-        }
-
         $this->domXml->create_element('lang', $this->params['lang'], 1);
         $this->domXml->create_element('lang_id', $this->params['langId'], 1);
         $this->domXml->create_element('lang_name', $lang_name, 1);
         $this->domXml->create_element('lang_sys_name', $lang_sys_name, 1);
-        $this->domXml->create_element('clearURI', $clearURI, 1);
 
         return $this;
     }
@@ -48,16 +36,16 @@ class HelperLanguages extends Core_Controller_Action_Helper_Abstract
      * @param
      * @return  string xml
      */
-    public function getLangs()
+    public function getLangs($uri)
     {
         $langs = $this->anotherPages->getLangs();
         foreach ($langs as $lang) {
             $this->domXml->create_element('langs', '', 1);
-            $this->domXml->set_attribute(array('cmf_lang_id' => $lang['CMF_LANG_ID']
-            , 'is_default' => $lang['IS_DEFAULT']
+            $this->domXml->set_attribute(array(
+                'cmf_lang_id' => $lang['CMF_LANG_ID'],
+                'is_default' => $lang['IS_DEFAULT']
             ));
 
-            $uri = explode('/', $this->params['curURI']);
             $href = '';
             if ($this->params['langId'] > 0) {
                 for ($i = 0; $i < count($uri) - 2; $i++) {

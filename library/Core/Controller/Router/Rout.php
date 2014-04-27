@@ -28,6 +28,8 @@ class Core_Controller_Router_Rout
         $this->_initAliasingDoc();
         $this->_initAliasingNews();
         $this->_initAliasingArticles();
+        $this->_initAliasingGallary();
+        $this->_initAliasingVideoGallary();
     }
 
     private function _initChpu()
@@ -136,7 +138,7 @@ class Core_Controller_Router_Rout
         $this->_router->addRoute('doc', $routed);
 
         $routed_lang = new Zend_Controller_Router_Route_Regex(
-            '(\w{2})/doc/(.+)\.html',
+            '(\w{2})/doc/(.+)',
             array(
                 'controller' => 'doc',
                 'action' => 'index'
@@ -245,9 +247,65 @@ class Core_Controller_Router_Rout
         );
 
         $this->_router->addRoute('articles_view_multilingual', $routed_lang);
+    }
 
-//         $values3 = $routed->match('/news/view/n/123/');
-//         print_r($values3);
-//         exit;
+    private function _initAliasingGallary() {
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'gallery/all/n/(\d*)',
+            array(
+                'controller' => 'gallery',
+                'action' => 'index'
+            ),
+            array(
+                1 => 'n'
+            )
+        );
+
+        $this->_router->addRoute('gallery_index', $routed);
+
+        $routed_lang = new Zend_Controller_Router_Route_Regex(
+            '(\w{2})/gallery/all/n/(\d*)',
+            array(
+                'controller' => 'gallery',
+                'action' => 'index'
+            ),
+            array(
+                1 => 'lang',
+                2 => 'n'
+
+            )
+        );
+
+        $this->_router->addRoute('gallery_index_multilingual', $routed_lang);
+    }
+
+    private function _initAliasingVideoGallary() {
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'videogallery/all/n/(\d*)',
+            array(
+                'controller' => 'videogallery',
+                'action' => 'index'
+            ),
+            array(
+                1 => 'n'
+            )
+        );
+
+        $this->_router->addRoute('videogallery_index', $routed);
+
+        $routed_lang = new Zend_Controller_Router_Route_Regex(
+            '(\w{2})/videogallery/all/n/(\d*)',
+            array(
+                'controller' => 'videogallery',
+                'action' => 'index'
+            ),
+            array(
+                1 => 'lang',
+                2 => 'n'
+
+            )
+        );
+
+        $this->_router->addRoute('videogallery_index_multilingual', $routed_lang);
     }
 } 

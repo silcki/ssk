@@ -28,7 +28,7 @@
 	<!-- Gallery -->
 <xsl:template match="data">
 	<div class="forprint">
-		<h1><xsl:value-of select="/page/data/docinfo/name" disable-output-escaping="yes"/></h1>
+		<h1><xsl:value-of select="doc_meta/name" disable-output-escaping="yes"/></h1>
 	</div>
 	<ul class="gallery2">
 		<xsl:apply-templates select="gallery" />

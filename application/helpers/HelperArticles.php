@@ -111,6 +111,43 @@ class HelperArticles extends Core_Controller_Action_Helper_Abstract
     }
 
     /**
+     * @param $catalogId
+     * @param $articles_per_block
+     *
+     * @return $this
+     */
+    public function getCatalogArticle($catalogId, $articles_per_block)
+    {
+        $data = $this->articles->getCatalogArticle($catalogId, $this->params['langId'], $articles_per_block);
+        if (!empty($data)) {
+            $lang = '';
+            if ($this->params['langId'] > 0) {
+                $lang = '/' . $this->params['lang'];
+            }
+
+            foreach ($data as $val) {
+                $this->domXml->create_element('catalog_article', '', 2);
+                $this->domXml->set_attribute(array('id' => $val['ARTICLE_ID']
+                ));
+
+                if (!empty($val['URL'])) {
+                    $href = $val['URL'];
+                } else {
+                    $href = $lang . '/articles/all/n/' . $val['ARTICLE_ID'] . '/';
+                }
+
+                $this->domXml->create_element('name', $val['NAME']);
+                $this->domXml->create_element('date', $val['date']);
+                $this->domXml->create_element('url', $href);
+
+                $this->domXml->go_to_parent();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Мета описание
      *
      * @param int $articleId
