@@ -636,7 +636,11 @@
 				<xsl:if test="data/section/@rel_next !='' ">
 					<link rel="next" href="{data/section/@rel_next}"/>
 				</xsl:if>
-                                <meta name="google-site-verification" content="Zh9o5kDmgl9hJGCJcNb8ngidmwpUk-RbZOq88dR_6gk" />
+
+                <link rel="stylesheet" type="text/css" href="/css/client_filter.css" media="screen"/>
+                <script type="text/javascript" src="/js/client_filter.js"/>
+
+                <meta name="google-site-verification" content="Zh9o5kDmgl9hJGCJcNb8ngidmwpUk-RbZOq88dR_6gk" />
 			</head>
 			<body>
 
@@ -935,25 +939,44 @@ var google_remarketing_only = true;
 					</ul>
 				</xsl:if>
 
-                <xsl:if test="count(client_country) &gt; 0">
-                    <div>Страны:</div>
-                    <ul class="menucat client_country">
-                        <xsl:apply-templates select="client_country"/>
-                    </ul>
-                </xsl:if>
-                
-                <xsl:if test="count(client_scope) &gt; 0">
-                    <div>Сфера деятельности:</div>
-                    <ul class="menucat client_scope">
-                        <xsl:apply-templates select="client_scope"/>
-                    </ul>
-                </xsl:if>
-                
-                <xsl:if test="count(client_product_type) &gt; 0">
-                    <div>Тип продукции:</div>
-                    <ul class="menucat client_product_type">
-                        <xsl:apply-templates select="client_product_type"/>
-                    </ul>
+                <xsl:if test="count(client_country) &gt; 0 or count(client_scope) &gt; 0 or count(client_product_type) &gt; 0">
+                    <div class="client_filter">
+                        <div class="heading">
+                            <a>Поиск</a>
+                        </div>
+                        <div class="loadingForm">
+                            <form action="" data-file-name="@file_name">
+                                <fieldset>
+                                    <xsl:if test="count(client_country) &gt; 0">
+                                        <h4>Страны:</h4>
+                                        <ul class="menucat client_country">
+                                            <xsl:apply-templates select="client_country"/>
+                                        </ul>
+                                    </xsl:if>
+
+                                    <xsl:if test="count(client_scope) &gt; 0">
+                                        <h4>Сфера деятельности:</h4>
+                                        <ul class="menucat client_scope">
+                                            <xsl:apply-templates select="client_scope"/>
+                                        </ul>
+                                    </xsl:if>
+
+                                    <xsl:if test="count(client_product_type) &gt; 0">
+                                        <h4>Тип продукции:</h4>
+                                        <ul class="menucat client_product_type">
+                                            <xsl:apply-templates select="client_product_type"/>
+                                        </ul>
+                                    </xsl:if>
+                                    <div class="row">
+                                        <a href="#" id="client_filter_send">
+                                            <xsl:attribute name="class">btn_send disable</xsl:attribute>
+                                            Отправить
+                                        </a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
                 </xsl:if>
 				
 				<xsl:if test="count(//page/left_banner) &gt; 0">

@@ -5,22 +5,22 @@
 
     <xsl:template match="client_country">
         <li>
-            <label for="country{@id}"><xsl:value-of select="name"/></label>
             <input type="checkbox" id="country{@id}" value="{@id}" name="client_country[]"/>
+            <label for="country{@id}"><xsl:value-of select="name"/></label>
         </li>
     </xsl:template>
     
     <xsl:template match="client_scope">
         <li>
-            <label for="client_scope{@id}"><xsl:value-of select="name"/></label>
             <input type="checkbox" id="client_scope{@id}" value="{@id}" name="client_scope[]"/>
+            <label for="client_scope{@id}"><xsl:value-of select="name"/></label>
         </li>
     </xsl:template>
     
     <xsl:template match="client_product_type">
         <li>
-            <label for="client_product_type{@id}"><xsl:value-of select="name"/></label>
             <input type="checkbox" id="client_product_type{@id}" value="{@id}" name="client_product_type[]"/>
+            <label for="client_product_type{@id}"><xsl:value-of select="name"/></label>
         </li>
     </xsl:template>
 	

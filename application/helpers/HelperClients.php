@@ -79,9 +79,9 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
     /**
      * @return $this
      */
-    public function getClients()
+    public function getClients($countryIds, $scopeIds, $productTypeIds)
     {
-        $clients = $this->clients->getClients($this->params['langId']);
+        $clients = $this->clients->getClients($this->params['langId'], $countryIds, $scopeIds, $productTypeIds);
         if ($clients) {
             $i_td = 0;
             foreach ($clients as $view) {
@@ -172,7 +172,7 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
      *
      * @return $this
      */
-    public function getCountry($countryIds = array())
+    public function getCountry($countryIds)
     {
         $country = $this->clients->getCountry();
         if (!empty($country)) {
@@ -198,7 +198,7 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
      *
      * @return $this
      */
-    public function getScope($scopeIds = array())
+    public function getScope($scopeIds)
     {
         $scope = $this->clients->getScope();
         if (!empty($scope)) {
@@ -224,7 +224,7 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
      *
      * @return $this
      */
-    public function getProductType($productTypeIds = array())
+    public function getProductType($productTypeIds)
     {
         $productType = $this->clients->getProductType();
         if (!empty($productType)) {

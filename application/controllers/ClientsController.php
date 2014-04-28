@@ -31,7 +31,24 @@ class ClientsController extends Core_Controller_Action_Abstract
         $docId = $this->AnotherPages->getPageId('/clients/');
 
         $o_data['ap_id'] = $docId;
+        $o_data['file_name'] = $this->AnotherPages->getDocRealCat($docId);
         $o_data['is_vote'] = '';
+
+        $countryIds = $this->getParam('countryId', array());
+        $scopeIds = $this->getParam('scopeId', array());
+        $productTypeIds = $this->getParam('productTypeId', array());
+
+        if (!empty($countryIds)) {
+            $countryIds = explode(',', $countryIds);
+        }
+
+        if (!empty($scopeIds)) {
+            $scopeIds = explode(',', $scopeIds);
+        }
+
+        if (!empty($productTypeIds)) {
+            $productTypeIds = explode(',', $productTypeIds);
+        }
 
         $this->openData($o_data);
 
@@ -43,10 +60,10 @@ class ClientsController extends Core_Controller_Action_Abstract
 
         $this->getServiceManager()->getHelper()->getClients()
              ->setParams($params)
-             ->getScope()
-             ->getProductType()
-             ->getCountry()
-             ->getClients();
+             ->getCountry($countryIds)
+             ->getScope($scopeIds)
+             ->getProductType($productTypeIds)
+             ->getClients($countryIds, $scopeIds, $productTypeIds);
     }
 
     public function viewAction()
