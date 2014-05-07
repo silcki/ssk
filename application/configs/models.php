@@ -14,6 +14,5 @@ return array(
     'SectionAlign',
     'SystemSets',
     'Textes',
-    'Textes',
     'Vopros',
 );
