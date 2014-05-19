@@ -42,22 +42,21 @@ class Core_Controller_Router_Rout
             return true;
         }
 
+        $paramsArr = array(3 => 'country',
+                           5 => 'scope',
+                           7 => 'product_type',
+                           9 => 'page',
+                          );
+
         $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
 
-        $is_product_type = $is_scope = $is_country = $is_page = false;
-        $page = 1;
+        $paramsArrResult = array();
         $pattern_page = '/(.*)(country\/(.+)\/)?(scope\/(.+)\/)?(product_type\/(.+)\/)?(page\/(\d*)\/)?$/Uis';
 
-        if(preg_match($pattern_page, $uri, $out)){
-            $country = !empty($out[3]) ? $out[3]:'';
-            $scope = !empty($out[5]) ? $out[5]:'';
-            $product_type = !empty($out[7]) ? $out[7]:'';
-            $page = !empty($out[9]) ? $out[9]:1;
-
-            if(!empty($page)) $is_page = true;
-            if(!empty($country)) $is_country = true;
-            if(!empty($scope)) $is_scope = true;
-            if(!empty($product_type)) $is_product_type = true;
+        if (preg_match($pattern_page, $uri, $out)) {
+            foreach ($paramsArr as $ind => $key) {
+                $paramsArrResult[$key] = !empty($out[$ind]) ? $out[$ind] : '';
+            }
 
             $uri = !empty($out[1]) ? $out[1]:$uri;
         }
@@ -75,10 +74,11 @@ class Core_Controller_Router_Rout
             $siteURLbySEFU = $anotherPagesModel->getSiteURLbySEFU($urlInfo['path']);
 
             if (!empty($siteURLbySEFU)) {  // если существует урл сайта для ЧПУ-урла, то формируем $_REQUEST['p_']
-                if($is_page) $siteURLbySEFU.='page/'.$page.'/';
-                if($is_country) $siteURLbySEFU.='country/'.$country.'/';
-                if($is_scope) $siteURLbySEFU.='scope/'.$scope.'/';
-                if($is_product_type) $siteURLbySEFU.='product_type/'.$product_type.'/';
+                foreach ($paramsArrResult as $key => $value) {
+                    if (!empty($value)) {
+                        $siteURLbySEFU .= $key . '/' . $value . '/';
+                    }
+                }
 
                 $request->setRequestUri($siteURLbySEFU);
             }
@@ -172,7 +172,8 @@ class Core_Controller_Router_Rout
             'news/page/(\d+)',
             array(
                 'controller' => 'news',
-                'action' => 'index'
+                'action' => 'index',
+                'page' => 1
             ),
             array(
                 1 => 'page'
@@ -261,7 +262,8 @@ class Core_Controller_Router_Rout
             'articles/page/(\d+)',
             array(
                 'controller' => 'articles',
-                'action' => 'index'
+                'action' => 'index',
+                'page' => 1
             ),
             array(
                 1 => 'page'

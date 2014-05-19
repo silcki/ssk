@@ -40,6 +40,10 @@ class Clients extends Core_Connect
             $where.= 'and A.SCOPE_ID IN (' .implode(',', $scopeIds). ')';
         }
 
+        if (!empty($productTypeIds)) {
+            $where.= 'and CPT.PRODUCT_TYPE_ID IN (' .implode(',', $productTypeIds). ')';
+        }
+
         if ($lang > 0) {
             $sql = "select A.CLIENT_ID
                  , B.NAME
@@ -47,15 +51,20 @@ class Clients extends Core_Connect
                  , A.URL
                  , A.IMAGE1
                  , B.DESCRIPTION
-            from CLIENT A inner join CLIENT_LANGS B on B.CLIENT_ID=A.CLIENT_ID
+            from CLIENT A
+            inner join CLIENT_LANGS B on B.CLIENT_ID=A.CLIENT_ID
+            left join CLIENT_PRODUCT_TYPE CPT on (CPT.CLIENT_ID = A.CLIENT_ID)
             where A.STATUS = 1
             {$where}
+            group by A.CLIENT_ID
             order by A.ORDERING";
         } else {
             $sql = "select A.*
-                    from CLIENT
+                    from CLIENT A
+                    left join CLIENT_PRODUCT_TYPE CPT on (CPT.CLIENT_ID = A.CLIENT_ID)
                     where A.STATUS = 1
                     {$where}
+                    group by A.CLIENT_ID
                     order by A.ORDERING";
         }
 

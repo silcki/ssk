@@ -5,21 +5,33 @@
 
     <xsl:template match="client_country">
         <li>
-            <input type="checkbox" id="country{@id}" value="{@id}" name="client_country[]"/>
+            <input type="checkbox" id="country{@id}" value="{@id}" name="client_country[]">
+                <xsl:if test="@active = 1">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                </xsl:if>
+            </input>
             <label for="country{@id}"><xsl:value-of select="name"/></label>
         </li>
     </xsl:template>
     
     <xsl:template match="client_scope">
         <li>
-            <input type="checkbox" id="client_scope{@id}" value="{@id}" name="client_scope[]"/>
+            <input type="checkbox" id="client_scope{@id}" value="{@id}" name="client_scope[]">
+                <xsl:if test="@active = 1">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                </xsl:if>
+            </input>
             <label for="client_scope{@id}"><xsl:value-of select="name"/></label>
         </li>
     </xsl:template>
     
     <xsl:template match="client_product_type">
         <li>
-            <input type="checkbox" id="client_product_type{@id}" value="{@id}" name="client_product_type[]"/>
+            <input type="checkbox" id="client_product_type{@id}" value="{@id}" name="client_product_type[]">
+                <xsl:if test="@active = 1">
+                    <xsl:attribute name="checked">checked</xsl:attribute>
+                </xsl:if>
+            </input>
             <label for="client_product_type{@id}"><xsl:value-of select="name"/></label>
         </li>
     </xsl:template>
@@ -38,9 +50,17 @@
 	<div class="forprint">
 		<h1><xsl:value-of select="docinfo/name" disable-output-escaping="yes"/></h1>
 	</div>
-	<table class="clients">
-		<xsl:apply-templates select="clients_tr"/>
-	</table>
+    <xsl:choose>
+        <xsl:when test="count(clients_tr) &gt; 0">
+            <table class="clients">
+                <xsl:apply-templates select="clients_tr"/>
+            </table>
+        </xsl:when>
+        <xsl:otherwise>
+            <p>По Вашему запросу ничего не найдено</p>
+        </xsl:otherwise>
+    </xsl:choose>
+
 </xsl:template>
 
 </xsl:stylesheet>

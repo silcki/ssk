@@ -14,6 +14,7 @@ $(document).ready(function() {
     function processing()
     {
         var url = $('.client_filter form').data('fileName');
+        var post = $('.client_filter form').data('post');
         var enable_link = false;
         if (client_country.length > 0) {
             enable_link = true;
@@ -30,7 +31,7 @@ $(document).ready(function() {
             url+= 'product_type/' + client_product_type.join() + '/';
         }
 
-        if (enable_link) {
+        if (enable_link || post == 1) {
             $('#client_filter_send').removeClass('disable');
         } else {
             $('#client_filter_send').addClass('disable');
@@ -43,37 +44,38 @@ $(document).ready(function() {
     var client_scope = new Array();
     var client_product_type = new Array();
 
-    $("ul.client_country input").click(function(event){
-        if ($(this).is(':checked')) {
-            client_country.push($(this).val());
-        } else {
-            client_country.remove($(this).val());
-        }
+    $("ul.client_country input, ul.client_scope input, ul.client_product_type input").click(function(event){
+        $("ul.client_country input").each(function(){
+            if ($(this).is(':checked')) {
+                client_country.push($(this).val());
+            } else {
+                client_country.remove($(this).val());
+            }
+        });
+
+        $("ul.client_scope input").each(function(){
+            if ($(this).is(':checked')) {
+                client_scope.push($(this).val());
+            } else {
+                client_scope.remove($(this).val());
+            }
+        });
+
+        $("ul.client_product_type input").each(function(){
+            if ($(this).is(':checked')) {
+                client_product_type.push($(this).val());
+            } else {
+                client_product_type.remove($(this).val());
+            }
+        });
+
 
         processing();
     });
 
-    $("ul.client_scope input").click(function(event){
-        if ($(this).is(':checked')) {
-            client_scope.push($(this).val());
-        } else {
-            client_scope.remove($(this).val());
-        }
-
-        processing();
-    });
-
-    $("ul.client_product_type input").click(function(event){
-        if ($(this).is(':checked')) {
-            client_product_type.push($(this).val());
-        } else {
-            client_product_type.remove($(this).val());
-        }
-
-        processing();
-    });
-
-    $(".client_filter .btn_send").click(function(event){
+    $("#client_filter_send").click(function(event){
         event.preventDefault();
+
+        $('.client_filter form').submit();
     });
 });

@@ -945,7 +945,7 @@ var google_remarketing_only = true;
                             <a>Поиск</a>
                         </div>
                         <div class="loadingForm">
-                            <form action="" data-file-name="@file_name">
+                            <form action="" data-file-name="{@file_name}" data-post="{@is_post}" method="post">
                                 <fieldset>
                                     <xsl:if test="count(client_country) &gt; 0">
                                         <h4>Страны:</h4>
@@ -968,10 +968,17 @@ var google_remarketing_only = true;
                                         </ul>
                                     </xsl:if>
                                     <div class="row">
-                                        <a href="#" id="client_filter_send">
-                                            <xsl:attribute name="class">btn_send disable</xsl:attribute>
+                                        <a href="#" id="client_filter_send" class="btn_send">
+                                            <xsl:if test="@is_post = 0">
+                                                <xsl:attribute name="class">btn_send disable</xsl:attribute>
+                                            </xsl:if>
                                             Отправить
                                         </a>
+                                        <xsl:if test="count(clients_tr)= 0">
+                                            <a href="{@file_name}" class="btn_send">
+                                                Сбросить
+                                            </a>
+                                        </xsl:if>
                                     </div>
                                 </fieldset>
                             </form>

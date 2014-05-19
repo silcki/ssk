@@ -30,10 +30,6 @@ class ClientsController extends Core_Controller_Action_Abstract
 
         $docId = $this->AnotherPages->getPageId('/clients/');
 
-        $o_data['ap_id'] = $docId;
-        $o_data['file_name'] = $this->AnotherPages->getDocRealCat($docId);
-        $o_data['is_vote'] = '';
-
         $countryIds = $this->getParam('countryId', array());
         $scopeIds = $this->getParam('scopeId', array());
         $productTypeIds = $this->getParam('productTypeId', array());
@@ -49,6 +45,11 @@ class ClientsController extends Core_Controller_Action_Abstract
         if (!empty($productTypeIds)) {
             $productTypeIds = explode(',', $productTypeIds);
         }
+
+        $o_data['ap_id'] = $docId;
+        $o_data['file_name'] = $this->AnotherPages->getDocRealCat($docId);
+        $o_data['is_vote'] = '';
+        $o_data['is_post'] = $this->getRequest()->isPost() ? 1:0;
 
         $this->openData($o_data);
 

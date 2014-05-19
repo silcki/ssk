@@ -11,7 +11,6 @@
     background: url("../i/bg-menu.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
     height: 27px;
     overflow: hidden;
-    text-indent: -9999px;
 }
 
 .client_filter .heading a {
@@ -39,11 +38,16 @@
 }
 
 .client_filter h4 {
-
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .client_filter .disable {
     pointer-events: none;
     cursor: default;
     background:#a0a0a0;
+}
+
+.client_filter .btn_send  {
+    margin-left: 10px;
 }
