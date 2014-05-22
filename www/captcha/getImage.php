@@ -1,14 +1,13 @@
 <?php
-
 session_start();
 
-define('ROOT_PATH', realpath(dirname(__FILE__) . '/../../'));
+define('SITE_PATH', realpath(dirname(__FILE__) . '/../'));
+define('SESSION_CAPTCHA_VAR_NAME',  'biz_captcha');
 
-require_once ROOT_PATH . '/include/config.php';
-require_once ROOT_PATH . '/include/captcha/SimpleCaptcha.php';
+require_once SITE_PATH . '/captcha/SimpleCaptcha.php';
 
 $captcha = new SimpleCaptcha();
-$captcha->resourcesPath = ROOT_PATH . '/include/captcha/resources';
+$captcha->resourcesPath = SITE_PATH . '/captcha/resources';
 //$captcha->width = 200;
 //$captcha->height = 70;
 // OPTIONAL Change configuration...

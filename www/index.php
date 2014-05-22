@@ -6,10 +6,11 @@ define('SESSION_CAPTCHA_VAR_NAME',  'biz_captcha');
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
+define('SITE_PATH', realpath(dirname(__FILE__)));
+
 define('APPLICATION_PATH', ROOT_PATH . '/application');
 define('CONFIG_PATH', APPLICATION_PATH . '/configs');
 define('LIB_PATH', ROOT_PATH . '/library');
-
 
 if (APPLICATION_ENV != 'production') {
     error_reporting(E_ALL);
@@ -59,5 +60,8 @@ $application = new Zend_Application(
 );
 
 $application->bootstrap();
-Zend_Registry::getInstance()->set('bootstrap', $application->getBootstrap());
-$application->run();
+
+if (!defined('_CRONJOB_') || _CRONJOB_ == false) {
+    Zend_Registry::getInstance()->set('bootstrap', $application->getBootstrap());
+    $application->run();
+}

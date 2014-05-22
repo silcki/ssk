@@ -1,4 +1,6 @@
 DirectoryIndex index.htm index.php
+SetEnv APPLICATION_ENV production
+
 RewriteEngine on
 
 RewriteRule ^kalkulyator-stellageiy\/$ http://ssk.ua/calc/pallet-stell-calc-obf.htm [R=301,L]
