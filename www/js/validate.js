@@ -12,27 +12,17 @@ $(document).ready(function() {
             $(form).parent().append('<div class="phoneback_back"><div class="phoneback_back_loader">&nbsp;</div></div>');
             $('#feedbackk').ajaxSubmit({
                 success: function(data) {
-                    var dateJSON = {};
-                    try
-                    {
-                        dateJSON = $.parseJSON(data);
-                    }
-                    catch(e)
-                    {
-                        dateJSON['text'] = data;
-                    }
-
-                    message =   '<div class="okhold-false">'+ dateJSON['text'] +'</div>';
-                    if (dateJSON['result']){
+                    message =   '<div class="okhold-false">'+ data.text +'</div>';
+                    if (data.status == 'ok'){
                         form.reset();
-                        message = '<div class="okhold">'+ dateJSON['text'] +'</div>';
+                        message = '<div class="okhold">'+ data.text +'</div>';
                     }
                     else {
                         form.captcha.value = '';
                     }
 
                     reloadCaptcha();
-                    $.fancybox(dateJSON['text']);
+                    $.fancybox(data.text);
                     $('.phoneback_back').remove();
                 }
             });

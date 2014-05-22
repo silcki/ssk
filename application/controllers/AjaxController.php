@@ -76,28 +76,8 @@ class AjaxController extends Core_Controller_Action_Abstract
 
                 $to = $this->getSettingValue('callback_email');
                 if ($to) {
-                    $email_from = $this->getSettingValue('email_from');
-                    $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-                    preg_match($patrern, $email_from, $arr);
-
-                    $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
-                    $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
-
-                    $params = array_merge($params, $this->getMailTrasportData());
-
                     $manager_emails_arr = explode(";", $to);
-                    if (!empty($manager_emails_arr)) {
-                        $params['message'] = $message_admin;
-                        $params['subject'] = $subject['DESCRIPTION'];
-
-                        foreach ($manager_emails_arr as $mm) {
-                            $mm = trim($mm);
-                            if (!empty($mm)) {
-                                $params['to'] = $mm;
-                                Core_Controller_Action_Helper_Mailer::send($params);
-                            }
-                        }
-                    }
+                    $this->sendEmail($message_admin, $manager_emails_arr, $subject['DESCRIPTION']);
                 }
 
                 $result['status'] = 'ok';
@@ -165,28 +145,8 @@ class AjaxController extends Core_Controller_Action_Abstract
 
                 $to = $this->getSettingValue('complain_email');
                 if ($to) {
-                    $email_from = $this->getSettingValue('email_from');
-                    $patrern = '/(.*)<?([a-zA-Z0-9\-\_]+\@[a-zA-Z0-9\-\_]+(\.[a-zA-Z0-9]+?)+?)>?/U';
-                    preg_match($patrern, $email_from, $arr);
-
-                    $params['mailerFrom'] = empty($arr[2]) ? '' : trim($arr[2]);
-                    $params['mailerFromName'] = empty($arr[1]) ? '' : trim($arr[1]);
-
-                    $params = array_merge($params, $this->getMailTrasportData());
-
                     $manager_emails_arr = explode(";", $to);
-                    if (!empty($manager_emails_arr)) {
-                        $params['message'] = $message_admin;
-                        $params['subject'] = $subject['DESCRIPTION'];
-
-                        foreach ($manager_emails_arr as $mm) {
-                            $mm = trim($mm);
-                            if (!empty($mm)) {
-                                $params['to'] = $mm;
-                                Core_Controller_Action_Helper_Mailer::send($params);
-                            }
-                        }
-                    }
+                    $this->sendEmail($message_admin, $manager_emails_arr, $subject['DESCRIPTION']);
                 }
 
                 $result['status'] = 'ok';
@@ -253,6 +213,7 @@ class AjaxController extends Core_Controller_Action_Abstract
             );
 
             $result['status'] = 'ok';
+            $result['text'] = 'Ваш вопрос был принят.';
         }
 
         $this->_helper->json($result);
@@ -383,13 +344,12 @@ class AjaxController extends Core_Controller_Action_Abstract
     public function sendfeedbackAction()
     {
         // TODO: каммент нужен только для отладки POST - в рабочей версии убрать!
-        if (!$this->validateCaptcha())
+        if (!$this->validateCaptcha()) {
             return false;
-
+        }
 
         // Получить тему письма
-        $subject = $this->getServiceManager()->getModel()->getTextes()->getSysText(self::TEXT_FEEDBACK_SUBJECT,
-            $this->lang_id);
+        $subject = $this->getServiceManager()->getModel()->getTextes()->getSysText(self::TEXT_FEEDBACK_SUBJECT, $this->lang_id);
 
         // Заглушка на случай если не нашли тему для данного $emailSubjectSysText
         if (!$subject)
@@ -405,8 +365,6 @@ class AjaxController extends Core_Controller_Action_Abstract
             $subject['DESCRIPTION']
         );
 
-
-
         if ($sendResult) {
             $returnMessage['text'] = "Ваше сообщение было успешно отправлено";
             $returnMessage['result'] = true;
@@ -415,7 +373,7 @@ class AjaxController extends Core_Controller_Action_Abstract
             $returnMessage['result'] = false;
         }
 
-        echo json_encode($returnMessage);
+        $this->_helper->json($returnMessage);
     }
 
     /**

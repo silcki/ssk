@@ -462,17 +462,9 @@ class AnotherPages extends Core_Connect
 
     public function getSiteURLbySEFU($sefURL)
     {
-        $sefURL = preg_replace("/\/$/", "", $sefURL);
-        $sefURL = str_replace('&amp;', '&', $sefURL);
-        $sefURL = str_replace('&', '&amp;', $sefURL);
-        $sefURLDecode = urldecode($sefURL);
-        $sefURL = mysql_real_escape_string($sefURL);
-        $sefURLDecode = mysql_real_escape_string($sefURLDecode);
-
-        $sql = "select SITE_URL 
+        $sql = "select SITE_URL
                 from SEF_SITE_URL 
                 where SEF_URL rlike '^{$sefURL}.?$' 
-                   or SEF_URL rlike '^$sefURLDecode.?$'
                 order by SEF_SITE_URL_ID desc";
 
         return $this->_db->fetchOne($sql);
