@@ -28,16 +28,28 @@ class Clients extends Core_Connect
         return $this->_db->fetchAll($sql);
     }
 
-    public function getClients($lang = 0, $countryIds, $scopeIds, $productTypeIds)
+    /**
+     * @param int   $lang
+     * @param array $countryId
+     * @param array $scopeId
+     * @param array $productTypeId
+     *
+     * @return array
+     */
+    public function getClients($lang = 0, $countryId, $scopeId, $productTypeId)
     {
-        $where = '';
+        $joinWhere = $where = '';
 
-        if (!empty($countryIds)) {
-            $where.= 'and A.COUNTRY_ID IN (' .implode(',', $countryIds). ')';
+        if (!empty($countryId)) {
+            $where.= ' and A.COUNTRY_ID = ' .$countryId;
         }
 
-        if (!empty($scopeIds)) {
-            $where.= 'and A.SCOPE_ID IN (' .implode(',', $scopeIds). ')';
+        if (!empty($scopeId)) {
+            $where.= ' and A.SCOPE_ID = ' .$scopeId;
+        }
+
+        if (!empty($productTypeId)) {
+            $joinWhere.= ' CPT.PRODUCT_TYPE_ID = ' .$productTypeId;
         }
 
         if ($lang > 0) {
@@ -53,7 +65,8 @@ class Clients extends Core_Connect
             order by A.ORDERING";
         } else {
             $sql = "select A.*
-                    from CLIENT
+                    from CLIENT A
+                    left join  CLIENT_PRODUCT_TYPE CPT ON (CPT.CLIENT_ID = A.CLIENT_ID) {$joinWhere}
                     where A.STATUS = 1
                     {$where}
                     order by A.ORDERING";

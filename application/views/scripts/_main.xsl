@@ -939,46 +939,6 @@ var google_remarketing_only = true;
 					</ul>
 				</xsl:if>
 
-                <xsl:if test="count(client_country) &gt; 0 or count(client_scope) &gt; 0 or count(client_product_type) &gt; 0">
-                    <div class="client_filter">
-                        <div class="heading">
-                            <a>Поиск</a>
-                        </div>
-                        <div class="loadingForm">
-                            <form action="" data-file-name="@file_name">
-                                <fieldset>
-                                    <xsl:if test="count(client_country) &gt; 0">
-                                        <h4>Страны:</h4>
-                                        <ul class="menucat client_country">
-                                            <xsl:apply-templates select="client_country"/>
-                                        </ul>
-                                    </xsl:if>
-
-                                    <xsl:if test="count(client_scope) &gt; 0">
-                                        <h4>Сфера деятельности:</h4>
-                                        <ul class="menucat client_scope">
-                                            <xsl:apply-templates select="client_scope"/>
-                                        </ul>
-                                    </xsl:if>
-
-                                    <xsl:if test="count(client_product_type) &gt; 0">
-                                        <h4>Тип продукции:</h4>
-                                        <ul class="menucat client_product_type">
-                                            <xsl:apply-templates select="client_product_type"/>
-                                        </ul>
-                                    </xsl:if>
-                                    <div class="row">
-                                        <a href="#" id="client_filter_send">
-                                            <xsl:attribute name="class">btn_send disable</xsl:attribute>
-                                            Отправить
-                                        </a>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </xsl:if>
-				
 				<xsl:if test="count(//page/left_banner) &gt; 0">
 					<div class="gallary_hold" style="height: 370px; margin: 10px 6px;">
 						<div class="holder">

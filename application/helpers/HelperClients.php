@@ -168,11 +168,11 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
     }
 
     /**
-     * @param array $countryIds
+     * @param array $countryId
      *
      * @return $this
      */
-    public function getCountry($countryIds)
+    public function getCountry($countryId)
     {
         $country = $this->clients->getCountry();
         if (!empty($country)) {
@@ -181,7 +181,7 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
                 $this->domXml->set_attribute(
                     array(
                     'id' => $view['COUNTRY_ID'],
-                    'active' => in_array($view['COUNTRY_ID'], $countryIds) ? 1:0
+                    'active' => $view['COUNTRY_ID'] == $countryId ? 1:0
                 ));
 
                 $this->domXml->create_element('name', $view['NAME']);
@@ -194,11 +194,11 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
     }
 
     /**
-     * @param array $scopeIds
+     * @param array $scopeId
      *
      * @return $this
      */
-    public function getScope($scopeIds)
+    public function getScope($scopeId)
     {
         $scope = $this->clients->getScope();
         if (!empty($scope)) {
@@ -207,7 +207,7 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
                 $this->domXml->set_attribute(
                     array(
                         'id' => $view['SCOPE_ID'],
-                        'active' => in_array($view['SCOPE_ID'], $scopeIds) ? 1:0
+                        'active' => $view['SCOPE_ID'] == $scopeId ? 1:0
                     ));
 
                 $this->domXml->create_element('name', $view['NAME']);
@@ -220,11 +220,11 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
     }
 
     /**
-     * @param array $productTypeIds
+     * @param array $productTypeId
      *
      * @return $this
      */
-    public function getProductType($productTypeIds)
+    public function getProductType($productTypeId)
     {
         $productType = $this->clients->getProductType();
         if (!empty($productType)) {
@@ -233,7 +233,7 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
                 $this->domXml->set_attribute(
                     array(
                         'id' => $view['PRODUCT_TYPE_ID'],
-                        'active' => in_array($view['PRODUCT_TYPE_ID'], $productTypeIds) ? 1:0
+                        'active' => $view['PRODUCT_TYPE_ID'] == $productTypeId ? 1:0
                     ));
 
                 $this->domXml->create_element('name', $view['NAME']);

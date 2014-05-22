@@ -15,10 +15,10 @@ class Core_ServiceManager_Basic extends \Pimple
             $this->_config['helpers'] = require_once CONFIG_PATH . '/helpers.php';
         }
 
-        $this->register();
+        $this->init();
     }
 
-    private function register()
+    public function init()
     {
         if (!empty($this->_config['models'])) {
             foreach ($this->_config['models'] as $model) {

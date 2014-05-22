@@ -1,9 +1,12 @@
 DirectoryIndex index.htm index.php
 RewriteEngine on
 
+RewriteRule ^kalkulyator-stellageiy\/$ http://ssk.ua/calc/pallet-stell-calc-obf.htm [R=301,L]
+
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 #RewriteRule ^(.*)$ index.php/$1
 RewriteRule ^.*$ - [NC,L]
+RewriteCond %{REQUEST_URI} !^/(calc/.*|index.php)$
 RewriteRule ^.*$ index.php [NC,L]

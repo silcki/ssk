@@ -52,7 +52,7 @@ class Core_Controller_Router_Rout
             $country = !empty($out[3]) ? $out[3]:'';
             $scope = !empty($out[5]) ? $out[5]:'';
             $product_type = !empty($out[7]) ? $out[7]:'';
-            $page = !empty($out[9]) ? $out[9]:1;
+            $page = !empty($out[9]) ? $out[9]:0;
 
             if(!empty($page)) $is_page = true;
             if(!empty($country)) $is_country = true;

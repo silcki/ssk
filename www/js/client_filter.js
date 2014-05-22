@@ -15,65 +15,50 @@ $(document).ready(function() {
     {
         var url = $('.client_filter form').data('fileName');
         var enable_link = false;
-        if (client_country.length > 0) {
+
+        var client_country = $('select.client_country').val();
+        var client_scope = $('select.client_scope').val();
+        var client_product_type = $('select.client_product_type').val();
+
+        if (client_country > 0) {
             enable_link = true;
-            url+= 'country/' + client_country.join() + '/';
+            url+= 'country/' + client_country + '/';
         }
 
-        if (client_scope.length > 0) {
+        if (client_scope > 0) {
             enable_link = true;
-            url+= 'scope/' + client_scope.join() + '/';
+            url+= 'scope/' + client_scope + '/';
         }
 
-        if (client_product_type.length > 0) {
+        if (client_product_type > 0) {
             enable_link = true;
-            url+= 'product_type/' + client_product_type.join() + '/';
+            url+= 'product_type/' + client_product_type + '/';
         }
 
-        if (enable_link) {
-            $('#client_filter_send').removeClass('disable');
-        } else {
-            $('#client_filter_send').addClass('disable');
-        }
+//        if (enable_link) {
+//            $('#client_filter_send').removeClass('disable');
+//        } else {
+//            $('#client_filter_send').addClass('disable');
+//        }
 
         $('.client_filter form').attr({'action': url});
     }
 
-    var client_country = new Array();
-    var client_scope = new Array();
-    var client_product_type = new Array();
-
-    $("ul.client_country input").click(function(event){
-        if ($(this).is(':checked')) {
-            client_country.push($(this).val());
-        } else {
-            client_country.remove($(this).val());
-        }
-
+    $('select.client_country').change(function(){
         processing();
     });
 
-    $("ul.client_scope input").click(function(event){
-        if ($(this).is(':checked')) {
-            client_scope.push($(this).val());
-        } else {
-            client_scope.remove($(this).val());
-        }
-
+    $('select.client_scope').change(function(){
         processing();
     });
 
-    $("ul.client_product_type input").click(function(event){
-        if ($(this).is(':checked')) {
-            client_product_type.push($(this).val());
-        } else {
-            client_product_type.remove($(this).val());
-        }
-
+    $('select.client_product_type').change(function(){
         processing();
     });
 
     $(".client_filter .btn_send").click(function(event){
         event.preventDefault();
+        processing();
+        $(this).parents('form').submit();
     });
 });

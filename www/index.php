@@ -10,6 +10,7 @@ define('APPLICATION_PATH', ROOT_PATH . '/application');
 define('CONFIG_PATH', APPLICATION_PATH . '/configs');
 define('LIB_PATH', ROOT_PATH . '/library');
 
+
 if (APPLICATION_ENV != 'production') {
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
