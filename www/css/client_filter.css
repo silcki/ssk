@@ -32,3 +32,22 @@
     float: left;
     margin-right: 10px;
 }
+
+.filter_sort {
+}
+
+.filter_sort ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.filter_sort li {
+    float: left;
+    margin-right: 10px;
+}
+
+.filter_sort li.first{
+    color: #333333;
+    font-weight: bold;
+}

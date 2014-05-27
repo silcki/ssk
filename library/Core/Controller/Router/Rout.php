@@ -44,20 +44,24 @@ class Core_Controller_Router_Rout
 
         $anotherPagesModel = $this->getServiceManager()->getModel()->getAnotherPages();
 
-        $is_product_type = $is_scope = $is_country = $is_page = false;
-        $page = 1;
-        $pattern_page = '/(.*)(country\/(.+)\/)?(scope\/(.+)\/)?(product_type\/(.+)\/)?(page\/(\d*)\/)?$/Uis';
+        $paramsArr = array(3 => 'order'
+                         , 5 => 'asc'
+                         , 7 => 'country'
+                         , 9 => 'scope'
+                         , 11 => 'product_type'
+                         , 13 => 'page'
+                        );
+
+        $paramsArrResult = array();
+        $pattern_page = '/(.*)(order\/(.+)\/)?(asc\/(.+)\/)?(country\/(.+)\/)?(scope\/(.+)\/)?(product_type\/(.+)\/)?(page\/(\d*)\/)?$/Uis';
 
         if(preg_match($pattern_page, $uri, $out)){
-            $country = !empty($out[3]) ? $out[3]:'';
-            $scope = !empty($out[5]) ? $out[5]:'';
-            $product_type = !empty($out[7]) ? $out[7]:'';
-            $page = !empty($out[9]) ? $out[9]:0;
-
-            if(!empty($page)) $is_page = true;
-            if(!empty($country)) $is_country = true;
-            if(!empty($scope)) $is_scope = true;
-            if(!empty($product_type)) $is_product_type = true;
+            foreach ($paramsArr as $ind => $key) {
+                $paramsArrResult[$key] = !empty($out[$ind]) ? $out[$ind] : '';
+//                if ($key == 'page' && empty($paramsArrResult[$key])) {
+//                    $paramsArrResult[$key] = 1;
+//                }
+            }
 
             $uri = !empty($out[1]) ? $out[1]:$uri;
         }
@@ -75,10 +79,11 @@ class Core_Controller_Router_Rout
             $siteURLbySEFU = $anotherPagesModel->getSiteURLbySEFU($urlInfo['path']);
 
             if (!empty($siteURLbySEFU)) {  // если существует урл сайта для ЧПУ-урла, то формируем $_REQUEST['p_']
-                if($is_page) $siteURLbySEFU.='page/'.$page.'/';
-                if($is_country) $siteURLbySEFU.='country/'.$country.'/';
-                if($is_scope) $siteURLbySEFU.='scope/'.$scope.'/';
-                if($is_product_type) $siteURLbySEFU.='product_type/'.$product_type.'/';
+                foreach ($paramsArrResult as $key => $value) {
+                    if (!empty($value)) {
+                        $siteURLbySEFU .= $key . '/' . $value . '/';
+                    }
+                }
 
                 $request->setRequestUri($siteURLbySEFU);
             }
@@ -223,21 +228,25 @@ class Core_Controller_Router_Rout
         $this->_router->addRoute('clients', $routed);
 
         $routed = new Zend_Controller_Router_Route_Regex(
-            'clients(/country/([^/].*?))?(/scope/([^/].*?))?(/product_type/([^/].*?))?',
+            'clients(/order/([^/].*?))?(/asc/([^/].*?))?(/country/([^/].*?))?(/scope/([^/].*?))?(/product_type/([^/].*?))?',
             array(
                 'controller' => 'clients',
-                'action' => 'index'
+                'action' => 'index',
+                'order' => 'order',
+                'asc' => 'desc',
             ),
             array(
-                2 => 'countryId',
-                4 => 'scopeId',
-                6 => 'productTypeId',
+                2 => 'order',
+                4 => 'asc',
+                6 => 'countryId',
+                8 => 'scopeId',
+                10 => 'productTypeId',
             )
         );
 
         $this->_router->addRoute('clients_filter', $routed);
 
-//        $values3 = $routed->match('/clients/country/1,2/scope/3,4/product_type/5,6/');
+//        $values3 = $routed->match('/clients/');
 //        var_dump($values3);
 //        exit;
 

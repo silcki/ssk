@@ -77,11 +77,13 @@ class HelperClients extends Core_Controller_Action_Helper_Abstract
     }
 
     /**
+     * @param array $whereParams
+     *
      * @return $this
      */
-    public function getClients($countryIds, $scopeIds, $productTypeIds)
+    public function getClients($whereParams)
     {
-        $clients = $this->clients->getClients($this->params['langId'], $countryIds, $scopeIds, $productTypeIds);
+        $clients = $this->clients->getClients($this->params['langId'], $whereParams);
         if ($clients) {
             $i_td = 0;
             foreach ($clients as $view) {

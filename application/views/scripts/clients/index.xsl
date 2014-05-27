@@ -26,6 +26,21 @@
 	<div class="forprint">
 		<h1><xsl:value-of select="docinfo/name" disable-output-escaping="yes"/></h1>
 	</div>
+    <div class="filter_sort clear">
+        <ul>
+            <li class="first">Сортировать:</li>
+            <li>
+                <a>
+<xsl:attribute name="href"><xsl:value-of select="@file_name"/>order/name/asc/<xsl:value-of select="@asc"/>/<xsl:if test="@countryId &gt; 0">country/<xsl:value-of select="@countryId"/>/</xsl:if><xsl:if test="@scopeId &gt; 0">scope/<xsl:value-of select="@scopeId"/>/</xsl:if><xsl:if test="@productTypeId &gt; 0">product_type/<xsl:value-of select="@productTypeId"/>/</xsl:if></xsl:attribute>
+                    по имени</a>
+            </li>
+            <li>
+                <a>
+                    <xsl:attribute name="href"><xsl:value-of select="@file_name"/><xsl:if test="@countryId &gt; 0">country/<xsl:value-of select="@countryId"/>/</xsl:if><xsl:if test="@scopeId &gt; 0">scope/<xsl:value-of select="@scopeId"/>/</xsl:if><xsl:if test="@productTypeId &gt; 0">product_type/<xsl:value-of select="@productTypeId"/>/</xsl:if></xsl:attribute>
+                    без сортировки</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="client_filter clear">
         <div class="loadingForm">
@@ -62,7 +77,7 @@
                     </xsl:if>
                     <div class="clear" />
                     <div class="row">
-                        <a href="#" id="client_filter_send" class="btn_send">Отправить</a>
+                        <a href="#" id="client_filter_send" class="btn_send">Применить</a>
                     </div>
                 </fieldset>
             </form>

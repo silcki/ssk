@@ -30,26 +30,34 @@ class Clients extends Core_Connect
 
     /**
      * @param int   $lang
-     * @param array $countryId
-     * @param array $scopeId
-     * @param array $productTypeId
+     * @param array $whereParams
      *
      * @return array
      */
-    public function getClients($lang = 0, $countryId, $scopeId, $productTypeId)
+    public function getClients($lang = 0, $whereParams)
     {
         $joinWhere = $where = '';
 
-        if (!empty($countryId)) {
-            $where.= ' and A.COUNTRY_ID = ' .$countryId;
+        if (!empty($whereParams['countryId'])) {
+            $where.= ' and A.COUNTRY_ID = ' .$whereParams['countryId'];
         }
 
-        if (!empty($scopeId)) {
-            $where.= ' and A.SCOPE_ID = ' .$scopeId;
+        if (!empty($whereParams['scopeId'])) {
+            $where.= ' and A.SCOPE_ID = ' .$whereParams['scopeId'];
         }
 
-        if (!empty($productTypeId)) {
-            $joinWhere.= ' CPT.PRODUCT_TYPE_ID = ' .$productTypeId;
+        if (!empty($whereParams['productTypeId'])) {
+            $joinWhere.= ' CPT.PRODUCT_TYPE_ID = ' .$whereParams['productTypeId'];
+        }
+
+        switch ($whereParams['order']) {
+            case 'order':
+                $orderBy = 'A.ORDERING asc';
+                break;
+
+            case 'name':
+                $orderBy = 'A.NAME '.$whereParams['asc'];
+                break;
         }
 
         if ($lang > 0) {
@@ -62,14 +70,14 @@ class Clients extends Core_Connect
             from CLIENT A inner join CLIENT_LANGS B on B.CLIENT_ID=A.CLIENT_ID
             where A.STATUS = 1
             {$where}
-            order by A.ORDERING";
+            order by {$orderBy}";
         } else {
             $sql = "select A.*
                     from CLIENT A
                     left join  CLIENT_PRODUCT_TYPE CPT ON (CPT.CLIENT_ID = A.CLIENT_ID) {$joinWhere}
                     where A.STATUS = 1
                     {$where}
-                    order by A.ORDERING";
+                    order by {$orderBy}";
         }
 
         return $this->_db->fetchAll($sql);

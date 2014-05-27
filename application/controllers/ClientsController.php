@@ -30,13 +30,19 @@ class ClientsController extends Core_Controller_Action_Abstract
 
         $docId = $this->AnotherPages->getPageId('/clients/');
 
+        $countryId     = $this->getParam('countryId', 0);
+        $scopeId       = $this->getParam('scopeId', 0);
+        $productTypeId = $this->getParam('productTypeId', 0);
+        $order         = $this->getParam('order', 'order');
+        $asc           = $this->getParam('asc', 'desc');
+
         $o_data['ap_id'] = $docId;
         $o_data['file_name'] = $this->AnotherPages->getDocRealCat($docId);
         $o_data['is_vote'] = '';
-
-        $countryId = $this->getParam('countryId', 0);
-        $scopeId = $this->getParam('scopeId', 0);
-        $productTypeId = $this->getParam('productTypeId', 0);
+        $o_data['asc'] = ($asc == 'desc') ? 'asc':'desc';
+        $o_data['countryId'] = $countryId;
+        $o_data['scopeId'] = $scopeId;
+        $o_data['productTypeId'] = $productTypeId;
 
         $this->openData($o_data);
 
@@ -46,12 +52,18 @@ class ClientsController extends Core_Controller_Action_Abstract
             ->getDocMeta($docId)
             ->getDocPath($docId);
 
+        $whereParams['countryId'] = $countryId;
+        $whereParams['scopeId'] = $scopeId;
+        $whereParams['productTypeId'] = $productTypeId;
+        $whereParams['order'] = $order;
+        $whereParams['asc'] = $asc;
+
         $this->getServiceManager()->getHelper()->getClients()
              ->setParams($params)
              ->getCountry($countryId)
              ->getScope($scopeId)
              ->getProductType($productTypeId)
-             ->getClients($countryId, $scopeId, $productTypeId);
+             ->getClients($whereParams);
     }
 
     public function viewAction()

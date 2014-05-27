@@ -1,5 +1,5 @@
 DirectoryIndex index.htm index.php
-SetEnv APPLICATION_ENV production
+SetEnv APPLICATION_ENV development
 
 RewriteEngine on
 
