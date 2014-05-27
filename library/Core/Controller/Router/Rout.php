@@ -58,9 +58,6 @@ class Core_Controller_Router_Rout
         if(preg_match($pattern_page, $uri, $out)){
             foreach ($paramsArr as $ind => $key) {
                 $paramsArrResult[$key] = !empty($out[$ind]) ? $out[$ind] : '';
-//                if ($key == 'page' && empty($paramsArrResult[$key])) {
-//                    $paramsArrResult[$key] = 1;
-//                }
             }
 
             $uri = !empty($out[1]) ? $out[1]:$uri;

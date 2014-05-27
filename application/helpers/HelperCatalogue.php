@@ -587,8 +587,7 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
         $this->domXml->create_element('url', $catinfo['URL']);
         $this->domXml->go_to_parent();
 
-
-        $this->domXml->create_element('docinfo', '', 2);
+        $this->domXml->create_element('doc_meta', '', 2);
         $this->domXml->create_element('title', $catinfo['NAME'] . ' ' . $catinfo['TITLE']);
 
         $descript = preg_replace("/\"([^\"]*)\"/","&#171;\\1&#187;",$catinfo['HTML_DESCRIPTION']);

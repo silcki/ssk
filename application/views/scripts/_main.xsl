@@ -52,6 +52,7 @@
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+
 	<xsl:template name="descript">
 		<xsl:param name="des"/>
 		<xsl:variable name="des1"><![CDATA[<meta name="description" content="]]></xsl:variable>
