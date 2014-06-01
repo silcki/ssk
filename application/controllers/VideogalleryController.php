@@ -32,14 +32,18 @@ class VideogalleryController extends Core_Controller_Action_Abstract
         $o_data['is_vote'] = '';
         $this->openData($o_data);
 
-        $this->getServiceManager()->getHelper()->getAnotherPages()
+        $anotherPagesHelper = $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
             ->getDocMeta($docId)
             ->getDocPath($docId);
 
+        if (empty($galleryId)) {
+            $anotherPagesHelper->getDocInfo($docId);
+        }
+
         $this->getServiceManager()->getHelper()->getVideogallery()
             ->setParams($params)
-            ->getVideoGalleryGroupMeta($galleryId)
+            ->getVideoGalleryGroupInfo($galleryId)
             ->getVideoGallaryPath($galleryId)
             ->getVideoGalleryGroup($galleryId)
             ->getVideoGalleryLeftMenu($galleryId);
@@ -60,7 +64,6 @@ class VideogalleryController extends Core_Controller_Action_Abstract
         $menuHelper = new Core_Controller_Action_Helper_Menu($this->domXml);
         $menuHelper->setNode($path, 'on_path', '1');
 
-
         $o_data['ap_id'] = $docId;
         $o_data['gal_id'] = $galleryId;
         $o_data['is_vote'] = '';
@@ -73,6 +76,7 @@ class VideogalleryController extends Core_Controller_Action_Abstract
 
         $this->getServiceManager()->getHelper()->getVideogallery()
             ->setParams($params)
+            ->getVideoGalleryGroupInfo($galleryId)
             ->getVideoGalleryGroupMeta($galleryId)
             ->getVideoGallaryPath($galleryId)
             ->getVideoGallery($galleryId)

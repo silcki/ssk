@@ -65,10 +65,10 @@
                         <select name="client_sort" class="client_sort">
                             <option value="0">Без сортировки</option>
                             <option value="1">
-                                <xsl:if test="@asc = 'desc'"><xsl:attribute name="selected">selected</xsl:attribute></xsl:if>
+                                <xsl:if test="@asc = 'asc'"><xsl:attribute name="selected">selected</xsl:attribute></xsl:if>
                                 По имени (А-Я)</option>
                             <option value="2">
-                                <xsl:if test="@asc = 'asc'"><xsl:attribute name="selected">selected</xsl:attribute></xsl:if>
+                                <xsl:if test="@asc = 'desc'"><xsl:attribute name="selected">selected</xsl:attribute></xsl:if>
                                 По имени (Я-А)</option>
                         </select>
                     </div>

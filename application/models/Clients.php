@@ -47,7 +47,7 @@ class Clients extends Core_Connect
         }
 
         if (!empty($whereParams['productTypeId'])) {
-            $joinWhere.= ' CPT.PRODUCT_TYPE_ID = ' .$whereParams['productTypeId'];
+            $joinWhere.= ' and CPT.PRODUCT_TYPE_ID = ' .$whereParams['productTypeId'];
         }
 
         switch ($whereParams['order']) {

@@ -499,19 +499,20 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
      */
     public function getCatAllInfo()
     {
-        $docId = $this->anotherPages->getPageByURL('/cat/all/');
+        $docId = $this->anotherPages->getPageByURL('/cat/');
         if (!empty($docId)) {
             $docInfo = $this->anotherPages->getDocInfo($docId, $this->params['lang']);
 
             $this->domXml->set_tag('//data', true);
 
             $this->befor_path[0]['name'] = $docInfo['NAME'];
-            $this->befor_path[0]['url'] = 'cat/all/';
+            $this->befor_path[0]['url'] = 'cat/';
 
             $this->domXml->create_element('docinfo', '', 2);
-
             $this->domXml->create_element('name', $docInfo['NAME']);
 
+            $this->domXml->set_tag('//data', true);
+            $this->domXml->create_element('doc_meta', '', 2);
             $this->domXml->create_element('title', $docInfo['TITLE']);
             $this->domXml->create_element('description', $docInfo['DESCRIPTION']);
             $this->domXml->create_element('keywords', $docInfo['KEYWORDS']);

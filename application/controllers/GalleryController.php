@@ -24,7 +24,6 @@ class GalleryController extends Core_Controller_Action_Abstract
         $_href = $this->AnotherPages->getSefURLbyOldURL('/gallery/');
         $path = "//main_menu[url[text()='{$_href}']]";
 
-
         $menuHelper = new Core_Controller_Action_Helper_Menu($this->domXml);
         $menuHelper->setNode($path, 'on_path', '1');
 
@@ -33,15 +32,19 @@ class GalleryController extends Core_Controller_Action_Abstract
         $o_data['is_vote'] = '';
         $this->openData($o_data);
 
-        $this->getServiceManager()->getHelper()->getAnotherPages()
+        $anotherPagesHelper = $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
             ->getDocMeta($docId)
             ->getDocPath($docId);
 
+        if (empty($galleryId)) {
+            $anotherPagesHelper->getDocInfo($docId);
+        }
+
         $this->getServiceManager()->getHelper()->getGallery()
             ->setParams($params)
             ->getGallaryPath($galleryId)
-            ->getGalleryGroupMeta($galleryId)
+            ->getGalleryGroupInfo($galleryId)
             ->getGalleryGroup($galleryId)
             ->getGalleryLeftMenu($galleryId);
     }
@@ -79,6 +82,7 @@ class GalleryController extends Core_Controller_Action_Abstract
 
         $galleryHelper
             ->getGallaryPath($galleryId)
+            ->getGalleryGroupInfo($galleryId)
             ->getGalleryGroupMeta($galleryId)
             ->getGallery($galleryId)
             ->getGalleryLeftMenu($galleryId);
