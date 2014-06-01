@@ -19,6 +19,16 @@ $(document).ready(function() {
         var client_country = $('select.client_country').val();
         var client_scope = $('select.client_scope').val();
         var client_product_type = $('select.client_product_type').val();
+        var client_sort = $('select.client_sort').val();
+
+        switch (client_sort) {
+            case '1':
+                url+= 'order/name/asc/asc/';
+                break
+            case '2':
+                url+= 'order/name/asc/desc/';
+                break
+        }
 
         if (client_country > 0) {
             enable_link = true;
@@ -34,12 +44,6 @@ $(document).ready(function() {
             enable_link = true;
             url+= 'product_type/' + client_product_type + '/';
         }
-
-//        if (enable_link) {
-//            $('#client_filter_send').removeClass('disable');
-//        } else {
-//            $('#client_filter_send').addClass('disable');
-//        }
 
         $('.client_filter form').attr({'action': url});
     }

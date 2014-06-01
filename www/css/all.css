@@ -1698,6 +1698,8 @@ ul.booklets div.name{
 }
 
 .sokoban_moves{
-    margin-top: 20px;
-    text-align: center;
+    float: left;
+    margin-left: 0;
+    text-align: left;
+    width: 120px;
 }
