@@ -230,7 +230,6 @@ class Core_Controller_Router_Rout
                 'controller' => 'clients',
                 'action' => 'index',
                 'order' => 'order',
-                'asc' => 'desc',
             ),
             array(
                 2 => 'order',
