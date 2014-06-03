@@ -974,21 +974,24 @@ var google_remarketing_only = true;
 
 				<div id="sokoban-ssk" style="margin-left:5px; margin-top:45px;">
 					<img src="/sokoban/sokoban.jpg" style="margin-bottom:-10px;" />
-					<div class="sokoban_moves">Ходов сделано:&#160;<span></span></div>
-<!--					<div class="sokoban_total">Коробок:&#160;<span></span></div>
+<!--					<div class="sokoban_moves">Ходов сделано:&#160;<span></span></div>
+					<div class="sokoban_total">Коробок:&#160;<span></span></div>
 					<div class="sokoban_target">Коробок на месте:&#160;<span></span></div>-->
 					<div id="sokoban_field_map"></div>
 					<script type="text/javascript">
 							document.onkeydown = detect_key;
 							load_level(1);							
 					</script>
-					<div align="center" style="margin-bottom:10px;"><a href="#sokoban_reset" class="sokoban_reset" data-level="1">Повтор уровня</a></div>
-                    <div align="center" style="margin-bottom:10px;">
+<div class="sokoban_moves">Ходов сделано:&#160;<span></span></div>
+<div align="right" style="float: right; margin-bottom: 0px;width: 100px;">
                         Уровни&#160;
                         <select name="sokoban_levels">
                             <xsl:apply-templates select="/page/sokoban_levels"/>
                         </select>
                     </div>
+<div style="clear:both;"></div>
+<div align="left" style="margin-bottom:25px;"><a href="#sokoban_reset" class="sokoban_reset" data-level="1">Повтор уровня</a></div>
+
 					<img src="/sokoban/rules.jpg"/>
 				</div>
 				

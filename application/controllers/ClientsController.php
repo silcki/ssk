@@ -34,12 +34,12 @@ class ClientsController extends Core_Controller_Action_Abstract
         $scopeId       = $this->getParam('scopeId', 0);
         $productTypeId = $this->getParam('productTypeId', 0);
         $order         = $this->getParam('order', 'order');
-        $asc           = $this->getParam('asc', 'desc');
+        $asc           = $this->getParam('asc', '');
 
         $o_data['ap_id'] = $docId;
         $o_data['file_name'] = $this->AnotherPages->getDocRealCat($docId);
         $o_data['is_vote'] = '';
-        $o_data['asc'] = ($asc == 'desc') ? 'asc':'desc';
+        $o_data['asc'] = $asc;
         $o_data['countryId'] = $countryId;
         $o_data['scopeId'] = $scopeId;
         $o_data['productTypeId'] = $productTypeId;

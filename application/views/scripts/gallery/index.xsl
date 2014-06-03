@@ -33,12 +33,7 @@
 		</div>
 	</div>-->
 	<div class="forprint">
-		<h1>
-			<xsl:choose>
-				<xsl:when test="//page/data/docinfo/name!=''"><xsl:value-of select="//page/data/docinfo/name" disable-output-escaping="yes"/></xsl:when>
-				<xsl:otherwise><xsl:value-of select="//page/docinfo/name" disable-output-escaping="yes"/></xsl:otherwise>
-			</xsl:choose>		
-		</h1>
+		<h1><xsl:value-of select="docinfo/name" disable-output-escaping="yes"/></h1>
 	</div>	
 	<ul class="gallery">
 		<xsl:apply-templates select="gallery_group" />

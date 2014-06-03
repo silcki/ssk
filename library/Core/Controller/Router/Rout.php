@@ -333,6 +333,20 @@ class Core_Controller_Router_Rout
         );
 
         $this->_router->addRoute('gallery_index_multilingual', $routed_lang);
+
+
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'gallery/view/n/(\d*)',
+            array(
+                'controller' => 'gallery',
+                'action' => 'view'
+            ),
+            array(
+                1 => 'n'
+            )
+        );
+
+        $this->_router->addRoute('gallery_view', $routed);
     }
 
     private function _initAliasingVideoGallary() {
@@ -363,5 +377,18 @@ class Core_Controller_Router_Rout
         );
 
         $this->_router->addRoute('videogallery_index_multilingual', $routed_lang);
+
+        $routed = new Zend_Controller_Router_Route_Regex(
+            'videogallery/view/n/(\d*)',
+            array(
+                'controller' => 'videogallery',
+                'action' => 'view'
+            ),
+            array(
+                1 => 'n'
+            )
+        );
+
+        $this->_router->addRoute('videogallery_view', $routed);
     }
 } 

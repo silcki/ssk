@@ -113,6 +113,24 @@ class Gallery extends Core_Connect
         return $this->_db->fetchOne($sql);
     }
 
+    public function getGalleryInfo($id, $lang)
+    {
+        if ($lang > 0) {
+            $sql = "select  B.NAME
+                      , B.DESCRIPTION
+                from GALLERY A inner join GALLERY_LANGS B on B.GALLERY_ID=A.GALLERY_ID
+                where A.GALLERY_ID={$id}
+                  and B.CMF_LANG_ID= {$lang}";
+        } else {
+            $sql = "select  NAME
+                          , DESCRIPTION
+                    from GALLERY
+                    where GALLERY_ID={$id}";
+        }
+
+        return $this->_db->fetchRow($sql);
+    }
+
     public function getGroupGalleryInfo($id, $lang)
     {
         if ($lang > 0) {

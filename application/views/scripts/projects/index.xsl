@@ -32,10 +32,10 @@
 
 <xsl:template match="data">
 	<div class="forprint">
-		<h1><xsl:value-of select="/page/docinfo/name"  disable-output-escaping="yes"/></h1>
+		<h1><xsl:value-of select="docinfo/name"  disable-output-escaping="yes"/></h1>
 	</div>
 	<div class="text">
-		<xsl:apply-templates select="/page/docinfo/txt"/>
+		<xsl:apply-templates select="docinfo/txt"/>
 	</div>
 	<ul class="catnews">
 		<xsl:if test="@news_id &gt; 0"><li><a href="{/page/lang_name}/projects/"><xsl:value-of select="/page/all_projects" /></a></li></xsl:if>
@@ -44,7 +44,7 @@
 		<xsl:apply-templates select="projects" />					
 	</div>
 	<ul class="paging">
-		<xsl:apply-templates select="/page/data/section"/>
+		<xsl:apply-templates select="section"/>
 	</ul>
 </xsl:template>
 

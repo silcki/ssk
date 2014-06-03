@@ -147,14 +147,28 @@ class HelperVideogallery extends Core_Controller_Action_Helper_Abstract
         return $this;
     }
 
-    public function getVideoGalleryGroupMeta($galleryId)
+    public function getVideoGalleryGroupInfo($galleryId)
     {
-        $gallery_group_id = $this->gallery->getGroupVideoGalleryID($galleryId);
         $info = $this->gallery->getGroupVideoGalleryInfo($galleryId, $this->params['langId']);
         if ($info) {
-            $this->domXml->create_element('doc_meta', '', 2);
+            $this->domXml->set_tag('//data', true);
+
+            $this->domXml->create_element('docinfo', '', 2);
             $this->domXml->create_element('name', $info['NAME']);
 
+            $this->domXml->go_to_parent();
+        }
+
+        return $this;
+    }
+
+    public function getVideoGalleryGroupMeta($galleryId)
+    {
+        $info = $this->gallery->getGroupVideoGalleryInfo($galleryId, $this->params['langId']);
+        if ($info) {
+            $this->domXml->set_tag('//data', true);
+
+            $this->domXml->create_element('doc_meta', '', 2);
             $this->domXml->create_element('title', $info['NAME']);
 
             $descript = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;", $info['DESCRIPTION']);

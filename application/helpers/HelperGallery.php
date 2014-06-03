@@ -156,13 +156,73 @@ class HelperGallery extends Core_Controller_Action_Helper_Abstract
      *
      * @return $this
      */
+    public function getGalleryGroupInfo($galleryId)
+    {
+        $info = $this->gallery->getGroupGalleryInfo($galleryId, $this->params['langId']);
+        if ($info) {
+            $this->domXml->create_element('docinfo', '', 2);
+            $this->domXml->create_element('name', $info['NAME']);
+            $this->domXml->go_to_parent();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $galleryId
+     *
+     * @return $this
+     */
     public function getGalleryGroupMeta($galleryId)
     {
         $info = $this->gallery->getGroupGalleryInfo($galleryId, $this->params['langId']);
         if ($info) {
             $this->domXml->create_element('doc_meta', '', 2);
-            $this->domXml->create_element('name', $info['NAME']);
+            $this->domXml->create_element('title', $info['NAME']);
 
+            $descript = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;", $info['DESCRIPTION']);
+            $descript = preg_replace("/\"/", "&#171;", $descript);
+            $this->domXml->create_element('description', $descript);
+
+            $keyword = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;", $info['DESCRIPTION']);
+            $keyword = preg_replace("/\"/", "&#171;", $keyword);
+            $this->domXml->create_element('keywords', $keyword);
+
+            $this->domXml->go_to_parent();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $galleryId
+     *
+     * @return $this
+     */
+    public function getGalleryInfo($galleryId)
+    {
+        $info = $this->gallery->getGalleryInfo($galleryId, $this->params['langId']);
+        if ($info) {
+            $this->domXml->set_tag('//data', true);
+
+            $this->domXml->create_element('docinfo', '', 2);
+            $this->domXml->create_element('name', $info['NAME']);
+            $this->domXml->go_to_parent();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $galleryId
+     *
+     * @return $this
+     */
+    public function getGalleryMeta($galleryId)
+    {
+        $info = $this->gallery->getGalleryInfo($galleryId, $this->params['langId']);
+        if ($info) {
+            $this->domXml->create_element('doc_meta', '', 2);
             $this->domXml->create_element('title', $info['NAME']);
 
             $descript = preg_replace("/\"([^\"]*)\"/", "&#171;\\1&#187;", $info['DESCRIPTION']);

@@ -25,6 +25,13 @@ class ProjectsController extends Core_Controller_Action_Abstract
                                                 ->setParams($params);
         
         $docId = $this->AnotherPages->getPageId('/projects/');
+
+        $_href = $this->AnotherPages->getSefURLbyOldURL('/projects/');
+        $path = "//main_menu[url[text()='{$_href}']]";
+
+        $menuHelper = new Core_Controller_Action_Helper_Menu($this->domXml);
+        $menuHelper->setNode($path, 'on_path', '1');
+
         $perPage = $this->getSettingValue('projects_per_page') ? $this->getSettingValue('projects_per_page') : 15;
         $count = $projectsHelper->getProjectsCount($projectId);
 
@@ -59,7 +66,13 @@ class ProjectsController extends Core_Controller_Action_Abstract
 
         $projectId = $this->_getParam('n');
 
-        $docId = $this->AnotherPages->getPageId('/projects/index/');
+        $docId = $this->AnotherPages->getPageId('/projects/');
+
+        $_href = $this->AnotherPages->getSefURLbyOldURL('/projects/');
+        $path = "//main_menu[url[text()='{$_href}']]";
+
+        $menuHelper = new Core_Controller_Action_Helper_Menu($this->domXml);
+        $menuHelper->setNode($path, 'on_path', '1');
 
         $o_data['project_id'] = $projectId;
         $o_data['is_vote'] = '';
@@ -68,8 +81,6 @@ class ProjectsController extends Core_Controller_Action_Abstract
 
         $this->getServiceManager()->getHelper()->getAnotherPages()
             ->setParams($params)
-            ->getDocMeta($docId)
-            ->getDocInfo($docId)
             ->getDocPath($docId, array(), array(array('url'=>'', 'name'=>'')));
 
         $this->getServiceManager()->getHelper()->getProjects()
