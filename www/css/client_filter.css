@@ -1,10 +1,13 @@
 .client_filter {
     background: none repeat scroll 0 0 #F0F0F0;
-    margin: 20px 0;
+    margin: 10px 0;
+    padding: 10px 10px;
+    border: none;
 }
 
 .client_filter select {
-    width:155px;
+    margin-top: 5px;
+    width:160px;
 }
 
 .client_filter .row {
@@ -31,6 +34,10 @@
 .client_filter .block {
     float: left;
     margin-right: 10px;
+}
+
+.client_filter:last-child .block {
+    margin-right: 0;
 }
 
 .filter_sort {
