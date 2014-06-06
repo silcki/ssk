@@ -28,9 +28,9 @@
 	</div>
     <xsl:apply-templates select="docinfo/txt"/>
 
-    <div class="loadingForm">
+    <div class="client_filter loadingForm">
         <form action="" data-file-name="{@file_name}" method="post">
-            <fieldset class="client_filter">
+            <fieldset class="client_filter_box">
                 <xsl:if test="count(client_scope) &gt; 0">
                     <div class="block">
                         <label>Сфера деятельности:</label>

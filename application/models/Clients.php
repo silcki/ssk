@@ -47,7 +47,7 @@ class Clients extends Core_Connect
         }
 
         if (!empty($whereParams['productTypeId'])) {
-            $joinWhere.= ' and CPT.PRODUCT_TYPE_ID = ' .$whereParams['productTypeId'];
+            $where.= ' and CPT.PRODUCT_TYPE_ID = ' .$whereParams['productTypeId'];
         }
 
         switch ($whereParams['order']) {
@@ -62,21 +62,23 @@ class Clients extends Core_Connect
 
         if ($lang > 0) {
             $sql = "select A.CLIENT_ID
-                 , B.NAME
-                 , A.EMAIL
-                 , A.URL
-                 , A.IMAGE1
-                 , B.DESCRIPTION
-            from CLIENT A inner join CLIENT_LANGS B on B.CLIENT_ID=A.CLIENT_ID
-            where A.STATUS = 1
-            {$where}
-            order by {$orderBy}";
+                         , B.NAME
+                         , A.EMAIL
+                         , A.URL
+                         , A.IMAGE1
+                         , B.DESCRIPTION
+                    from CLIENT A inner join CLIENT_LANGS B on B.CLIENT_ID=A.CLIENT_ID
+                    where A.STATUS = 1
+                    {$where}
+                    group by A.CLIENT_ID
+                    order by {$orderBy}";
         } else {
             $sql = "select A.*
                     from CLIENT A
                     left join  CLIENT_PRODUCT_TYPE CPT ON (CPT.CLIENT_ID = A.CLIENT_ID) {$joinWhere}
                     where A.STATUS = 1
                     {$where}
+                    group by A.CLIENT_ID
                     order by {$orderBy}";
         }
 
