@@ -54,13 +54,16 @@ doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 <xsl:template match="script">   
 	<script>
 		<xsl:if test="@type"><xsl:attribute name="type"><xsl:value-of select="@type"/></xsl:attribute></xsl:if>
-		<xsl:if test="@src"><xsl:attribute name="class"><xsl:value-of select="@src"/></xsl:attribute></xsl:if>
+		<xsl:if test="@src"><xsl:attribute name="src"><xsl:value-of select="@src"/></xsl:attribute></xsl:if>
 		<xsl:apply-templates/>
 	</script>   
 </xsl:template>
 
 <xsl:template match="ul">   
-   <ul class="spisok"><xsl:apply-templates/></ul>   
+   <ul class="spisok">
+       <xsl:if test="@class"><xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute></xsl:if>
+       <xsl:apply-templates/>
+   </ul>
 </xsl:template>
 
 <xsl:template match="txt/h3">   
@@ -68,8 +71,8 @@ doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 </xsl:template>
 
 <xsl:template match="ol">
-   
-   <ol class="olTXT">
+
+   <ol>
 	   <xsl:if test="@start">
 			<xsl:attribute name="start"><xsl:value-of select="@start"/></xsl:attribute>
 	   </xsl:if>
@@ -78,11 +81,6 @@ doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
    
 </xsl:template>
 
-<!--
-<xsl:template match="ul[@type]"><ul type="{@type}"><xsl:apply-templates/></ul></xsl:template>
-<xsl:template match="ol"><ol><xsl:if test="@type"><xsl:attribute name="type"><xsl:value-of select="@type"/></xsl:attribute></xsl:if><xsl:if test="@start"><xsl:attribute name="start"><xsl:value-of select="@start"/></xsl:attribute></xsl:if><xsl:apply-templates/></ol></xsl:template>
--->
-<xsl:template match="li"><li><xsl:apply-templates/></li></xsl:template>
 <xsl:template match="dl"><dl><xsl:apply-templates/></dl></xsl:template>
 
 <xsl:template match="bull"><img src="imgs/btn-more-b.gif" width="12" height="8" border="0" hspace="5" alt=""/></xsl:template>
@@ -183,25 +181,6 @@ doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
     <th><xsl:apply-templates/></th>
 </xsl:template>
 
-<!--<xsl:template match="txt//p//span">-->
-	<!--<span>-->
-		<!--<xsl:if test="@style"><xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute></xsl:if>-->
-		<!--<xsl:apply-templates/>-->
-	<!--</span>-->
- <!--</xsl:template>-->
- <!---->
-  <!--<xsl:template match="txt//div">-->
-	<!--<div>-->
-		<!--<xsl:if test="@style"><xsl:attribute name="style"><xsl:value-of select="@style"/></xsl:attribute></xsl:if>-->
-		<!--<xsl:if test="@class"><xsl:attribute name="class"><xsl:value-of select="@class"/></xsl:attribute></xsl:if>-->
-		<!--<xsl:apply-templates/>-->
-	<!--</div>-->
- <!--</xsl:template>-->
- <!---->
- <!--<xsl:template match="txt//div//span">-->
-  <!--<xsl:apply-templates/>-->
- <!--</xsl:template>-->
-
 <xsl:template match="txt//img[@border &gt; 0]">
   <div class="img">
 	   <img>
@@ -231,12 +210,6 @@ doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 		<xsl:apply-templates />
 	</a>
 	</h2>
-</xsl:template>
-
-<xsl:template match="txt//ul">
-  <ul class="list">
-	  <xsl:apply-templates/>  
-  </ul>
 </xsl:template>
 
 <xsl:template match="th">

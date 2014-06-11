@@ -147,11 +147,29 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
      */
     public function getLeftBanners()
     {
-        $headers = $this->anotherPages->getLeftBanners($this->params['langId']);
-        if (!empty($headers)) {
-            foreach ($headers as $val) {
-                $this->domXml->create_element('left_banner', '', 2);
+        $leftBannersGroups = $this->anotherPages->getLeftBannersGroups();
+        if (!empty($leftBannersGroups)) {
+            foreach ($leftBannersGroups as $val) {
+                $this->domXml->create_element('banner_rotate', '', 2);
 
+                $this->getGroupLeftBanners($val['LEFT_BANNS_GROUP_ID']);
+
+                $this->domXml->go_to_parent();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param int $leftBannGroupId
+     */
+    private function getGroupLeftBanners($leftBannGroupId)
+    {
+        $leftBanners = $this->anotherPages->getLeftBanners($leftBannGroupId, $this->params['langId']);
+        if (!empty($leftBanners)) {
+            foreach ($leftBanners as $val) {
+                $this->domXml->create_element('left_banner', '', 2);
                 $this->domXml->create_element('url', $val['URL']);
 
                 $this->setXmlNode($val['DESCRIPTION'], 'description');
@@ -168,18 +186,18 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
                 if (!empty($val['IMAGE1']) && strchr($val['IMAGE1'], "#")) {
                     $tmp = explode('#', $val['IMAGE1']);
                     $this->domXml->create_element('image_alt_text', '', 2);
-                    $this->domXml->set_attribute(array('src' => $tmp[0]
-                    , 'w' => $tmp[1]
-                    , 'h' => $tmp[2]
-                    ));
+                    $this->domXml->set_attribute(
+                        array(
+                            'src' => $tmp[0],
+                            'w' => $tmp[1],
+                            'h' => $tmp[2]
+                        ));
                     $this->domXml->go_to_parent();
                 }
 
                 $this->domXml->go_to_parent();
             }
         }
-
-        return $this;
     }
 
     /**

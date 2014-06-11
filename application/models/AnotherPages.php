@@ -381,8 +381,20 @@ class AnotherPages extends Core_Connect
 
         return $this->_db->fetchAll($sql);
     }
-    
-    public function getLeftBanners($lang = 0)
+
+    public function getLeftBannersGroups()
+    {
+        $sql = 'select LBG.*
+                from LEFT_BANNS_GROUP LBG
+                inner join LEFT_BANNS LB on (LB.LEFT_BANNS_GROUP_ID = LBG.LEFT_BANNS_GROUP_ID) and LB.STATUS=1
+                where LBG.STATUS=1
+                group by LBG.LEFT_BANNS_GROUP_ID
+                order by LBG.ORDERING';
+
+        return $this->_db->fetchAll($sql);
+    }
+
+    public function getLeftBanners($leftBannGroupId, $lang = 0)
     {
         if ($lang > 0) {
             $sql = "select B.DESCRIPTION
@@ -393,16 +405,18 @@ class AnotherPages extends Core_Connect
                   inner join LEFT_BANNS_CMF_LANG B on B.HEADER_ID=A.HEADER_ID
                   where A.STATUS=1
                     and B.CMF_LANG_ID={$lang}
+                    and A.LEFT_BANNS_GROUP_ID = ?
                   order by A.ORDERING";
         } else {
             $sql = 'select *
-                 from LEFT_BANNS
-                 where STATUS=1
-                 order by ORDERING';
+                    from LEFT_BANNS
+                    where STATUS=1
+                      and LEFT_BANNS_GROUP_ID = ?
+                    order by ORDERING';
         }
 
 
-        return $this->_db->fetchAll($sql);
+        return $this->_db->fetchAll($sql, array($leftBannGroupId));
     }
 
     public function getCallbackTime($lang = 0)

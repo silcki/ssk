@@ -479,6 +479,7 @@ $_REQUEST['id']=$cmf->GetSequence('LEFT_BANNS');
 
 
 
+
 		
 				
     if(isset($_FILES['NOT_IMAGE']['tmp_name']) && $_FILES['NOT_IMAGE']['tmp_name']){
@@ -522,7 +523,7 @@ $_REQUEST['id']=$cmf->GetSequence('LEFT_BANNS');
 $_REQUEST['STATUS']=isset($_REQUEST['STATUS']) && $_REQUEST['STATUS']?1:0;
 
 
-$cmf->execute('insert into LEFT_BANNS (LEFT_BANNS_ID,NAME,URL,IMAGE,DESCRIPTION,IMAGE1,STATUS,ORDERING) values (?,?,?,?,?,?,?,?)',$_REQUEST['id'],stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['IMAGE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['ORDERING']));
+$cmf->execute('insert into LEFT_BANNS (LEFT_BANNS_ID,LEFT_BANNS_GROUP_ID,NAME,URL,IMAGE,DESCRIPTION,IMAGE1,STATUS,ORDERING) values (?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],stripslashes($_REQUEST['LEFT_BANNS_GROUP_ID'])+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['IMAGE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['ORDERING']));
 
 $_REQUEST['e']='ED';
 
@@ -535,6 +536,7 @@ if($_REQUEST['e'] == 'Изменить')
 
 
 
+
 		
 				
     if(isset($_FILES['NOT_IMAGE']['tmp_name']) && $_FILES['NOT_IMAGE']['tmp_name']){
@@ -578,33 +580,36 @@ if($_REQUEST['e'] == 'Изменить')
 $_REQUEST['STATUS']=isset($_REQUEST['STATUS']) && $_REQUEST['STATUS']?1:0;
 
 
-$cmf->execute('update LEFT_BANNS set NAME=?,URL=?,IMAGE=?,DESCRIPTION=?,IMAGE1=?,STATUS=? where LEFT_BANNS_ID=?',stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['IMAGE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['STATUS']),$_REQUEST['id']);
+$cmf->execute('update LEFT_BANNS set LEFT_BANNS_GROUP_ID=?,NAME=?,URL=?,IMAGE=?,DESCRIPTION=?,IMAGE1=?,STATUS=? where LEFT_BANNS_ID=?',stripslashes($_REQUEST['LEFT_BANNS_GROUP_ID'])+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['IMAGE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['STATUS']),$_REQUEST['id']);
 $_REQUEST['e']='ED';
 
 };
 
 if($_REQUEST['e'] == 'ED')
 {
-list($V_LEFT_BANNS_ID,$V_NAME,$V_URL,$V_IMAGE,$V_DESCRIPTION,$V_IMAGE1,$V_STATUS)=
-$cmf->selectrow_arrayQ('select LEFT_BANNS_ID,NAME,URL,IMAGE,DESCRIPTION,IMAGE1,STATUS from LEFT_BANNS where LEFT_BANNS_ID=?',$_REQUEST['id']);
+list($V_LEFT_BANNS_ID,$V_LEFT_BANNS_GROUP_ID,$V_NAME,$V_URL,$V_IMAGE,$V_DESCRIPTION,$V_IMAGE1,$V_STATUS)=
+$cmf->selectrow_arrayQ('select LEFT_BANNS_ID,LEFT_BANNS_GROUP_ID,NAME,URL,IMAGE,DESCRIPTION,IMAGE1,STATUS from LEFT_BANNS where LEFT_BANNS_ID=?',$_REQUEST['id']);
 
 
 
+        $V_STR_LEFT_BANNS_GROUP_ID=$cmf->Spravotchnik($V_LEFT_BANNS_GROUP_ID,'select LEFT_BANNS_GROUP_ID,NAME from LEFT_BANNS_GROUP  order by NAME');
+        
+        
 if(isset($V_IMAGE))
 {
    $IM_IMAGE=split('#',$V_IMAGE);
-   if(isset($IM_3[1]) && $IM_IMAGE[1] > 150){$IM_IMAGE[2]=$IM_IMAGE[2]*150/$IM_IMAGE[1]; $IM_IMAGE[1]=150;}
+   if(isset($IM_4[1]) && $IM_IMAGE[1] > 150){$IM_IMAGE[2]=$IM_IMAGE[2]*150/$IM_IMAGE[1]; $IM_IMAGE[1]=150;}
 }
 
 if(isset($V_IMAGE1))
 {
    $IM_IMAGE1=split('#',$V_IMAGE1);
-   if(isset($IM_5[1]) && $IM_IMAGE1[1] > 150){$IM_IMAGE1[2]=$IM_IMAGE1[2]*150/$IM_IMAGE1[1]; $IM_IMAGE1[1]=150;}
+   if(isset($IM_6[1]) && $IM_IMAGE1[1] > 150){$IM_IMAGE1[2]=$IM_IMAGE1[2]*150/$IM_IMAGE1[1]; $IM_IMAGE1[1]=150;}
 }
 
 $V_STATUS=$V_STATUS?'checked':'';
 @print <<<EOF
-<h2 class="h2">Редактирование - Картинки шапки</h2>
+<h2 class="h2">Редактирование - Банера с ротацией картинок</h2>
 
 
 <table bgcolor="#CCCCCC" border="0" cellpadding="5" cellspacing="1" style="width: 500px" class="f">
@@ -619,7 +624,9 @@ $V_STATUS=$V_STATUS?'checked':'';
 </td></tr>
 
 
-<tr bgcolor="#FFFFFF"><th width="1%"><b>Название:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+<tr bgcolor="#FFFFFF"><th width="1%"><b>Группа:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+<select name="LEFT_BANNS_GROUP_ID"><option value="0"></option>$V_STR_LEFT_BANNS_GROUP_ID</select><br />
+</td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Название:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
 <input type="text" name="NAME" value="$V_NAME" size="90" /><br />
 
@@ -780,13 +787,14 @@ $visible=0;
 
 if($_REQUEST['e'] == 'Новый')
 {
-list($V_LEFT_BANNS_ID,$V_NAME,$V_URL,$V_IMAGE,$V_DESCRIPTION,$V_IMAGE1,$V_STATUS,$V_ORDERING)=array('','','','','','','','');
+list($V_LEFT_BANNS_ID,$V_LEFT_BANNS_GROUP_ID,$V_NAME,$V_URL,$V_IMAGE,$V_DESCRIPTION,$V_IMAGE1,$V_STATUS,$V_ORDERING)=array('','','','','','','','','');
 
+$V_STR_LEFT_BANNS_GROUP_ID=$cmf->Spravotchnik($V_LEFT_BANNS_GROUP_ID,'select LEFT_BANNS_GROUP_ID,NAME from LEFT_BANNS_GROUP  order by NAME');     
 $IM_IMAGE=array('','','');
 $IM_IMAGE1=array('','','');
 $V_STATUS='checked';
 @print <<<EOF
-<h2 class="h2">Добавление - Картинки шапки</h2>
+<h2 class="h2">Добавление - Банера с ротацией картинок</h2>
 <table bgcolor="#CCCCCC" border="0" cellpadding="5" cellspacing="1" style="width: 500px" class="f">
 <form method="POST" action="LEFT_BANNS.php" ENCTYPE="multipart/form-data" onsubmit="return true  &amp;&amp; checkXML(NAME) &amp;&amp; checkXML(URL) &amp;&amp; checkXML(DESCRIPTION);">
 <tr bgcolor="#F0F0F0" class="ftr"><td colspan="2">
@@ -794,7 +802,9 @@ $V_STATUS='checked';
 <input type="submit" name="e" value="Отменить" class="gbt bcancel" />
 </td></tr>
 
-<tr bgcolor="#FFFFFF"><th width="1%"><b>Название:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+<tr bgcolor="#FFFFFF"><th width="1%"><b>Группа:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+<select name="LEFT_BANNS_GROUP_ID"><option value="0"></option>$V_STR_LEFT_BANNS_GROUP_ID</select><br />
+</td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Название:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
 <input type="text" name="NAME" value="$V_NAME" size="90" /><br />
 
@@ -897,7 +907,7 @@ if($visible)
 {
 
 
-print '<h2 class="h2">Картинки шапки</h2><form action="LEFT_BANNS.php" method="POST">';
+print '<h2 class="h2">Банера с ротацией картинок</h2><form action="LEFT_BANNS.php" method="POST">';
 
 
 
@@ -908,8 +918,12 @@ if(!isset($_REQUEST['count']) || !$_REQUEST['count'])
 
 $_REQUEST['count']=$cmf->selectrow_array('select count(*) from LEFT_BANNS A where 1');
 
-$_REQUEST['pcount']=floor($_REQUEST['count']/$pagesize+0.9999);
-if($_REQUEST['p'] > $_REQUEST['pcount']){$_REQUEST['p']=$_REQUEST['pcount'];}
+$_REQUEST['pcount']=ceil($_REQUEST['count']/$pagesize);
+
+$_REQUEST['p'] = $_REQUEST['p'] > $_REQUEST['pcount'] ? $_REQUEST['pcount'] : $_REQUEST['p'];
+$startSelect = ($_REQUEST['p']-1)*$pagesize;
+$startSelect = $startSelect > $_REQUEST['count'] ? 0 : $startSelect;
+$startSelect = $startSelect < 0 ? 0 : $startSelect;
 }
 
 if($_REQUEST['pcount'] > 1)
@@ -925,7 +939,7 @@ EOF;
 }
 
 
-$sth=$cmf->execute('select A.LEFT_BANNS_ID,A.NAME,A.IMAGE,A.STATUS from LEFT_BANNS A where 1'.' order by A.ORDERING limit ?,?',$pagesize*($_REQUEST['p']-1),$pagesize);
+$sth=$cmf->execute('select A.LEFT_BANNS_ID,A.LEFT_BANNS_GROUP_ID,A.NAME,A.IMAGE,A.STATUS from LEFT_BANNS A where 1'.' order by A.ORDERING limit ?,?',$startSelect,(int) $pagesize);
 
 
 
@@ -933,7 +947,7 @@ $sth=$cmf->execute('select A.LEFT_BANNS_ID,A.NAME,A.IMAGE,A.STATUS from LEFT_BAN
 
 @print <<<EOF
 <img src="img/hi.gif" width="1" height="3" /><table bgcolor="#CCCCCC" border="0" cellpadding="5" cellspacing="1" class="l">
-<tr bgcolor="#F0F0F0"><td colspan="5">
+<tr bgcolor="#F0F0F0"><td colspan="6">
 EOF;
 
 if ($cmf->W)
@@ -954,24 +968,26 @@ if ($cmf->D)
 EOF;
 
 print <<<EOF
-<tr bgcolor="#FFFFFF"><td><input type="checkbox" onclick="return SelectAll(this.form,checked,'id[]');" /></td><th>N</th><th>Название</th><th>Картинка</th><td></td></tr>
+<tr bgcolor="#FFFFFF"><td><input type="checkbox" onclick="return SelectAll(this.form,checked,'id[]');" /></td><th>N</th><th>Группа</th><th>Название</th><th>Картинка</th><td></td></tr>
  
 EOF;
 
 if(is_resource($sth))
-while(list($V_LEFT_BANNS_ID,$V_NAME,$V_IMAGE,$V_STATUS)=mysql_fetch_array($sth, MYSQL_NUM))
+while(list($V_LEFT_BANNS_ID,$V_LEFT_BANNS_GROUP_ID,$V_NAME,$V_IMAGE,$V_STATUS)=mysql_fetch_array($sth, MYSQL_NUM))
 {
+$V_LEFT_BANNS_GROUP_ID=$cmf->selectrow_arrayQ('select NAME from LEFT_BANNS_GROUP where LEFT_BANNS_GROUP_ID=?',$V_LEFT_BANNS_GROUP_ID);
+                                        
 if(isset($V_IMAGE))
 {
-   $IM_3=split('#',$V_IMAGE);
-   if(strchr($IM_3[0],".swf"))
+   $IM_4=split('#',$V_IMAGE);
+   if(strchr($IM_4[0],".swf"))
    {
-       $V_IMAGE="<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\" width=\"150\" height=\"100\"align=\"middle\"><param name=\"allowScriptAccess\" value=\"sameDomain\" /><param name=\"movie\" value=\"/images$VIRTUAL_IMAGE_PATH$IM_3[0]\" /><param name=\"quality\" value=\"high\" /><embed src=\"/images$VIRTUAL_IMAGE_PATH$IM_3[0]\" quality=\"high\" width=\"150\" height=\"100\"  align=\"middle\" allowScriptAccess=\"sameDomain\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" /></object>";
+       $V_IMAGE="<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" codebase=\"http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0\" width=\"150\" height=\"100\"align=\"middle\"><param name=\"allowScriptAccess\" value=\"sameDomain\" /><param name=\"movie\" value=\"/images$VIRTUAL_IMAGE_PATH$IM_4[0]\" /><param name=\"quality\" value=\"high\" /><embed src=\"/images$VIRTUAL_IMAGE_PATH$IM_4[0]\" quality=\"high\" width=\"150\" height=\"100\"  align=\"middle\" allowScriptAccess=\"sameDomain\" type=\"application/x-shockwave-flash\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" /></object>";
    }
    else
    {
-      if(isset($IM_3[1]) && $IM_3[1] > 150){$IM_3[2]=$IM_3[2]*150/$IM_3[1]; $IM_3[1]=150;
-      $V_IMAGE="<img src=\"/images$VIRTUAL_IMAGE_PATH$IM_3[0]\" width=\"$IM_3[1]\" height=\"$IM_3[2]\">";}
+      if(isset($IM_4[1]) && $IM_4[1] > 150){$IM_4[2]=$IM_4[2]*150/$IM_4[1]; $IM_4[1]=150;
+      $V_IMAGE="<img src=\"/images$VIRTUAL_IMAGE_PATH$IM_4[0]\" width=\"$IM_4[1]\" height=\"$IM_4[2]\">";}
    }
 }
 
@@ -980,7 +996,7 @@ if($V_STATUS){$V_STATUS='#FFFFFF';} else {$V_STATUS='#a0a0a0';}
 print <<<EOF
 <tr bgcolor="$V_STATUS">
 <td><input type="checkbox" name="id[]" value="$V_LEFT_BANNS_ID" /></td>
-<td>$V_LEFT_BANNS_ID</td><td>$V_NAME</td><td>$V_IMAGE</td><td nowrap="">
+<td>$V_LEFT_BANNS_ID</td><td>$V_LEFT_BANNS_GROUP_ID</td><td>$V_NAME</td><td>$V_IMAGE</td><td nowrap="">
 <a href="LEFT_BANNS.php?e=UP&amp;id=$V_LEFT_BANNS_ID"><img src="i/up.gif" border="0" /></a>
 <a href="LEFT_BANNS.php?e=DN&amp;id=$V_LEFT_BANNS_ID"><img src="i/dn.gif" border="0" /></a>
 EOF;

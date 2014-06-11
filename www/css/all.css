@@ -1256,6 +1256,19 @@ div.callback select{
 .list li a{
     color:#333333!important;
 }
+
+.spisok{
+    margin:10px 0 15px;
+}
+.spisok li{
+    background:url(../i/bulet_ul.png) no-repeat 0 6px;
+    padding-left:10px;
+    margin-left:20px;
+}
+.spisok li a{
+    color:#333333!important;
+}
+
 .clients{
     border-collapse:collapse;
     margin:15px 0;

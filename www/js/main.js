@@ -5,22 +5,17 @@
 $(document).ready(function(){
     $("#sendvote").click(function(event){
         event.preventDefault();
-    });
-    $("#sendvote").click(function(){
         $(this).parents('form').submit();
     });
 
     $("map area").click(function(event){
         event.preventDefault();
-    });
-    $("map area").click(function(){
         cl = $(this).attr("class");
         $("body").scrollTo( $('#'+cl), 800);
     });
+
     $(".back").click(function(event){
         event.preventDefault();
-    });
-    $(".back").click(function(){
         $("body").scrollTo( $('.img img'), 800);
     });
     //if ($.browser.msie){IEpngFix();};
@@ -78,6 +73,7 @@ $(document).ready(function(){
             }
         });
     };
+
     function mmwidth(){
         $(selector).css({
             width:100+"%"
@@ -142,8 +138,25 @@ $(document).ready(function(){
         }
     }
     if ($("#gallary").length){
-        galleries("#gallary", 1000, 5000, ".gallary_hold .number", 1);
+        $("#gallary").galleries({
+            time1: 1000,
+            time2: 5000,
+            numbSelector: '.number',
+            bool: 1
+        });
     }
+
+    if ($(".left_banner").length){
+        $(".left_banner").each(function(){
+            $(this).galleries({
+                time1: 1000,
+                time2: 5000,
+                numbSelector: '.number',
+                bool: 1
+            });
+        });
+    }
+
     $(window).load(function(){
         if ($("#brands").length){
             brWidth = $("#brands").width();
@@ -161,80 +174,14 @@ $(document).ready(function(){
             }
             $("#brands").height(maxHeightTov + 10);
 
-            galleries("#brands", 500, 5000, ".brands_hold .number", 1);
+            $("#brands").galleries({
+                time1: 500,
+                time2: 5000,
+                numbSelector: '.number',
+                bool: 1
+            });
         }
     })
-    function galleries(gSelector, time1, time2, numbSelector, bool){
-        var gItem = $(gSelector +" li");
-        var gLength = $(gItem).length;
-        var numbItem = $(numbSelector +" li");
-        var n,m;
-        var fIter;
-
-        if(bool){
-            $.each(gItem, function(i, gtItem){
-                $(gItem[i]).css({
-                    "zIndex":gLength-i,
-                    opacity:0
-                });
-            });
-            playHead(0);
-        }
-        function playHead(activePos){
-            $(gItem).css({
-                "opacity":"0"
-            });
-            $(gItem[activePos]).css({
-                "opacity":"1"
-            });
-            $(numbItem).removeClass("active");
-            $(numbItem[activePos]).addClass("active");
-            fIter = setTimeout(function(){
-                gPlay(activePos);
-            }, time2);
-        }
-        function gPlay(n){
-            if (n < gLength-1){
-                m = n+1;
-                gNext(n,m);
-                n++;
-            }else {
-                gNext(gLength-1, 0);
-                n=0;
-            }
-            fIter = setTimeout(function(){
-                gPlay(n);
-            }, time2);
-        }
-        function gNext(gi,gj){
-            $(gItem[gi]).animate({
-                opacity:0
-            },time1).css({
-                "zIndex":0
-            });
-            $(gItem[gj]).animate({
-                opacity:1
-            },time1).css({
-                "zIndex":40
-            });
-            $(numbItem[gi]).removeClass("active");
-            $(numbItem[gj]).addClass("active");
-        }
-        $(numbItem).live("click",function(event){
-            event.preventDefault();
-            changePos(this)
-        });
-        function changePos(thisItm){
-            clearTimeout(fIter);
-            var iNew = $(numbItem).index(thisItm);
-            thisActive = $(numbItem).parent().find(".active");
-            var iOld = $(numbItem).index(thisActive);
-            gNext(iOld,iNew);
-            fIter = setTimeout(function(){
-                gPlay(iNew);
-            }, time2);
-        }
-    }
 
     $("#sendphone").live("click", function(event) {
         event.preventDefault();

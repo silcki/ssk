@@ -284,13 +284,44 @@
 			</col>
 		</joined>
 	</table>
-    
+
+    <table name="LEFT_BANNS_GROUP" pagesize="20">
+        <name>Группы банеров с ротацией картинок</name>
+        <col type="0" name="LEFT_BANNS_GROUP_ID" primary="y" visuality="y">
+            <name>N</name>
+            <comment>Уникальный идентификатор </comment>
+        </col>
+        <col type="1" name="NAME" size="90" visuality="y">
+            <name>Заголовок группы</name>
+            <comment>Заголовок группы</comment>
+        </col>
+        <col type="8" name="STATUS" default="1" selectible="y" isstate="y">
+            <name>Статус</name>
+            <comment>Статус</comment>
+        </col>
+        <col type="11" name="ORDERING">
+            <name>Порядок сортировки</name>
+            <comment>Порядок сортировки</comment>
+        </col>
+    </table>
+
     <table name="LEFT_BANNS" pagesize="120" ordering="ORDERING" imagepath="/left_banns/">
-        <name>Картинки шапки</name>
+        <name>Банера с ротацией картинок</name>
         <col type="0" name="LEFT_BANNS_ID" primary="y" visuality="y">
             <name>N</name>
             <comment>Уникальный идентификатор</comment>
         </col>
+        <col type="6" name="LEFT_BANNS_GROUP_ID" visuality="y">
+			<name>Группа</name>
+			<ref>
+				<table>LEFT_BANNS_GROUP</table>
+				<field>LEFT_BANNS_GROUP_ID</field>
+				<visual>NAME</visual>
+				<none/>
+			</ref>
+			<comment>Уникальный идентификатор группы</comment>
+			<index>2</index>
+		</col>
         <col type="1" name="NAME" size="90" visuality="y">
             <name>Название</name>
             <comment>Название</comment>

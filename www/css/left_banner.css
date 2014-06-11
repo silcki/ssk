@@ -1,0 +1,57 @@
+.left_banner_hold {
+    height: 370px;
+    margin: 30px 6px 0 6px;
+    position: relative;
+}
+
+.left_banner_hold .gal_img {
+    height: 217px;
+    overflow: hidden;
+}
+
+.left_banner_hold .holder {
+    position: relative;
+}
+
+.left_banner_hold .number {
+    left: 0;
+    padding: 10px 10px 10px 5px;
+    position: absolute;
+    top: 195px;
+}
+
+.left_banner_hold .left_banner {
+    position: relative;
+}
+
+.left_banner_hold .left_banner li {
+    position: absolute;
+    top: 0;
+}
+
+.left_banner_hold .left_banner li table, #gallary li table td{
+    border-collapse:collapse;
+    margin:0;
+    padding:0;
+}
+.left_banner_hold .left_banner li table td {
+    background:url(../i/gal-bg-1.jpg) no-repeat 100% 0;
+    padding-right:1px;
+    /*    display: block;*/
+}
+.left_banner_hold .left_banner li table td.text{
+    color:#fff;
+    padding-left:30px;
+    background:none;
+    /*    background:url(../i/bg-gallery.png) repeat-x;*/
+}
+.left_banner_hold .left_banner li table td.text a{
+    color:#fff;
+    display: block;
+}
+.left_banner_hold .left_banner li table td.text .head{
+    font-size:24px;
+}
+.left_banner_hold .left_banner li table td.text p{
+    margin:10px 0;
+}

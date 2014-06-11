@@ -594,35 +594,25 @@
 			<head>
 				<xsl:call-template name="headSection"/>
 				<xsl:variable name="style"><![CDATA[<!--[if IE]><link rel="stylesheet" type="text/css" href="css/ie.css" media="screen"/><![endif]-->]]></xsl:variable>
-				<!--<link rel="stylesheet" type="text/css" href="/css/fancybox.css" media="screen"/>
--->
+
 				<link rel="stylesheet" type="text/css" href="/css/print.css" media="print"/>
+                <link rel="stylesheet" type="text/css" href="/css/all.css" media="screen"/>
+                <link rel="stylesheet" type="text/css" href="/css/left_banner.css" media="screen"/>
+                <link rel="stylesheet" type="text/css" href="/js/lib/FancyBox/jquery.fancybox.css?v=2.0.6" media="screen"/>
+
 				<xsl:value-of select="$style" disable-output-escaping="yes"/>
 				<script>
 					var callback_mess = '<xsl:value-of select="/page/text_callback_ticket"/>';
 					var complain_mess = '<xsl:value-of select="/page/text_complain_ticket"/>';
 				</script>
-				<!--<script type='text/javascript' src='/js/jquery.js'></script>
-				<script type='text/javascript' src='/js/fancybox.js'></script>
-				<script type='text/javascript' src='/js/scrollto.js'></script>-->
+
 				<script type="text/javascript" src="/js/lib/jQuery/jquery-1.8.0.min.js"/>
 				<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js" type="text/javascript"></script>
 				<script type="text/javascript" src="/js/jquery.form.js"/>
-				<!-- Add mousewheel plugin (this is optional) -->
-				<!--	<script type="text/javascript" src="/js/lib/jQuery/jquery.mousewheel-3.0.6.pack.js"></script>-->
-				<!-- Add fancyBox main JS and CSS files -->
 				<script type="text/javascript" src="/js/lib/FancyBox/jquery.fancybox.pack.js?v=2.0.6"/>
-				<link rel="stylesheet" type="text/css" href="/js/lib/FancyBox/jquery.fancybox.css?v=2.0.6" media="screen"/>
-				<!-- Add Button helper (this is optional) -->
-				<!--	<link rel="stylesheet" type="text/css" href="/js/lib/FancyBox/helpers/jquery.fancybox-buttons.css?v=1.0.2" />
-	<script type="text/javascript" src="/js/lib/FancyBox/helpers/jquery.fancybox-buttons.js?v=1.0.2"></script>-->
-				<!-- Add Thumbnail helper (this is optional) -->
-				<!--	<link rel="stylesheet" type="text/css" href="/js/lib/FancyBox/helpers/jquery.fancybox-thumbs.css?v=1.0.2" />
-	<script type="text/javascript" src="/js/lib/FancyBox/helpers/jquery.fancybox-thumbs.js?v=1.0.2"></script>		-->
-				<!-- Add Media helper (this is optional) -->
 				<script type="text/javascript" src="/js/lib/FancyBox/helpers/jquery.fancybox-media.js?v=1.0.0"/>
-				<link rel="stylesheet" type="text/css" href="/css/all.css" media="screen"/>
 				<script type="text/javascript" src="/js/main.js"/>
+				<script type="text/javascript" src="/js/galleries.js"/>
 				<script type="text/javascript" src="/js/scripts.js"/>
 				<script type="text/javascript" src="/sokoban/sokoban_ssk.js"/>
 				<script type="text/javascript" src="/js/swfobject.js"/>
@@ -813,6 +803,7 @@ var google_remarketing_only = true;
 			</body>
 		</html>
 	</xsl:template>
+
 	<xsl:template match="txt//form">
 		<div class="callback question">
 			<div class="heading">
@@ -830,6 +821,7 @@ var google_remarketing_only = true;
 			</xsl:call-template>
 		</div>
 	</xsl:template>
+
 	<xsl:template match="data[@is_start]" mode="body">
 		<xsl:if test="count(headers) &gt; 0">
 			<div class="gallary_hold">
@@ -852,46 +844,59 @@ var google_remarketing_only = true;
 			<xsl:apply-templates select="."/>
 		</div>
 	</xsl:template>
-	
-	<xsl:template match="left_banner" mode="pos">
-	<li><a href="#"><xsl:value-of select="position()"/></a></li>
-</xsl:template>
 
-<xsl:template match="left_banner">
-	<li>
-		<table>
-			<tr>
-				<td style="background: none;">
-					<div class="gal_img">
-						<xsl:choose>
-							<xsl:when test="url !='' ">
-								<a href="{url}"><img src="/images/left_banns/{image/@src}" alt="" width="{image/@w}" height="{image/@h}" /></a>
-							</xsl:when>
-							<xsl:otherwise><img src="/images/left_banns/{image/@src}" alt="" width="{image/@w}" height="{image/@h}" /></xsl:otherwise>
-						</xsl:choose>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td style="background: none;">
-					<xsl:choose>
-						<xsl:when test="image_alt_text/@src!=''">
-						
-							<xsl:choose>
-								<xsl:when test="url !='' ">
-									<a href="{url}"><img src="/images/left_banns/{image_alt_text/@src}" alt="" width="{image_alt_text/@w}" height="{image_alt_text/@h}" /></a>
-								</xsl:when>
-								<xsl:otherwise><img src="/images/left_banns/{image_alt_text/@src}" alt="" width="{image_alt_text/@w}" height="{image_alt_text/@h}" /></xsl:otherwise>
-							</xsl:choose>
-							
-						</xsl:when>
-						<xsl:otherwise><xsl:apply-templates select="description"/></xsl:otherwise>
-					</xsl:choose>
-				</td>
-			</tr>
-		</table>
-	</li>
-</xsl:template>
+    <xsl:template match="banner_rotate">
+        <div class="left_banner_hold">
+            <div class="holder">
+                <ul class="number">
+                    <xsl:apply-templates select="left_banner" mode="pos"/>
+                </ul>
+                <ul class="left_banner">
+                    <xsl:apply-templates select="left_banner"/>
+                </ul>
+            </div>
+        </div>
+    </xsl:template>
+	
+    <xsl:template match="left_banner" mode="pos">
+        <li><a href="#"><xsl:value-of select="position()"/></a></li>
+    </xsl:template>
+
+    <xsl:template match="left_banner">
+        <li>
+            <table>
+                <tr>
+                    <td style="background: none;">
+                        <div class="gal_img">
+                            <xsl:choose>
+                                <xsl:when test="url !='' ">
+                                    <a href="{url}"><img src="/images/left_banns/{image/@src}" alt="" width="{image/@w}" height="{image/@h}" /></a>
+                                </xsl:when>
+                                <xsl:otherwise><img src="/images/left_banns/{image/@src}" alt="" width="{image/@w}" height="{image/@h}" /></xsl:otherwise>
+                            </xsl:choose>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background: none;">
+                        <xsl:choose>
+                            <xsl:when test="image_alt_text/@src!=''">
+
+                                <xsl:choose>
+                                    <xsl:when test="url !='' ">
+                                        <a href="{url}"><img src="/images/left_banns/{image_alt_text/@src}" alt="" width="{image_alt_text/@w}" height="{image_alt_text/@h}" /></a>
+                                    </xsl:when>
+                                    <xsl:otherwise><img src="/images/left_banns/{image_alt_text/@src}" alt="" width="{image_alt_text/@w}" height="{image_alt_text/@h}" /></xsl:otherwise>
+                                </xsl:choose>
+
+                            </xsl:when>
+                            <xsl:otherwise><xsl:apply-templates select="description"/></xsl:otherwise>
+                        </xsl:choose>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </xsl:template>
 
 <xsl:template match="sokoban_levels">
     <option value="{level}"><xsl:value-of select="level"/></option>
@@ -940,17 +945,8 @@ var google_remarketing_only = true;
 					</ul>
 				</xsl:if>
 
-				<xsl:if test="count(//page/left_banner) &gt; 0">
-					<div class="gallary_hold" style="height: 370px; margin: 10px 6px;">
-						<div class="holder">
-							<ul class="number">
-								<xsl:apply-templates select="//page/left_banner" mode="pos"/>							
-							</ul>
-							<ul id="gallary">
-								<xsl:apply-templates select="//page/left_banner"/>							
-							</ul>
-						</div>
-					</div>
+				<xsl:if test="count(//page/banner_rotate) &gt; 0">
+                    <xsl:apply-templates select="//page/banner_rotate"/>
 				</xsl:if>
 
 				
@@ -959,6 +955,7 @@ var google_remarketing_only = true;
 						<xsl:apply-templates select="//banner_left_side"/>
 					</div>
 				</xsl:if>
+
 				<xsl:if test="count(//catalog_article) &gt; 0">
 					<p class="head">Статьи по теме</p>
 					<div class="newses">
@@ -970,6 +967,7 @@ var google_remarketing_only = true;
 						</p>
 					</div>
 				</xsl:if>
+
 				<xsl:apply-templates select="//vopros"/>
 
 				<div id="sokoban-ssk" style="margin-left:5px; margin-top:45px;">
@@ -982,15 +980,15 @@ var google_remarketing_only = true;
 							document.onkeydown = detect_key;
 							load_level(1);							
 					</script>
-<div class="sokoban_moves">Ходов сделано:&#160;<span></span></div>
-<div align="right" style="float: right; margin-bottom: 0px;width: 100px;">
+                    <div class="sokoban_moves">Ходов сделано:&#160;<span></span></div>
+                    <div align="right" style="float: right; margin-bottom: 0px;width: 100px;">
                         Уровни&#160;
                         <select name="sokoban_levels">
                             <xsl:apply-templates select="/page/sokoban_levels"/>
                         </select>
                     </div>
-<div style="clear:both;"></div>
-<div align="left" style="margin-bottom:25px;"><a href="#sokoban_reset" class="sokoban_reset" data-level="1">Повтор уровня</a></div>
+                    <div style="clear:both;"></div>
+                    <div align="left" style="margin-bottom:25px;"><a href="#sokoban_reset" class="sokoban_reset" data-level="1">Повтор уровня</a></div>
 
 					<img src="/sokoban/rules.jpg"/>
 				</div>
@@ -999,7 +997,7 @@ var google_remarketing_only = true;
 			<div class="content_holder">
 				<div id="content">
 <!-- closed by Boris 2014_01_31 begin -->
-                                        <xsl:if test="//sectioninfo/image/@src!='' and 0=1">
+                    <xsl:if test="//sectioninfo/image/@src!='' and 0=1">
 						<img src="{//sectioninfo/image/@src}" alt="{//data/docinfo/name}"/>
 					</xsl:if>
 <!-- closed by Boris 2014_01_31 end -->
