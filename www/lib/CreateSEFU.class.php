@@ -506,7 +506,7 @@ class CreateSEFU
         $sefURL = $this->getSEFUDoc($docID); // формируем ЧПУ-урл
         //                    $idSefSiteRelation = $this->help->getIdSefSite(null,$sefURL);
         $idSefSiteRelation = $this->help->getIdSefSite($siteURL);
-        //                    echo "$sefURL, $siteURL, $idSefSiteRelation<br/>";
+//        echo "$sefURL, $siteURL, $idSefSiteRelation<br/>";
 
         if (!empty($idSefSiteRelation)) { // если для страницы сайта уже есть ЧПУ
             $sefSiteRelationInfo = $this->help->getSEF_SiteRelationInfo($idSefSiteRelation);
@@ -514,24 +514,20 @@ class CreateSEFU
             if ($sefURL != $sefSiteRelationInfo['SEF_URL']) {
                 // если уже существующий ЧПУ для страницы сайта НЕ РАВЕН полученному,
                 // то существующий записываем в старые, а полученный - на место существующего
-                $this->help->addOldURL($idSefSiteRelation,
-                    $sefSiteRelationInfo['SEF_URL']);
+                $this->help->addOldURL($idSefSiteRelation, $sefSiteRelationInfo['SEF_URL']);
 
-                $this->help->updateSEF_SiteRelation($idSefSiteRelation,
-                    $sefURL);
+                $this->help->updateSEF_SiteRelation($idSefSiteRelation, $sefURL);
             }
 
             if ($this->help->deleteOldNotNeedUrl($sefURL)) {
 
             }
-        } else
+        } else {
             $idSefSiteRelation = $this->help->saveSiteSEFRelation($siteURL, $sefURL); // сохраняем соответствие урла сайта -- ЧПУ-урлу
-        /*                 * ****** формируем OLD ******* */
+        }
 
-        $oldURL = $this->getDocCurURL($docID);
-
-        $this->help->addOldURL($idSefSiteRelation, $oldURL); // добавляет старый урл, если он еще не существует
-        //          }
+//        $oldURL = $this->getDocCurURL($docID);
+//        $this->help->addOldURL($idSefSiteRelation, $oldURL); // добавляет старый урл, если он еще не существует
     }
 
     /**

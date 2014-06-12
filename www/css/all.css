@@ -1716,3 +1716,18 @@ ul.booklets div.name{
     text-align: left;
     width: 120px;
 }
+
+#content .ui-widget-content {
+    background: none;
+    border: none;
+}
+
+#content .ui-widget-header {
+    background: none #0066B5;
+    border: 1px solid #0066B5;
+}
+
+#content .ui-tabs .ui-tabs-nav li {
+    border: 1px solid #0066B5;
+    border-bottom-width: 0;
+}

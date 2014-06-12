@@ -62,6 +62,16 @@ class Core_ServiceManager_Models extends Core_ServiceManager_Abstract
     }
 
     /**
+     * Получить модель Calculator
+     *
+     * @return Calculator
+     */
+    public function getCalculator()
+    {
+        return $this->getModel('Calculator');
+    }
+
+    /**
      * Получить модель Catalogue
      *
      * @return Catalogue

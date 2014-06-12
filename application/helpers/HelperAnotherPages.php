@@ -222,7 +222,7 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
 
             $this->domXml->create_element('name', $info['NAME']);
 
-            $this->getDocXml($docId, 0, true, $this->params['langId']);
+            $this->getDocXml($docId, 0, true, $this->params['langId'], true);
             $this->domXml->go_to_parent();
 
             $this->domXml->create_element('sectioninfo', '', 2);

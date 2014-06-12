@@ -3,6 +3,10 @@
     return the_key;
 }
 $(document).ready(function(){
+    if ($("#tabs").length){
+        $("#tabs").tabs();
+    }
+
     $("#sendvote").click(function(event){
         event.preventDefault();
         $(this).parents('form').submit();

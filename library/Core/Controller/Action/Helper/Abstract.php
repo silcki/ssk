@@ -88,7 +88,14 @@ class Core_Controller_Action_Helper_Abstract
         }
     }
 
-    public function getDocXml($id = 0, $type = 0, $tag = false, $lang = 0)
+    /**
+     * @param int  $id    ID записи
+     * @param int  $type  тип записи
+     * @param bool $tag   импортировать ли с тегом
+     * @param int  $lang  язык
+     * @param bool $cdata делать импорт как CDATA
+     */
+    public function getDocXml($id = 0, $type = 0, $tag = false, $lang = 0, $cdata = false)
     {
         $doc = $this->getServiceManager()->getModel()->getAnotherPages()->getDocXml($id, $type, $lang);
         $doc = stripslashes($doc);
@@ -105,7 +112,8 @@ class Core_Controller_Action_Helper_Abstract
             } else {
                 $txt = "<?xml version=\"1.0\" encoding=\"{$this->domXml->get_encoding()}\"?><!DOCTYPE stylesheet SYSTEM \"symbols.ent\">" . $doc;
             }
-            $this->domXml->import_node($txt, false);
+            $this->domXml->import_node($txt, $cdata);
+
         }
     }
 

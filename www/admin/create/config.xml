@@ -4600,5 +4600,33 @@ EOF;
                 }
         ]]></extrasubs>
     </table>
+
+    <table name="CALCULATOR" imagepath="/calc/" type="12">
+        <name>Калькулятор</name>
+        <col type="0" name="CALCULATOR_ID" primary="y" visuality="y">
+            <name>N</name>
+            <comment>Уникальный идентификатор</comment>
+        </col>
+        <col type="1" name="NAME" visuality="y" size="90">
+            <name>Название</name>
+            <comment>Название</comment>
+        </col>
+        <col type="7" name="IMAGE1">
+            <name>Картинка раздела</name>
+            <comment>Картинка раздела</comment>
+        </col>
+        <col type="1" name="INDENT" size="90">
+            <name>Идентификатор</name>
+            <comment>Идентификатор</comment>
+        </col>
+        <col type="8" name="STATUS" isstate="y" selectible="y">
+            <name>Вкл</name>
+            <comment>Флаг (0-вкл 1-выкл)</comment>
+        </col>
+        <col type="11" name="ORDER_">
+            <name>Порядок</name>
+            <comment>Порядок сортировки</comment>
+        </col>
+    </table>
 </config>
 

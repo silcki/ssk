@@ -3,6 +3,7 @@ return array(
     'HelperAnotherPages',
     'HelperArticles',
     'HelperBanners',
+    'HelperCalculator',
     'HelperCatalogue',
     'HelperClients',
     'HelperFaq',

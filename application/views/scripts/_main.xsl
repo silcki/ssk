@@ -599,6 +599,7 @@
                 <link rel="stylesheet" type="text/css" href="/css/all.css" media="screen"/>
                 <link rel="stylesheet" type="text/css" href="/css/left_banner.css" media="screen"/>
                 <link rel="stylesheet" type="text/css" href="/js/lib/FancyBox/jquery.fancybox.css?v=2.0.6" media="screen"/>
+                <link rel="stylesheet" type="text/css" href="/js/jqueryui/css/ui-lightness/jquery-ui-1.10.4.min.css" media="screen"/>
 
 				<xsl:value-of select="$style" disable-output-escaping="yes"/>
 				<script>
@@ -607,7 +608,7 @@
 				</script>
 
 				<script type="text/javascript" src="/js/lib/jQuery/jquery-1.8.0.min.js"/>
-				<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js" type="text/javascript"></script>
+				<script type="text/javascript" src="/js/jqueryui/js/jquery-ui-1.10.4.min.js"></script>
 				<script type="text/javascript" src="/js/jquery.form.js"/>
 				<script type="text/javascript" src="/js/lib/FancyBox/jquery.fancybox.pack.js?v=2.0.6"/>
 				<script type="text/javascript" src="/js/lib/FancyBox/helpers/jquery.fancybox-media.js?v=1.0.0"/>

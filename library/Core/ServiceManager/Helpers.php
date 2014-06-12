@@ -52,6 +52,16 @@ class Core_ServiceManager_Helpers extends Core_ServiceManager_Abstract
     }
 
     /**
+     * Получить помощника HelperCalculator
+     *
+     * @return HelperCalculator
+     */
+    public function getCalculator()
+    {
+        return $this->getHelper('HelperCalculator');
+    }
+
+    /**
      * Получить помощника HelperCatalogue
      *
      * @return HelperCatalogue

@@ -68,9 +68,14 @@ class Core_Controller_Router_Rout
         $sefuByOld = $anotherPagesModel->getSefURLbyOldURL($urlInfo['path']); // получаем ЧПУ-урл на основе старого урла
 
         if (!empty($sefuByOld)) { // если существует ЧПУ-урл для старого урла, делаем 301 редирект со старого урла на ЧПУ
-            $helper = new Zend_Controller_Action_Helper_Redirector();
-            $helper->setCode(301);
-            $helper->gotoUrlAndExit($sefuByOld);
+            $baseUrl = Core_View_Helpers_BaseUrl::baseUrl();
+            $sefuByOld = $baseUrl.$sefuByOld;
+
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: ".$sefuByOld);
+//            $helper = new Zend_Controller_Action_Helper_Redirector();
+//            $helper->setCode(301);
+//            $helper->gotoUrlAndExit($sefuByOld);
 
         } else { // проверяем является ли пришедший урл ЧПУ-урлом из нашей базы
             $siteURLbySEFU = $anotherPagesModel->getSiteURLbySEFU($urlInfo['path']);

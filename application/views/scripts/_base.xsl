@@ -10,7 +10,7 @@
 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
 <!-- Simple tags -->
-<xsl:template match="h1|h2|h3|h4|h5|b|i|u|sub|sup|nobr|span|div|small|strong|em|li|dl|ul|ol|img|link|a">
+<xsl:template match="h1|h2|h3|h4|h5|b|i|u|sub|sup|nobr|span|div|small|strong|em|li|dl|ul|ol|img|link|a|style">
     <xsl:element name="{local-name()}">
         <xsl:copy-of select="@*"/>        
         <xsl:apply-templates />

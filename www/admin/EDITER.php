@@ -1,75 +1,62 @@
 <?
-ini_set("display_errors",1);
-ini_set("display_startup_errors",1);
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
 
-require ('core.php');
-$cmf= new SCMF();
-list ($E_article,$E_edit,$E_view)=$cmf->selectrow_array('select ARTICLE,EDIT,VIEW from CMF_XMLS_ARTICLE where TYPE=?',$_REQUEST['type']);
+require('core.php');
+$cmf = new SCMF();
+list ($E_article, $E_edit, $E_view) = $cmf->selectrow_array('select ARTICLE,EDIT,VIEW from CMF_XMLS_ARTICLE where TYPE=?', $_REQUEST['type']);
 $cmf->setArticle($E_article);
 
-if (!$cmf->GetRights()) {header('Location: login.php'); exit;}
+if (!$cmf->GetRights()) {
+    header('Location: login.php');
+    exit;
+}
 $cmf->HeaderNoCache();
 $cmf->MakeCommonHeader();
 
-$VIRTUAL_IMAGE_PATH='/docs/';
-$VIRTUAL_FILE_PATH='/docs/';
-list($pictypes,$flashtypes,$filetypes)=array('','','');
+$VIRTUAL_IMAGE_PATH = '/docs/';
+$VIRTUAL_FILE_PATH = '/docs/';
+list($pictypes, $flashtypes, $filetypes) = array('', '', '');
 
-if(!isset($_REQUEST['event']))$_REQUEST['event']='';
-if(empty($_REQUEST['CMF_LANG_ID'])) $_REQUEST['CMF_LANG_ID'] = 0;
-if(empty($_REQUEST['XML'])) $_REQUEST['XML'] = '';
+if (!isset($_REQUEST['event'])) $_REQUEST['event'] = '';
+if (empty($_REQUEST['CMF_LANG_ID'])) $_REQUEST['CMF_LANG_ID'] = 0;
+if (empty($_REQUEST['XML'])) $_REQUEST['XML'] = '';
 
-{
-  $_REQUEST['XML']= stripslashes($_REQUEST['XML']);
-  $_REQUEST['XML'] = str_replace("&nbsp;"," ",$_REQUEST['XML']);
+if ($_REQUEST['event'] == 'Сохранить') {
+    $param = $cmf->selectrow_array('select 1 from XMLS where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?', $_REQUEST['id'], $_REQUEST['CMF_LANG_ID'], $_REQUEST['type']);
 
+    $_REQUEST['XML'] = addslashes($_REQUEST['XML']);
+//    $_REQUEST['XML'] = str_replace("&nbsp;", " ", $_REQUEST['XML']);
 
-
-
-  $param=$cmf->selectrow_array('select 1 from XMLS where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?',$_REQUEST['id'],$_REQUEST['CMF_LANG_ID'],$_REQUEST['type']);
-
-
-  if($param && $_REQUEST['event']=='Сохранить'){
-     if(!$_REQUEST['XML'])
-     {
-        //echo "Удяляем";         
-        $cmf->execute('delete from XMLS where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?', $_REQUEST['id'],$_REQUEST['CMF_LANG_ID'],$_REQUEST['type']);
-     }
-     else
-     {
-        $cmf->execute('update XMLS set XML=? where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?', $_REQUEST['XML'], $_REQUEST['id'],$_REQUEST['CMF_LANG_ID'],$_REQUEST['type']);
-     }
-  }
-  else{
-     $cmf->execute('insert into XMLS(XMLS_ID,CMF_LANG_ID,TYPE,XML) values(?,?,?,?)', $_REQUEST['id'],$_REQUEST['CMF_LANG_ID'],$_REQUEST['type'],$_REQUEST['XML']); // echo mysql_error();
-  }
+    if ($param) {
+        if (empty($_REQUEST['XML'])) {
+            $cmf->execute('delete from XMLS where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?', $_REQUEST['id'], $_REQUEST['CMF_LANG_ID'], $_REQUEST['type']);
+        } else {
+            $cmf->execute('update XMLS set XML=? where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?', $_REQUEST['XML'], $_REQUEST['id'], $_REQUEST['CMF_LANG_ID'], $_REQUEST['type']);
+        }
+    } else {
+        $cmf->execute('insert into XMLS(XMLS_ID,CMF_LANG_ID,TYPE,XML) values(?,?,?,?)', $_REQUEST['id'], $_REQUEST['CMF_LANG_ID'], $_REQUEST['type'], $_REQUEST['XML']);
+    }
 }
 
-if($_REQUEST['id']>0)
- {
-$_REQUEST['XML']=$cmf->selectrow_array('select XML from XMLS where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?',$_REQUEST['id'],$_REQUEST['CMF_LANG_ID'],$_REQUEST['type']);
+if ($_REQUEST['id'] > 0) {
+    $_REQUEST['XML'] = $cmf->selectrow_array('select XML from XMLS where XMLS_ID=? and CMF_LANG_ID=? and TYPE=?', $_REQUEST['id'], $_REQUEST['CMF_LANG_ID'], $_REQUEST['type']);
+    $_REQUEST['XML'] = stripcslashes($_REQUEST['XML']);
 
 //if(!$_REQUEST['XML']) { $_REQUEST['XML']="<story>\n</story>"; };
-$Pictures='';
-$Files='';
-$Flashes='';
+    $Pictures = '';
+    $Files = '';
+    $Flashes = '';
 }
 
-
-//$_REQUEST['XML']=preg_replace("/\<picture format=\"jpg\"/","<img",$_REQUEST['XML']);
-//$_REQUEST['XML']=preg_replace("/\<link href/","<a href",$_REQUEST['XML']);
-//$_REQUEST['XML']=preg_replace("/\<\/link>/","</a>",$_REQUEST['XML']);
-//$_REQUEST['XML']=htmlspecialchars($_REQUEST['XML']);
-
-if(empty($_REQUEST['r'])) $_REQUEST['r'] = 0;
-if(empty($_REQUEST['iid'])) $_REQUEST['iid'] = 0;
+if (empty($_REQUEST['r'])) $_REQUEST['r'] = 0;
+if (empty($_REQUEST['iid'])) $_REQUEST['iid'] = 0;
 
 
-$E_edit=preg_replace("/\%(.+?)\%/e","\$_REQUEST['\\1']",$E_edit);
-$E_view=@preg_replace("/\%(.+?)\%/e","\$_REQUEST['\\1']",$E_view);
+$E_edit = preg_replace("/\%(.+?)\%/e", "\$_REQUEST['\\1']", $E_edit);
+$E_view = @preg_replace("/\%(.+?)\%/e", "\$_REQUEST['\\1']", $E_view);
 
-
-$tmppp=time();
+$tmppp = time();
 $editor_value = $_REQUEST['XML'];
 
 @print <<<EOD

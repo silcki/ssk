@@ -22,4 +22,5 @@ mkdir "../../images/adm/"
 mkdir "../../images/projects/"
 mkdir "../../images/booklets/"
 mkdir "../../images/wm/"
+mkdir "../../images/calc/"
 
