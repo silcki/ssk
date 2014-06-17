@@ -27,6 +27,7 @@ class Core_Controller_Router_Rout
         $this->_initAliasingAjax();
         $this->_initAliasingDoc();
         $this->_initAliasingNews();
+        $this->_initAliasingCalculator();
         $this->_initAliasingClients();
         $this->_initAliasingArticles();
         $this->_initAliasingGallary();
@@ -215,6 +216,23 @@ class Core_Controller_Router_Rout
         );
 
         $this->_router->addRoute('news_view_multilingual', $routed_lang);
+    }
+
+    private function _initAliasingCalculator() {
+
+        $routed_indent = new Zend_Controller_Router_Route_Regex(
+            'calculator(/([^/].*?))?',
+            array(
+                'controller' => 'calculator',
+                'action' => 'index',
+                'indent' => null,
+            ),
+            array(
+                2 => 'indent',
+            )
+        );
+
+        $this->_router->addRoute('calculator_indent', $routed_indent);
     }
 
     private function _initAliasingClients() {

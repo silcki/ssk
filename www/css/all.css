@@ -1717,7 +1717,7 @@ ul.booklets div.name{
     width: 120px;
 }
 
-#content .ui-widget-content {
+#content div.ui-widget-content {
     background: none;
     border: none;
 }
@@ -1729,5 +1729,15 @@ ul.booklets div.name{
 
 #content .ui-tabs .ui-tabs-nav li {
     border: 1px solid #0066B5;
+    border-bottom-width: 0;
+}
+
+#content .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    border: 2px solid #FF3700;
+    border-bottom-width: 0;
+}
+
+#content .ui-tabs .ui-tabs-nav li.ui-state-hover {
+    border: 2px solid #FF3700;
     border-bottom-width: 0;
 }

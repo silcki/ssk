@@ -50,13 +50,15 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
                 }
 
                 $this->domXml->create_element('main_menu', '', 2);
-                $this->domXml->set_attribute(array('another_pages_id' => $view['ANOTHER_PAGES_ID']
-                , 'parent_id' => $view['PARENT_ID']
-                , 'is_new_win' => $view['IS_NEW_WIN']
-                , 'is_node' => $view['IS_NODE']
-                , 'via_js' => $view['VIA_JS']
-                , 'on_path' => $on_path
-                , 'level' => $level
+                $this->domXml->set_attribute(
+                    array(
+                        'another_pages_id' => $view['ANOTHER_PAGES_ID']
+                      , 'parent_id' => $view['PARENT_ID']
+                      , 'is_new_win' => $view['IS_NEW_WIN']
+                      , 'is_node' => $view['IS_NODE']
+                      , 'via_js' => $view['VIA_JS']
+                      , 'on_path' => $on_path
+                      , 'level' => $level
                 ));
 
                 $is_lang = false;
@@ -222,7 +224,7 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
 
             $this->domXml->create_element('name', $info['NAME']);
 
-            $this->getDocXml($docId, 0, true, $this->params['langId'], true);
+            $this->getDocXml($docId, 0, true, $this->params['langId']);
             $this->domXml->go_to_parent();
 
             $this->domXml->create_element('sectioninfo', '', 2);

@@ -95,7 +95,7 @@ class Core_Controller_Action_Helper_Abstract
      * @param int  $lang  язык
      * @param bool $cdata делать импорт как CDATA
      */
-    public function getDocXml($id = 0, $type = 0, $tag = false, $lang = 0, $cdata = false)
+    public function getDocXml($id = 0, $type = 0, $tag = false, $lang = 0)
     {
         $doc = $this->getServiceManager()->getModel()->getAnotherPages()->getDocXml($id, $type, $lang);
         $doc = stripslashes($doc);
@@ -107,13 +107,14 @@ class Core_Controller_Action_Helper_Abstract
             $pattern = '/(<a.*href=".*\.(\w+)) size=(.+)"/Uis';
             $doc = preg_replace($pattern, '${1}" typeDoc="$2" size="$3"', $doc);
 
+            $txt = "<?xml version=\"1.0\" encoding=\"{$this->domXml->get_encoding()}\"?><!DOCTYPE stylesheet SYSTEM \"symbols.ent\">";
             if ($tag) {
-                $txt = "<?xml version=\"1.0\" encoding=\"{$this->domXml->get_encoding()}\"?><!DOCTYPE stylesheet SYSTEM \"symbols.ent\"><txt>" . $doc . "</txt>";
+                $txt.= "<txt>" . $doc . "</txt>";
             } else {
-                $txt = "<?xml version=\"1.0\" encoding=\"{$this->domXml->get_encoding()}\"?><!DOCTYPE stylesheet SYSTEM \"symbols.ent\">" . $doc;
+                $txt.= $doc;
             }
-            $this->domXml->import_node($txt, $cdata);
 
+            $this->domXml->import_node($txt);
         }
     }
 

@@ -105,7 +105,7 @@ class CatController extends Core_Controller_Action_Abstract
         $befor_path[0]['url'] = $href;
 
         $this->_catalogueHelper
-            ->getCattreeItems($catalogId)
+            ->getCattreeItems($catalogId, 0, true)
             ->getPath($catalogId, $befor_path)
             ->getCatInfo($catalogId);
     }

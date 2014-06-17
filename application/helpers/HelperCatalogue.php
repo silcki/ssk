@@ -180,10 +180,12 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
         return $this;
     }
 
-    public function getCattreeItems($catalogId, $itemId = 0)
+    public function getCattreeItems($catalogId, $itemId = 0, $full = false)
     {
         $this->domXml->create_element('itemnode', '', 2);
-        $this->getDocXml($catalogId, 2, true, $this->params['langId']);
+        if ($full) {
+            $this->getDocXml($catalogId, 2, true, $this->params['langId']);
+        }
 
         $data = $this->catalogue->getItems($catalogId, $this->params['langId']);
         if (!empty($data)) {
