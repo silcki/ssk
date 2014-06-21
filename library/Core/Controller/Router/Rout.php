@@ -74,10 +74,7 @@ class Core_Controller_Router_Rout
 
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: ".$sefuByOld);
-//            $helper = new Zend_Controller_Action_Helper_Redirector();
-//            $helper->setCode(301);
-//            $helper->gotoUrlAndExit($sefuByOld);
-
+            exit;
         } else { // проверяем является ли пришедший урл ЧПУ-урлом из нашей базы
             $siteURLbySEFU = $anotherPagesModel->getSiteURLbySEFU($urlInfo['path']);
 

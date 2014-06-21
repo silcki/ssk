@@ -1,11 +1,11 @@
-.client_filter {
+.client_filter_box {
     background: none repeat scroll 0 0 #F0F0F0;
     margin: 10px 0;
     padding: 10px 10px;
     border: none;
 }
 
-.client_filter select {
+.client_filter_box select {
     margin-top: 5px;
     width:160px;
 }
@@ -14,29 +14,29 @@
     padding: 3px 0;
 }
 
-.client_filter fieldset {
+.client_filter_box fieldset {
     border: medium none;
     margin: 0;
     padding: 5px 15px 10px;
 }
 
-.client_filter label {
+.client_filter_box label {
     font: 10pt/1.4 Trebuchet MS,Arial,sans-serif;
     display: block;
 }
 
-.client_filter .disable {
+.client_filter_box .disable {
     pointer-events: none;
     cursor: default;
     background:#a0a0a0;
 }
 
-.client_filter .block {
+.client_filter_box .block {
     float: left;
     margin-right: 10px;
 }
 
-.client_filter:last-child .block {
+.client_filter_box:last-child .block {
     margin-right: 0;
 }
 
