@@ -14,6 +14,10 @@ h1, h2, h3, h4, h5, h6, p, ul{
     list-style:none;
     font-weight:normal;
 }
+@font-face {
+    font-family: "open-sans";
+    src: url(http://ssk.ua/i/open-sans.ttf) format("truetype");
+}
 .clear:after{
     content:'.';
     display:block;
@@ -73,57 +77,62 @@ a:hover{text-decoration:none;}
     height:100%;
 }
 #header{
-    width:100%;
-    height:100px;
-    margin: 0 19px;
+    width:auto;
+    height:131px;
+    margin: 0px -21px 0px -19px;
+    background:url(../i/bg-header.png) repeat-x;
+    font-family:"open-sans", Tahoma;
 }
 .logo{
     /*	margin-left:14px;*/
     float:left;
     /*    margin-top:22px;*/
-    margin: 12px 0 0 38px;
+    margin: 20px 0 0 10px;
 }
-
 
 .phone_hold{
-    margin-left:10%;
-    margin-right:30px;
+    margin-left:10px;
+    margin-right:40px;
    /* float:left;*/
     float:right;
-    margin-top:13px/*21px*/;
+    margin-top:40px/*21px*/;
     text-align:right;
+    font-family:"open-sans", Tahoma;
 }
 .phone_hold .phone{
-    background:url(../i/phone.png) no-repeat 3% 50%;
+   /* background:url(../i/phone.png) no-repeat 3% 50%;*/
     padding-left:20px;
-    font-size:18px;
+    font-size:21px;
     /*    font-size:11px;*/
-    color:#c2c2c2;
+    color:#666666;
 }
 .phone_hold .phone span{
     /*    font-size:1.5em;*/
-    font-size: 26px;
-    color: #9b9b9b;
+    font-size: 21px;
+    color: #666666;
     position: relative;
-    top: 2px;
-
 }
 
 .phone_hold p.call_holder{
     position: relative;
     left: 2px;
-
 }
 
 .phone_hold .callback{
-    color:#0066b5;
+    color:#10709f;
     border-bottom:1px dashed;
     text-decoration:none;
-    letter-spacing: 0.08em;
-    font-size: 13px;
+    /*letter-spacing: 0.08em;*/
+    font-size: 18px;
+    margin-right: 25px;
 }
-
-
+.schedule{
+    float:left;
+    margin-top:50px;
+    width:245px;
+    height: 37px;
+}
+/*
 .search{
     margin-left:12%;
     float:left;
@@ -143,7 +152,7 @@ a:hover{text-decoration:none;}
     font-size:9pt;
     padding:0 10px;
     float:left;
-}
+}*/
 .lang{
     margin-right:20px;
     float:right;
@@ -164,21 +173,26 @@ a:hover{text-decoration:none;}
     /*    margin-bottom:10px;*/
     position:relative;
     z-index:100;
-    margin: 0 9px 0 11px;
+    margin: 0 -22px 0 -20px;
+    padding-left: 15px;
     /*    margin: 0 10px;*/
+    -webkit-box-shadow: 0 8px 6px -6px #a3a3a3;
+    -moz-box-shadow: 0 8px 6px -6px #a3a3a3;
+    box-shadow: 0 8px 6px -6px #a3a3a3;
+    font-family:"open-sans", Tahoma;
 }
 .topmenu ul{
-    height:27px;
+    height:40px;
 }
 .topmenu li{
     float:left;
-    border-right:1px solid #fff;
+    border-right:1px solid #e3944a;
     position:relative;
 }
 .topmenu li a, .topmenu li span{
     padding:0 10px;
-    line-height:26px;
-    height:27px;
+    line-height:38px;
+    height:40px;
     float:left;
     color:#fff;
     font-size:17px;
@@ -187,21 +201,31 @@ a:hover{text-decoration:none;}
 
 .topmenu li a:hover, .topmenu li span, .topmenu li a.active{
     background:url(../i/bg-menu2.png) repeat-x 0 0;
+    color:#464646;
 }
 /*.topmenu li a.active{
     padding: 0;
 }*/
 .topmenu ul li ul{
     position:absolute;
-    top:27px;
+    top:40px;
     left:0;
     background:#fff;
-    border:solid #c0c0c0;
-    border-width:0 1px 1px;
+    /*border:solid #c0c0c0;
+    border-width:0 1px 1px;*/
     height:auto;
     width:228px;
     display:none;
+    -webkit-box-shadow: 10px 10px 10px -10px #a3a3a3, 10px 10px 10px -10px #a3a3a3, -10px 10px 10px -10px #a3a3a3;
+    -moz-box-shadow:    10px 10px 10px -10px #a3a3a3, 10px 10px 10px -10px #a3a3a3, -10px 10px 10px -10px #a3a3a3;
+    box-shadow:         10px 10px 10px -10px #a3a3a3, 10px 10px 10px -10px #a3a3a3, -10px 10px 10px -10px #a3a3a3;
 }
+
+.tmp ul li{ border:none;}
+.tmp ul {
+    padding-top:10px;
+}
+.tmp ul:last-child{padding-bottom:10px;}
 .topmenu ul li.hover ul,
 .topmenu ul li:hover ul{
     display:block;
@@ -211,28 +235,30 @@ a:hover{text-decoration:none;}
     height:auto;
     float:none;
 }
+
 .topmenu li ul li a,
 .topmenu li ul li a.active,
 .topmenu li ul li span{
-    color:#352eb0;
+    color:#464646;
     height:auto;
     float:none;
     display:block;
     padding:0 0 0 10px;
-    margin:5px 0;
+    margin:0 10px;
+    padding:5px 5px;
     line-height:normal;
-font-size: 14px;
+    font-size: 14px;
 }
 
 .topmenu li ul li a.active{
-    background: none;
+    background: #336699;
     color:#ff7300;
 }
 
 .topmenu li ul li span,
 .topmenu li ul li a:hover{
-    background:none;
-    color:#ff7300;
+    background:#336699;
+    color:#fff;
 }
 
 html body div#main.main_index div.gallary_hold{

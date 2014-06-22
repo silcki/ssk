@@ -679,13 +679,14 @@
 									<!--<xsl:if test="not(//data/@is_start)"> -->
 									<!--	<xsl:attribute name="href"><xsl:value-of select="/page/lang_name"/>/</xsl:attribute>-->
 									<!--</xsl:if> -->
-									<img src="/i/logo.png" alt="" height="65" width="168"/><img style="margin:0px 142px 0px 27px;" src="/i/slogan.png" alt="" height="65" width="257"/>
+									<img src="/i/logo.png" alt="" height="90" width="130"/><img style="margin:0px 50px 20px 27px;" src="/i/slogan.png" alt="" height="43" width="242"/>
 								</a>
 							</p>
+                            <div class="schedule"><img src="/i/schedule.png" alt="" height="37" width="245"/></div>
 							<div class="phone_hold">
 								<!--<p class="phone"><xsl:apply-templates select="/page/text_zakaz_phone"/></p>-->
 								<p class="phone">
-									<xsl:apply-templates select="/page/banner_header_phone1/description"/>
+									<xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/>
 								</p>
 								<p class="call_holder">
 									<xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
@@ -716,7 +717,7 @@
 							<xsl:attribute name="class">topmenu topmenu_inner</xsl:attribute>
 						</xsl:if>
 						<div class="holder">
-							<ul>
+							<ul class="tmp">
 								<xsl:apply-templates select="main_menu"/>
 							</ul>
 						</div>
