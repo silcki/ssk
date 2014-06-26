@@ -141,7 +141,7 @@ $(document).ready(function(){
         $("#gallary").galleries({
             time1: 1000,
             time2: 5000,
-            numbSelector: '.number',
+            numbSelector: 'div.gallary_hold ul.number li',
             bool: 1
         });
     }
@@ -151,7 +151,7 @@ $(document).ready(function(){
             $(this).galleries({
                 time1: 1000,
                 time2: 5000,
-                numbSelector: '.number',
+                numbSelector: 'div.left_banner_hold ul.number li',
                 bool: 1
             });
         });
@@ -177,7 +177,7 @@ $(document).ready(function(){
             $("#brands").galleries({
                 time1: 500,
                 time2: 5000,
-                numbSelector: '.number',
+                numbSelector: 'div.brands_hold ul.number li',
                 bool: 1
             });
         }

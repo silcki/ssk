@@ -31,14 +31,13 @@ a{color:#333333;}
 a:hover{text-decoration:none;}
 
 #main{
-
-    margin:20px auto;
-    overflow:hidden;
-    min-width:1000px;
-    width:1000px;
+    margin: 0px auto;
+    overflow: hidden;
+    min-width: 1000px;
+    width: 1000px;
     background:#fff url(../i/bg_m_center.png);
-    padding:18px 30px 30px;
-    position:relative;
+    padding: 18px 30px 30px;
+    position: relative;
 }
 .bgtop{
     background:url(../i/bg_m_top.png) no-repeat;
@@ -83,6 +82,12 @@ a:hover{text-decoration:none;}
     background:url(../i/bg-header.png) repeat-x;
     font-family:"open-sans", Tahoma;
 }
+
+#header .holder{
+    margin: 0 auto;
+    width: 1000px;
+}
+
 .logo{
     /*	margin-left:14px;*/
     float:left;
@@ -102,7 +107,7 @@ a:hover{text-decoration:none;}
 .phone_hold .phone{
    /* background:url(../i/phone.png) no-repeat 3% 50%;*/
     padding-left:20px;
-    font-size:21px;
+    font-size:20px;
     /*    font-size:11px;*/
     color:#666666;
 }
@@ -123,8 +128,8 @@ a:hover{text-decoration:none;}
     border-bottom:1px dashed;
     text-decoration:none;
     /*letter-spacing: 0.08em;*/
-    font-size: 18px;
-    margin-right: 25px;
+    font-size: 16px;
+    margin-right: 37px;
 }
 .schedule{
     float:left;
@@ -167,7 +172,7 @@ a:hover{text-decoration:none;}
 .lang li a{
     color:#006db5;
 }
-.topmenu{
+.topmenu {
     clear:both;
     background:url(../i/bg-menu.png) repeat-x;
     /*    margin-bottom:10px;*/
@@ -181,13 +186,21 @@ a:hover{text-decoration:none;}
     box-shadow: 0 8px 6px -6px #a3a3a3;
     font-family:"open-sans", Tahoma;
 }
+
+.topmenu .holder{
+    width: 1050px;
+    margin: 0 auto;
+}
+
 .topmenu ul{
     height:40px;
 }
+
 .topmenu li{
     float:left;
     border-right:1px solid #e3944a;
     position:relative;
+    text-align: center;
 }
 .topmenu li a, .topmenu li span{
     padding:0 10px;
@@ -210,7 +223,7 @@ a:hover{text-decoration:none;}
     position:absolute;
     top:40px;
     left:0;
-    background:#fff;
+    background:#f4f4f4;
     /*border:solid #c0c0c0;
     border-width:0 1px 1px;*/
     height:auto;
@@ -1390,7 +1403,7 @@ div.zakaz .open p{
     padding:0;
 }
 .vote ul.nav01 .active span {
-    background:url(../images/bg-vote2.png) no-repeat;
+    background:url(../i/bg-vote2.png) no-repeat;
     color:#fff;
 }
 .vote .box {
@@ -1614,7 +1627,7 @@ ul.vote-list label{
 }
 .phoneback .heading p{
     background:url(../i/btn_phone.png) no-repeat;
-    widows:278px;
+    width: 278px;
     height:36px;
     text-indent:-9999px;
     overflow:hidden;

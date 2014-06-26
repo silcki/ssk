@@ -665,63 +665,60 @@
 </script>
 <noscript><div><img src="//mc.yandex.ru/watch/22337347?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-
+                <div id="header">
+                    <div class="holder">
+                        <p class="logo">
+                            <a style="text-decoration: none;">
+                                <xsl:if test="not(//data/@is_start)">
+                                    <xsl:attribute name="href">/</xsl:attribute>
+                                </xsl:if>
+                                <img src="/i/logo.png" alt="" height="90" width="130"/><img style="margin:0px 50px 20px 27px;" src="/i/slogan.png" alt="" height="43" width="242"/>
+                            </a>
+                        </p>
+                        <div class="schedule"><img src="/i/schedule.png" alt="" height="37" width="245"/></div>
+                        <div class="phone_hold">
+                            <p class="phone">
+                                <xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/>
+                            </p>
+                            <p class="call_holder">
+                                <xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
+                                <xsl:value-of select="/page/text_callback_callback"/>
+                            </a>
+                            </p>
+                        </div>
+                        <!--  Пока удаляем поиск -->
+                        <!--<xsl:if test="not(//data/@is_start)">
+                            <form class="search" action="/search/all/" method="get">
+                                <fieldset>
+                                    <input type="text" value="{search_text}" id="search" name="q" class="text">
+                                        <xsl:if test="data/query!=''"><xsl:attribute name="value"><xsl:value-of select="data/query"/></xsl:attribute> </xsl:if>
+                                    </input>
+                                    <input type="image" src="/i/search.png" />
+                                </fieldset>
+                            </form>
+                        </xsl:if>-->
+                        <xsl:if test="count(langs) &gt; 1">
+                            <ul class="lang">
+                                <xsl:apply-templates select="langs"/>
+                            </ul>
+                        </xsl:if>
+                    </div>
+                </div>
+                <div class="topmenu">
+                    <xsl:if test="not(//data/@is_start)">
+                        <xsl:attribute name="class">topmenu topmenu_inner</xsl:attribute>
+                    </xsl:if>
+                    <div class="holder">
+                        <ul class="tmp">
+                            <xsl:apply-templates select="main_menu"/>
+                        </ul>
+                    </div>
+                </div>
 				<div id="main">
 					<xsl:if test="//data/@is_start=1">
 						<xsl:attribute name="class">main_index</xsl:attribute>
 					</xsl:if>
-					<!--<xsl:if test="//data/@is_start=1"><div class="bgtop"></div></xsl:if>-->
-					<div class="bgtop"/>
-					<div id="header">
-						<div class="holder">
-							<p class="logo">
-								<a href="http://ssk.ua/" style="text-decoration: none;">
-									<!--<xsl:if test="not(//data/@is_start)"> -->
-									<!--	<xsl:attribute name="href"><xsl:value-of select="/page/lang_name"/>/</xsl:attribute>-->
-									<!--</xsl:if> -->
-									<img src="/i/logo.png" alt="" height="90" width="130"/><img style="margin:0px 50px 20px 27px;" src="/i/slogan.png" alt="" height="43" width="242"/>
-								</a>
-							</p>
-                            <div class="schedule"><img src="/i/schedule.png" alt="" height="37" width="245"/></div>
-							<div class="phone_hold">
-								<!--<p class="phone"><xsl:apply-templates select="/page/text_zakaz_phone"/></p>-->
-								<p class="phone">
-									<xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/>
-								</p>
-								<p class="call_holder">
-									<xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
-										<xsl:value-of select="/page/text_callback_callback"/>
-									</a>
-								</p>
-							</div>
-							<!--  Пока удаляем поиск -->
-							<!--<xsl:if test="not(//data/@is_start)">
-								<form class="search" action="/search/all/" method="get">
-									<fieldset>
-										<input type="text" value="{search_text}" id="search" name="q" class="text">
-											<xsl:if test="data/query!=''"><xsl:attribute name="value"><xsl:value-of select="data/query"/></xsl:attribute> </xsl:if>
-										</input>
-										<input type="image" src="/i/search.png" />
-									</fieldset>
-								</form>
-							</xsl:if>-->
-							<xsl:if test="count(langs) &gt; 1">
-								<ul class="lang">
-									<xsl:apply-templates select="langs"/>
-								</ul>
-							</xsl:if>
-						</div>
-					</div>
-					<div class="topmenu">
-						<xsl:if test="not(//data/@is_start)">
-							<xsl:attribute name="class">topmenu topmenu_inner</xsl:attribute>
-						</xsl:if>
-						<div class="holder">
-							<ul class="tmp">
-								<xsl:apply-templates select="main_menu"/>
-							</ul>
-						</div>
-					</div>
+					<!--<div class="bgtop"/>-->
 					<xsl:apply-templates select="data" mode="body"/>
 					<div id="footer">
 						<!--<xsl:if test="not(//data/@is_start)"><xsl:attribute name="id">mainfooter</xsl:attribute></xsl:if>-->

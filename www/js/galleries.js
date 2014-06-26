@@ -9,7 +9,7 @@
 
         var gItem = $(this).find('li');
         var gLength = $(gItem).length;
-        var numbItem = $(this).parent().find(options.numbSelector + " li");
+        var numbItem = $(options.numbSelector);
         var n,m;
         var fIter;
 
