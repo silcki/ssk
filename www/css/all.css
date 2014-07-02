@@ -235,16 +235,21 @@ a:hover{text-decoration:none;}
 .topmenu .holder{
     width: 1050px;
     margin: 0 auto;
+    background:url(../i/menu-separator.png) no-repeat;
+    background-position:right;
 }
 
 .topmenu ul{
     height:40px;
+
+
 }
 
 .topmenu li{
     float:left;
-    border-right:1px solid #e3944a;
+    /*border-right:1px solid #e3944a;*/
     position:relative;
+    background:url(../i/menu-separator.png) no-repeat 0 0;
 }
 .topmenu li a, .topmenu li span {
     /*padding:0 10px;*/
@@ -256,10 +261,11 @@ a:hover{text-decoration:none;}
     text-decoration:none;
 }
 
-.topmenu ul > li > a{
+.topmenu ul.tmp > li > a{
     display: block;
     width: 100%;
     text-align: center;
+
 }
 
 .topmenu li a:hover, .topmenu li span, .topmenu li a.active{

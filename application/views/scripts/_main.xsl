@@ -694,9 +694,9 @@
                         </div>
                         <div class="phone_hold">
                             <div class="phone">
-                                <a href="#"><xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/></a>
+                                <a href="#"><xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="6" width="10"/></a>
                                 <div class="dropdown-container">
-                                    <xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/><br/>
+                                    <xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="6" width="10"/><br/>
                                     <xsl:apply-templates select="/page/banner_header_phone2/description"/>
                                 </div>
                             </div>
