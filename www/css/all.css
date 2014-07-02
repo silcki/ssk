@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6, p, ul{
 }
 @font-face {
     font-family: "open-sans";
-    src: url(http://ssk.ua/i/open-sans.ttf) format("truetype");
+    src: url('../i/fonts/Open_Sans/OpenSans-Regular.ttf') format("truetype");
 }
 .clear:after{
     content:'.';
@@ -95,6 +95,18 @@ a:hover{text-decoration:none;}
     margin: 20px 0 0 10px;
 }
 
+.dropdown-container {
+    background: none repeat scroll 0 0 #fff;
+    box-shadow: 0 0 18px rgba(111, 124, 144, 0.31), 1px 1px 0 rgba(101, 109, 120, 0.22), -1px 0 0 rgba(101, 109, 120, 0.22);
+    font-size: 13px;
+    left: 0;
+    min-width: 390px;
+    overflow: hidden;
+    padding-top: 18px;
+    position: absolute;
+    top: 100%;
+}
+
 .phone_hold{
     margin-left:10px;
     margin-right:40px;
@@ -104,18 +116,20 @@ a:hover{text-decoration:none;}
     text-align:right;
     font-family:"open-sans", Tahoma;
 }
-.phone_hold .phone{
-   /* background:url(../i/phone.png) no-repeat 3% 50%;*/
+.phone_hold .phone {
     padding-left:20px;
     font-size:20px;
-    /*    font-size:11px;*/
     color:#666666;
+    position: relative;
 }
-.phone_hold .phone span{
-    /*    font-size:1.5em;*/
+
+.phone_hold .phone a{
+    text-decoration: none;
+}
+
+.phone_hold .phone span {
     font-size: 21px;
     color: #666666;
-    position: relative;
 }
 
 .phone_hold p.call_holder{
@@ -123,7 +137,7 @@ a:hover{text-decoration:none;}
     left: 2px;
 }
 
-.phone_hold .callback{
+.phone_hold .callback {
     color:#10709f;
     border-bottom:1px dashed;
     text-decoration:none;
@@ -131,11 +145,42 @@ a:hover{text-decoration:none;}
     font-size: 16px;
     margin-right: 37px;
 }
-.schedule{
-    float:left;
-    margin-top:50px;
-    width:245px;
+
+.phone_hold .phone .dropdown-container {
+    min-width: 175px;
+    padding: 0 10px 25px 10px;
+    left: 10px;
+    top: 0;
+    z-index: 4;
+    text-align: left;
+    font-size:20px;
+    display: none;
+ }
+
+.phone_hold .phone .dropdown-container span {
+    font-size: 21px;
+    color: #666666;
+}
+
+.slogan {
+    float: left;
+    margin: 45px 45px 20px 27px;;
+    width: 255px;
     height: 37px;
+}
+
+.slogan p {
+    font-size: 18px;
+}
+
+.schedule {
+    float: left;
+    margin-top: 45px;
+    width: 245px;
+    height: 37px;
+}
+.schedule p {
+    font-size: 16px;
 }
 /*
 .search{
@@ -177,7 +222,7 @@ a:hover{text-decoration:none;}
     background:url(../i/bg-menu.png) repeat-x;
     /*    margin-bottom:10px;*/
     position:relative;
-    z-index:100;
+    z-index: 3;
     margin: 0 -22px 0 -20px;
     padding-left: 15px;
     /*    margin: 0 10px;*/
@@ -200,16 +245,21 @@ a:hover{text-decoration:none;}
     float:left;
     border-right:1px solid #e3944a;
     position:relative;
-    text-align: center;
 }
-.topmenu li a, .topmenu li span{
-    padding:0 10px;
+.topmenu li a, .topmenu li span {
+    /*padding:0 10px;*/
     line-height:38px;
     height:40px;
     float:left;
     color:#fff;
-    font-size:17px;
+    font-size:14px;
     text-decoration:none;
+}
+
+.topmenu ul > li > a{
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .topmenu li a:hover, .topmenu li span, .topmenu li a.active{
@@ -305,7 +355,7 @@ html body div#main div.holder div#column div.gallary_hold{
 
 html body div#main.main_index div.gallary_hold .number{
     position:absolute;
-    z-index:41;
+    z-index:2;
     padding:10px 10px 10px 5px;
 /*    background:#eee;*/
 /*    top:183px;*/

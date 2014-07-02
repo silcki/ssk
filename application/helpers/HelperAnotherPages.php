@@ -57,6 +57,7 @@ class HelperAnotherPages extends Core_Controller_Action_Helper_Abstract
                       , 'is_new_win' => $view['IS_NEW_WIN']
                       , 'is_node' => $view['IS_NODE']
                       , 'via_js' => $view['VIA_JS']
+                      , 'menu_width' => $view['MENU_WIDTH']
                       , 'on_path' => $on_path
                       , 'level' => $level
                 ));

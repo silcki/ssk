@@ -24676,7 +24676,7 @@ $_REQUEST['STATUS']=isset($_REQUEST['STATUS']) && $_REQUEST['STATUS']?1:0;
 $_REQUEST['REALSTATUS']=isset($_REQUEST['REALSTATUS']) && $_REQUEST['REALSTATUS']?1:0;
 
 
-  $cmf->execute('insert into ANOTHER_PAGES (ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,TEMPLATE,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS,ORDER_) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['SPECIAL_URL']),stripslashes($_REQUEST['TEMPLATE']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['KEYWORDS']),stripslashes($_REQUEST['IS_NODE']),stripslashes($_REQUEST['VIA_JS']),stripslashes($_REQUEST['IS_NEW_WIN']),stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDER_']));
+  $cmf->execute('insert into ANOTHER_PAGES (ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,MENU_WIDTH,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS,ORDER_) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['SPECIAL_URL']),stripslashes($_REQUEST['MENU_WIDTH']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['KEYWORDS']),stripslashes($_REQUEST['IS_NODE']),stripslashes($_REQUEST['VIA_JS']),stripslashes($_REQUEST['IS_NEW_WIN']),stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDER_']));
   
   
       if(empty($_REQUEST['CATNAME'])){
@@ -24747,7 +24747,7 @@ $_REQUEST['REALSTATUS']=isset($_REQUEST['REALSTATUS']) && $_REQUEST['REALSTATUS'
 
 
   $_REQUEST['pid'] = (!empty($_REQUEST['PARENT_ID'])) ? $_REQUEST['PARENT_ID'] : 0;
-  $cmf->execute('insert into ANOTHER_PAGES (ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,TEMPLATE,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS,ORDER_) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['SPECIAL_URL']),stripslashes($_REQUEST['TEMPLATE']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['KEYWORDS']),stripslashes($_REQUEST['IS_NODE']),stripslashes($_REQUEST['VIA_JS']),stripslashes($_REQUEST['IS_NEW_WIN']),stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDER_']));
+  $cmf->execute('insert into ANOTHER_PAGES (ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,MENU_WIDTH,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS,ORDER_) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['SPECIAL_URL']),stripslashes($_REQUEST['MENU_WIDTH']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['KEYWORDS']),stripslashes($_REQUEST['IS_NODE']),stripslashes($_REQUEST['VIA_JS']),stripslashes($_REQUEST['IS_NEW_WIN']),stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDER_']));
   
   
       if(empty($_REQUEST['CATNAME'])){
@@ -24818,7 +24818,7 @@ $_REQUEST['STATUS']=isset($_REQUEST['STATUS']) && $_REQUEST['STATUS']?1:0;
 $_REQUEST['REALSTATUS']=isset($_REQUEST['REALSTATUS']) && $_REQUEST['REALSTATUS']?1:0;
 
 
-@$cmf->execute('update ANOTHER_PAGES set NAME=?,IMAGE1=?,CATNAME=?,URL=?,SPECIAL_URL=?,TEMPLATE=?,TITLE=?,DESCRIPTION=?,KEYWORDS=?,IS_NODE=?,VIA_JS=?,IS_NEW_WIN=? where ANOTHER_PAGES_ID=?',stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['CATNAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['SPECIAL_URL']),stripslashes($_REQUEST['TEMPLATE']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['KEYWORDS']),stripslashes($_REQUEST['IS_NODE']),stripslashes($_REQUEST['VIA_JS']),stripslashes($_REQUEST['IS_NEW_WIN']),$_REQUEST['id']);
+@$cmf->execute('update ANOTHER_PAGES set NAME=?,IMAGE1=?,CATNAME=?,URL=?,SPECIAL_URL=?,MENU_WIDTH=?,TITLE=?,DESCRIPTION=?,KEYWORDS=?,IS_NODE=?,VIA_JS=?,IS_NEW_WIN=? where ANOTHER_PAGES_ID=?',stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['CATNAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['SPECIAL_URL']),stripslashes($_REQUEST['MENU_WIDTH']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['KEYWORDS']),stripslashes($_REQUEST['IS_NODE']),stripslashes($_REQUEST['VIA_JS']),stripslashes($_REQUEST['IS_NEW_WIN']),$_REQUEST['id']);
 $_REQUEST['e']='ED';
 
       if(empty($_REQUEST['CATNAME'])){
@@ -24848,7 +24848,7 @@ $_REQUEST['e']='ED';
 
 if($_REQUEST['e'] == 'ED')
 {
-list($V_ANOTHER_PAGES_ID,$V_PARENT_ID,$V_NAME,$V_IMAGE1,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_TEMPLATE,$V_TITLE,$V_DESCRIPTION,$V_KEYWORDS,$V_IS_NODE,$V_VIA_JS,$V_IS_NEW_WIN,$V_STATUS,$V_REALSTATUS)=$cmf->selectrow_arrayQ('select ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,TEMPLATE,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS from ANOTHER_PAGES where ANOTHER_PAGES_ID=?',$_REQUEST['id']);
+list($V_ANOTHER_PAGES_ID,$V_PARENT_ID,$V_NAME,$V_IMAGE1,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_MENU_WIDTH,$V_TITLE,$V_DESCRIPTION,$V_KEYWORDS,$V_IS_NODE,$V_VIA_JS,$V_IS_NEW_WIN,$V_STATUS,$V_REALSTATUS)=$cmf->selectrow_arrayQ('select ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,MENU_WIDTH,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS from ANOTHER_PAGES where ANOTHER_PAGES_ID=?',$_REQUEST['id']);
 
 
 
@@ -24868,7 +24868,7 @@ $V_REALSTATUS=$V_REALSTATUS?'checked':'';
 @print <<<EOF
 <h2 class="h2">Редактирование - Страницы сайта</h2>
 <table bgcolor="#CCCCCC" border="0" cellpadding="5" cellspacing="1" style="width: 500px" class="f">
-<form method="POST" action="ANOTHER_PAGES.php" ENCTYPE="multipart/form-data" onsubmit="return true  &amp;&amp; checkXML(NAME) &amp;&amp; checkXML(CATNAME) &amp;&amp; checkXML(URL) &amp;&amp; checkXML(SPECIAL_URL) &amp;&amp; checkXML(TEMPLATE) &amp;&amp; checkXML(TITLE) &amp;&amp; checkXML(DESCRIPTION) &amp;&amp; checkXML(KEYWORDS);">
+<form method="POST" action="ANOTHER_PAGES.php" ENCTYPE="multipart/form-data" onsubmit="return true  &amp;&amp; checkXML(NAME) &amp;&amp; checkXML(CATNAME) &amp;&amp; checkXML(URL) &amp;&amp; checkXML(SPECIAL_URL) &amp;&amp; checkXML(MENU_WIDTH) &amp;&amp; checkXML(TITLE) &amp;&amp; checkXML(DESCRIPTION) &amp;&amp; checkXML(KEYWORDS);">
 <input type="hidden" name="pid" value="{$_REQUEST['pid']}" />
 <input type="hidden" name="id" value="{$_REQUEST['id']}" />
 <input type="hidden" name="type" value="0" />
@@ -24925,9 +24925,9 @@ print <<<EOF
 
 <input type="text" name="SPECIAL_URL" value="$V_SPECIAL_URL" size="90" /><br />
 
-</td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Шаблон:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+</td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Ширина меню:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
-<input type="text" name="TEMPLATE" value="$V_TEMPLATE" size="90" /><br />
+<input type="text" name="MENU_WIDTH" value="$V_MENU_WIDTH" size="90" /><br />
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Тайтл:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
@@ -25005,7 +25005,7 @@ $visible=0;
 
 if($_REQUEST['e'] == 'AD' ||  $_REQUEST['e'] =='Новый')
 {
-list($V_ANOTHER_PAGES_ID,$V_PARENT_ID,$V_NAME,$V_IMAGE1,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_TEMPLATE,$V_TITLE,$V_DESCRIPTION,$V_KEYWORDS,$V_IS_NODE,$V_VIA_JS,$V_IS_NEW_WIN,$V_STATUS,$V_REALSTATUS,$V_ORDER_)=array('','','','','','','','','','','','','','','','','','');
+list($V_ANOTHER_PAGES_ID,$V_PARENT_ID,$V_NAME,$V_IMAGE1,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_MENU_WIDTH,$V_TITLE,$V_DESCRIPTION,$V_KEYWORDS,$V_IS_NODE,$V_VIA_JS,$V_IS_NEW_WIN,$V_STATUS,$V_REALSTATUS,$V_ORDER_)=array('','','','','','','','','','','','','','','','','','');
 if(!empty($_REQUEST['pid'])) $V_ = $_REQUEST['pid'];
 else $V_ = 0;
 
@@ -25021,7 +25021,7 @@ $V_REALSTATUS='';
 @print <<<EOF
 <h2 class="h2">Добавление - Страницы сайта</h2>
 <table bgcolor="#CCCCCC" border="0" cellpadding="5" cellspacing="1" style="width: 500px" class="f">
-<form method="POST" action="ANOTHER_PAGES.php" ENCTYPE="multipart/form-data" onsubmit="return true  &amp;&amp; checkXML(NAME) &amp;&amp; checkXML(CATNAME) &amp;&amp; checkXML(URL) &amp;&amp; checkXML(SPECIAL_URL) &amp;&amp; checkXML(TEMPLATE) &amp;&amp; checkXML(TITLE) &amp;&amp; checkXML(DESCRIPTION) &amp;&amp; checkXML(KEYWORDS);">
+<form method="POST" action="ANOTHER_PAGES.php" ENCTYPE="multipart/form-data" onsubmit="return true  &amp;&amp; checkXML(NAME) &amp;&amp; checkXML(CATNAME) &amp;&amp; checkXML(URL) &amp;&amp; checkXML(SPECIAL_URL) &amp;&amp; checkXML(MENU_WIDTH) &amp;&amp; checkXML(TITLE) &amp;&amp; checkXML(DESCRIPTION) &amp;&amp; checkXML(KEYWORDS);">
 EOF;
 print '<input type="hidden" name="pid" value="'.$_REQUEST['pid'].'" />';
 @print <<<EOF
@@ -25076,9 +25076,9 @@ print <<<EOF
 
 <input type="text" name="SPECIAL_URL" value="$V_SPECIAL_URL" size="90" /><br />
 
-</td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Шаблон:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+</td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Ширина меню:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
-<input type="text" name="TEMPLATE" value="$V_TEMPLATE" size="90" /><br />
+<input type="text" name="MENU_WIDTH" value="$V_MENU_WIDTH" size="90" /><br />
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Тайтл:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 

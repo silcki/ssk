@@ -1,5 +1,6 @@
 .left_banner_hold {
-    height: 370px;
+/*    height: 370px;*/
+    height: 200px;
     margin: 30px 6px 0 6px;
     position: relative;
 }
@@ -18,6 +19,7 @@
     padding: 10px 10px 10px 5px;
     position: absolute;
     top: 195px;
+    display: none;
 }
 
 .left_banner_hold .left_banner {

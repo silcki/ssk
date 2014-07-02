@@ -3432,9 +3432,9 @@ function getParents($id)
 			<name>Спец URL</name>
 			<comment>Спец URL</comment>
 		</col>
-		<col type="1" name="TEMPLATE" size="90">
-			<name>Шаблон</name>
-			<comment>Шаблон</comment>
+		<col type="1" name="MENU_WIDTH" size="90">
+			<name>Ширина меню</name>
+			<comment>Ширина меню</comment>
 		</col>
 		<col type="2" name="TITLE" rows="2" cols="90">
 			<name>Тайтл</name>

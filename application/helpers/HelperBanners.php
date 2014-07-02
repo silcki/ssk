@@ -6,6 +6,8 @@ class HelperBanners extends Core_Controller_Action_Helper_Abstract
         'banner_header_slogan' => array('align' => 2, 'section' => 2, 'preg' => 1),
         'banner_header_phone1' => array('align' => 2, 'section' => 3, 'preg' => 1),
         'banner_header_phone2' => array('align' => 2, 'section' => 4, 'preg' => 1),
+        'banner_header_schedule1' => array('align' => 2, 'section' => 17, 'preg' => 1),
+        'banner_header_schedule2' => array('align' => 2, 'section' => 18, 'preg' => 1),
         'banner_header_address' => array('align' => 2, 'section' => 5, 'preg' => 1),
 
         'banner_footer_address' => array('align' => 3, 'section' => 6, 'preg' => 1),
@@ -66,8 +68,7 @@ class HelperBanners extends Core_Controller_Action_Helper_Abstract
         if ($banners) {
             foreach ($banners as $banner) {
                 $this->domXml->create_element($block, '', 1);
-                $this->domXml->create_element('section_align_id',
-                    $banner['SECTION_ALIGN_ID']);
+                $this->domXml->create_element('section_align_id', $banner['SECTION_ALIGN_ID']);
 
                 $this->domXml->create_element('alt', $banner['ALT']);
 
@@ -92,7 +93,9 @@ class HelperBanners extends Core_Controller_Action_Helper_Abstract
                     $image = $this->splitImageProperties($banner['IMAGE1']);
                     $this->domXml->create_element('image', '', 2);
 
-                    $this->domXml->set_attribute(array('src' => $image[0]['src'],
+                    $this->domXml->set_attribute(
+                        array(
+                            'src' => $image[0]['src'],
                             'w' => $image[0]['w'],
                             'h' => $image[0]['h']
                         )

@@ -221,6 +221,9 @@
 			</xsl:choose>
 		</xsl:variable>
 		<li>
+            <xsl:if test="@menu_width !=''">
+                <xsl:attribute name="style">width: <xsl:value-of select="@menu_width"/>;</xsl:attribute>
+            </xsl:if>
 			<a>
 				<xsl:if test="@is_node=0 or not(@is_node)">
 					<xsl:attribute name="href"><xsl:value-of select="url"/></xsl:attribute>
@@ -246,6 +249,7 @@
 			</xsl:if>
 		</li>
 	</xsl:template>
+
 	<xsl:template match="main_menu" mode="left">
 		<xsl:param name="level"/>
 		<xsl:variable name="pid">
@@ -667,24 +671,41 @@
 <!-- /Yandex.Metrika counter -->
                 <div id="header">
                     <div class="holder">
-                        <p class="logo">
+                        <div class="logo">
                             <a style="text-decoration: none;">
                                 <xsl:if test="not(//data/@is_start)">
                                     <xsl:attribute name="href">/</xsl:attribute>
                                 </xsl:if>
-                                <img src="/i/logo.png" alt="" height="90" width="130"/><img style="margin:0px 50px 20px 27px;" src="/i/slogan.png" alt="" height="43" width="242"/>
+                                <img src="/i/logo.png" alt="" height="90" width="130"/>
                             </a>
-                        </p>
-                        <div class="schedule"><img src="/i/schedule.png" alt="" height="37" width="245"/></div>
+                        </div>
+                        <div class="slogan">
+                            <p>
+                                <xsl:apply-templates select="/page/banner_header_slogan/description"/>
+                            </p>
+                        </div>
+                        <div class="schedule">
+                            <p>
+                                <xsl:apply-templates select="/page/banner_header_schedule1/description"/>
+                            </p>
+                            <p>
+                                <xsl:apply-templates select="/page/banner_header_schedule2/description"/>
+                            </p>
+                        </div>
                         <div class="phone_hold">
-                            <p class="phone">
-                                <xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/>
-                            </p>
-                            <p class="call_holder">
-                                <xsl:value-of select="/page/text_zakaz_callback"/>&#160;<a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
-                                <xsl:value-of select="/page/text_callback_callback"/>
-                            </a>
-                            </p>
+                            <div class="phone">
+                                <a href="#"><xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/></a>
+                                <div class="dropdown-container">
+                                    <xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="14" width="20"/><br/>
+                                    <xsl:apply-templates select="/page/banner_header_phone2/description"/>
+                                </div>
+                            </div>
+                            <div class="call_holder">
+                                <xsl:value-of select="/page/text_zakaz_callback"/>&#160;
+                                <a href="/ajax/callback/" class="callback fancybox.ajax" id="callback">
+                                    <xsl:value-of select="/page/text_callback_callback"/>
+                                </a>
+                            </div>
                         </div>
                         <!--  Пока удаляем поиск -->
                         <!--<xsl:if test="not(//data/@is_start)">

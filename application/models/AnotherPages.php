@@ -49,6 +49,7 @@ class AnotherPages extends Core_Connect
                         , A.IS_NEW_WIN
                         , A.IS_NODE
                         , A.VIA_JS
+                        , A.MENU_WIDTH
                     from ANOTHER_PAGES A
                     inner join ANOTHER_PAGES_LANGS B on B.ANOTHER_PAGES_ID=A.ANOTHER_PAGES_ID
                     where A.PARENT_ID=?
@@ -67,6 +68,7 @@ class AnotherPages extends Core_Connect
                         , IS_NEW_WIN
                         , IS_NODE
                         , VIA_JS
+                        , MENU_WIDTH
                    from ANOTHER_PAGES
                    where PARENT_ID=?
                      and STATUS=1
@@ -126,20 +128,6 @@ class AnotherPages extends Core_Connect
         $res = $this->_db->fetchOne($sql);
 
         return empty($res) ? false : true;
-    }
-
-    public function getPageTemplate($id)
-    {
-        if (!is_numeric($id)) {
-            $pid = $this->getDocId($id);
-        }
-        else
-            $pid = $id;
-
-        $template = $this->_db->fetchOne("select TEMPLATE from ANOTHER_PAGES where ANOTHER_PAGES_ID = '" . $pid . "'");
-
-        list($name, $ext) = explode(".", $template);
-        return $name;
     }
 
     public function getDocId($id)

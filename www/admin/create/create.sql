@@ -273,8 +273,8 @@ create table MANAGERS (MANAGER_ID int(12) unsigned auto_increment NOT NULL,NAME 
 
 ----------------- ANOTHER_PAGES: -----------------
 drop table if exists ANOTHER_PAGES;
-create table ANOTHER_PAGES (ANOTHER_PAGES_ID int(12) unsigned auto_increment NOT NULL,PARENT_ID int(12) unsigned,NAME varchar(255),IMAGE1 varchar(50),CATNAME varchar(255),REALCATNAME varchar(255),URL varchar(255),SPECIAL_URL varchar(255),TEMPLATE varchar(255),TITLE text,DESCRIPTION text,KEYWORDS text,IS_NODE int(1) unsigned,VIA_JS int(1) unsigned,IS_NEW_WIN int(1) unsigned,STATUS int(1) unsigned,REALSTATUS int(1) unsigned,ORDER_ int(12) unsigned,primary key(ANOTHER_PAGES_ID));
--- ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,TEMPLATE,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS,ORDER_
+create table ANOTHER_PAGES (ANOTHER_PAGES_ID int(12) unsigned auto_increment NOT NULL,PARENT_ID int(12) unsigned,NAME varchar(255),IMAGE1 varchar(50),CATNAME varchar(255),REALCATNAME varchar(255),URL varchar(255),SPECIAL_URL varchar(255),MENU_WIDTH varchar(255),TITLE text,DESCRIPTION text,KEYWORDS text,IS_NODE int(1) unsigned,VIA_JS int(1) unsigned,IS_NEW_WIN int(1) unsigned,STATUS int(1) unsigned,REALSTATUS int(1) unsigned,ORDER_ int(12) unsigned,primary key(ANOTHER_PAGES_ID));
+-- ANOTHER_PAGES_ID,PARENT_ID,NAME,IMAGE1,CATNAME,REALCATNAME,URL,SPECIAL_URL,MENU_WIDTH,TITLE,DESCRIPTION,KEYWORDS,IS_NODE,VIA_JS,IS_NEW_WIN,STATUS,REALSTATUS,ORDER_
 ---------
 
 ----------------- XMLS: -----------------

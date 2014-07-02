@@ -3,6 +3,15 @@
     return the_key;
 }
 $(document).ready(function(){
+    $(".phone_hold .phone").hover(
+        function(event){
+            $(this).find('.dropdown-container').show();
+        },
+        function(event){
+            $(this).find('.dropdown-container').hide();
+        }
+    );
+
     $("#sendvote").click(function(event){
         event.preventDefault();
         $(this).parents('form').submit();
