@@ -6,7 +6,7 @@ production:
               dbname: ssk
               host: localhost
               username: root
-              password: root
+              password:
               isDefaultTableAdapter: true
               charset: utf8
 

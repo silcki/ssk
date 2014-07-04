@@ -109,18 +109,18 @@ a:hover{text-decoration:none;}
 
 .phone_hold{
     margin-left:10px;
-    margin-right:40px;
-   /* float:left;*/
-    float:right;
-    margin-top:40px/*21px*/;
-    text-align:right;
+    float:left;
+    margin-top:40px;
     font-family:"open-sans", Tahoma;
+    padding-left: 18px;
 }
 .phone_hold .phone {
     padding-left:20px;
     font-size:20px;
     color:#666666;
     position: relative;
+    background: url('../i/arrow-down.png') no-repeat 83% 40%;
+    width: 200px;
 }
 
 .phone_hold .phone a{
@@ -143,10 +143,11 @@ a:hover{text-decoration:none;}
     text-decoration:none;
     /*letter-spacing: 0.08em;*/
     font-size: 16px;
-    margin-right: 37px;
+    margin-left: 14px;
 }
 
 .phone_hold .phone .dropdown-container {
+    background: #fff url('../i/arrow-up.png') no-repeat 89% 7%;
     min-width: 175px;
     padding: 0 10px 25px 10px;
     left: 10px;
@@ -160,6 +161,10 @@ a:hover{text-decoration:none;}
 .phone_hold .phone .dropdown-container span {
     font-size: 21px;
     color: #666666;
+}
+
+.phone_hold .phone .dropdown-container .phone_arrow {
+    z-index: 5;
 }
 
 .slogan {
@@ -233,7 +238,7 @@ a:hover{text-decoration:none;}
 }
 
 .topmenu .holder{
-    width: 1050px;
+    width: 1028px;
     margin: 0 auto;
     background:url(../i/menu-separator.png) no-repeat;
     background-position:right;
@@ -241,16 +246,22 @@ a:hover{text-decoration:none;}
 
 .topmenu ul{
     height:40px;
+}
 
-
+.topmenu ul.tmp{
+    margin-left: -14px;
 }
 
 .topmenu li{
     float:left;
     /*border-right:1px solid #e3944a;*/
     position:relative;
+}
+
+.topmenu ul.tmp > li{
     background:url(../i/menu-separator.png) no-repeat 0 0;
 }
+
 .topmenu li a, .topmenu li span {
     /*padding:0 10px;*/
     line-height:38px;
@@ -1818,21 +1829,27 @@ ul.booklets div.name{
 }
 
 #content .ui-widget-header {
-    background: none #0066B5;
-    border: 1px solid #0066B5;
+    background: none;
+    border: none;
+    margin-bottom: 30px;
 }
 
 #content .ui-tabs .ui-tabs-nav li {
-    border: 1px solid #0066B5;
+    border: none;
     border-bottom-width: 0;
 }
 
 #content .ui-tabs .ui-tabs-nav li.ui-tabs-active {
-    border: 2px solid #FF3700;
+    border: none;
     border-bottom-width: 0;
 }
 
 #content .ui-tabs .ui-tabs-nav li.ui-state-hover {
     border: 2px solid #FF3700;
     border-bottom-width: 0;
-}.
+}
+
+.calc-bullets {
+    margin: -7px 5px 0 0;
+    vertical-align: middle;
+}

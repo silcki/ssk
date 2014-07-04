@@ -224,18 +224,14 @@
             <xsl:if test="@menu_width !=''">
                 <xsl:attribute name="style">width: <xsl:value-of select="@menu_width"/>;</xsl:attribute>
             </xsl:if>
-			<a>
-				<xsl:if test="@is_node=0 or not(@is_node)">
-					<xsl:attribute name="href"><xsl:value-of select="url"/></xsl:attribute>
-				</xsl:if>
+			<a href="{url}">
 				<xsl:choose>
 					<xsl:when test="@via_js=1">
 						<xsl:attribute name="vlink"><xsl:value-of select="url"/></xsl:attribute>
-						<xsl:attribute name="href">#</xsl:attribute>
 					</xsl:when>
 					<xsl:when test="@is_node=1">
 						<xsl:attribute name="style">cursor: default;</xsl:attribute>
-					</xsl:when>					
+					</xsl:when>
 				</xsl:choose>
 				<xsl:if test="@on_path=1 or count(main_menu[@on_path=1])">
 					<xsl:attribute name="class">active</xsl:attribute>
@@ -694,9 +690,9 @@
                         </div>
                         <div class="phone_hold">
                             <div class="phone">
-                                <a href="#"><xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="6" width="10"/></a>
+                                <xsl:apply-templates select="/page/banner_header_phone1/description"/>
                                 <div class="dropdown-container">
-                                    <xsl:apply-templates select="/page/banner_header_phone1/description"/><img src="/i/arrow-down.png" alt="" height="6" width="10"/><br/>
+                                    <xsl:apply-templates select="/page/banner_header_phone1/description"/><br/>
                                     <xsl:apply-templates select="/page/banner_header_phone2/description"/>
                                 </div>
                             </div>

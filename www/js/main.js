@@ -159,7 +159,7 @@ $(document).ready(function(){
         $(".left_banner").each(function(){
             $(this).galleries({
                 time1: 1000,
-                time2: 5000,
+                time2: 50000,
                 numbSelector: 'div.left_banner_hold ul.number li',
                 bool: 1
             });
@@ -422,8 +422,10 @@ $(document).ready(function(){
             }
             )
     }
-    $("a[vlink]").click(function(event){event.preventDefault();});
-    $("a[vlink]").click(function(){
+
+    $("a[vlink]").click(function(event){
+        event.preventDefault();
+
         var link = $(this).attr('vlink');
         window.location.href = link;
     });

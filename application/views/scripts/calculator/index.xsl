@@ -16,7 +16,7 @@
             <xsl:if test="image/@src">
                 <xsl:attribute name="style">width:<xsl:value-of select="image/@w"/>px; height:<xsl:value-of select="image/@h"/>px;</xsl:attribute>
             </xsl:if>
-            <a title="{name}">
+            <a>
                 <xsl:choose>
                     <xsl:when test="position()=1">
                         <xsl:attribute name="href"><xsl:value-of select="//data/@self_url"/></xsl:attribute>
@@ -26,9 +26,18 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="image/@src">
-                    <xsl:attribute name="style">display: block; background: url("<xsl:value-of select="image/@src"/>") no-repeat; width:<xsl:value-of select="image/@w"/>px; height:<xsl:value-of select="image/@h"/>px;</xsl:attribute>
-                    <!-- text-indent:-9999px; overflow: hidden;-->
+                    <!--<xsl:attribute name="style">display: block; width:<xsl:value-of select="image/@w"/>px; height:<xsl:value-of select="image/@h"/>px;</xsl:attribute>-->
+                    <!-- background: url("<xsl:value-of select="image/@src"/>") no-repeat; text-indent:-9999px; overflow: hidden;-->
                 </xsl:if>
+                <img src="{image/@src}" width="{image/@w}" height="{image/@h}"/><br/>
+                <xsl:choose>
+                    <xsl:when test="@active=1">
+                        <img src="/i/bullet-calc-active.jpg" width="18" height="19" class="calc-bullets"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <img src="/i/bullet-calc-noactive.jpg" width="20" height="20" class="calc-bullets"/>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:value-of select="name"/>
             </a>
         </li>
@@ -52,6 +61,8 @@
 			</p>
 		</div>
 		<div class="text">
+            <xsl:apply-templates select="docinfo/txt"/>
+
             <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                 <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                     <xsl:apply-templates select="calculator_tabs"/>
