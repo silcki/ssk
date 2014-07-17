@@ -569,11 +569,12 @@
 	</xsl:template>
 	<!--Языки-->
 	<xsl:template match="breadcrumbs">
-		<xsl:choose>
-            <xsl:when test="position()=last() and position()=1"><li><a href="{url}"><xsl:value-of select="name"/></a></li></xsl:when>
-			<xsl:when test="position()!=last()"><li><a href="{url}"><xsl:value-of select="name"/></a></li></xsl:when>
-			<!--<xsl:otherwise><li><xsl:value-of select="name"/></li></xsl:otherwise>-->
-		</xsl:choose>
+        <li><span typeof="v:Breadcrumb">
+            <xsl:choose>
+                <xsl:when test="position()!=last()"><a href="{url}" rel="v:url" property="v:title"><xsl:value-of select="name"/></a></xsl:when>
+                <xsl:otherwise><xsl:value-of select="name"/></xsl:otherwise>
+            </xsl:choose>
+        </span></li>
 	</xsl:template>
 	<xsl:template match="error_messages">
 		<li>
@@ -1017,7 +1018,7 @@ var google_remarketing_only = true;
 						<img src="{//sectioninfo/image/@src}" alt="{//data/docinfo/name}"/>
 					</xsl:if>
 <!-- closed by Boris 2014_01_31 end -->
-					<div class="breadcrumbs">
+					<div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
 						<xsl:if test="count(//data/breadcrumbs) &gt; 0">
 							<!--<div class="holder">-->
 							<ul>

@@ -2,13 +2,21 @@
 class SystemSets extends Core_Connect
 {
 
-    public function getSettingValue($where)
+    /**
+     * @param $name
+     * @param $default
+     *
+     * @return mixed
+     */
+    public function getSettingValue($name, $default)
     {
         $sql = "select VALUE
-          from SETINGS
-          where SYSTEM_NAME='{$where}'";
+                from SETINGS
+                where SYSTEM_NAME = ?";
 
-        return $this->_db->fetchOne($sql);
+        $result = $this->_db->fetchOne($sql, array($name));
+
+        return  $result ? $result:$default;
     }
 
 }

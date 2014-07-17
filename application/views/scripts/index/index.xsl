@@ -2,6 +2,7 @@
 <!DOCTYPE xsl:stylesheet SYSTEM "../symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:import href="../_main.xsl"/>
+<xsl:import href="../_socials.xsl"/>
 
 <!-- Catalogue -->
 <xsl:template match="cattree" mode="sub">
@@ -139,6 +140,11 @@
 
 <xsl:template match="data">	
 	<xsl:apply-templates select="docinfo/txt"/>	
+        <div style="margin:-50px 0px 30px 14px; height:45px;">
+          <xsl:call-template name="socials"/>
+        </div>
 </xsl:template>
+
+
 
 </xsl:stylesheet>

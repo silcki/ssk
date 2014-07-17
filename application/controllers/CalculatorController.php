@@ -34,8 +34,6 @@ class CalculatorController extends Core_Controller_Action_Abstract
             ->getDocInfo($docId)
             ->getDocPath($docId);
 
-
-
         $this->getServiceManager()->getHelper()->getCalculator()
             ->getCalculatorIdByIndent($indent)
             ->setParams($params)

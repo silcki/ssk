@@ -2,6 +2,7 @@
 <!DOCTYPE xsl:stylesheet SYSTEM "symbols.ent">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:import href="../_main.xsl"/>
+<xsl:import href="../_socials.xsl"/>
 
 	<!-- Catalog -->
 	<xsl:template match="catalogue" mode="sub">
@@ -54,6 +55,10 @@
 			<xsl:apply-templates select="txt" />
 		</div>
 	</xsl:if>
+    <div style="margin:-10px 0px 30px 14px; height:45px;">
+        <xsl:call-template name="socials"/>
+    </div>
+
 </xsl:template>
 
 </xsl:stylesheet>

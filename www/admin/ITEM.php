@@ -673,7 +673,7 @@ else $path_to_watermark_IMAGE='';
 		
 				
 
-$path_to_watermark = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_big_watermark'");
+$path_to_watermark = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_middle_watermark'");
 
 if(!empty($path_to_watermark) && !empty($_REQUEST['IS_WATERMARK_m'])){
 	$path_to_watermark = preg_replace('/\#.*/','',$path_to_watermark);
@@ -873,7 +873,7 @@ else $path_to_watermark_IMAGE='';
 		
 				
 
-$path_to_watermark = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_big_watermark'");
+$path_to_watermark = $cmf->selectrow_array("select IMAGE from SETINGS where SYSTEM_NAME='path_to_middle_watermark'");
 
 if(!empty($path_to_watermark) && !empty($_REQUEST['IS_WATERMARK_m'])){
 	$path_to_watermark = preg_replace('/\#.*/','',$path_to_watermark);
@@ -1178,9 +1178,24 @@ echo $V_UNDER_IMAGE_TEXT;
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Краткое описание:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
+<textarea id="DESCRIPTION" name="DESCRIPTION" rows="7" cols="90">
+EOF;
+$V_DESCRIPTION = htmlspecialchars_decode($V_DESCRIPTION);
+echo $V_DESCRIPTION;
+@print <<<EOF
+</textarea>
 
-<textarea name="DESCRIPTION" rows="7" cols="90">$V_DESCRIPTION</textarea><br />
-
+<script type="text/javascript">
+  CKEDITOR.replace( 'DESCRIPTION', {
+      customConfig : 'ckeditor/light_config.js',
+      filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
+      filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Images',
+      filebrowserFlashBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Flash',
+      filebrowserUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Files',
+      filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Images',
+      filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Flash'
+      });
+</script>
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Код карты картинки:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
@@ -1446,9 +1461,24 @@ echo $V_UNDER_IMAGE_TEXT;
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Краткое описание:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
+<textarea id="DESCRIPTION" name="DESCRIPTION" rows="7" cols="90">
+EOF;
+$V_DESCRIPTION = htmlspecialchars_decode($V_DESCRIPTION);
+echo $V_DESCRIPTION;
+@print <<<EOF
+</textarea>
 
-<textarea name="DESCRIPTION" rows="7" cols="90">$V_DESCRIPTION</textarea><br />
-
+<script type="text/javascript">
+  CKEDITOR.replace( 'DESCRIPTION', {
+      customConfig : 'ckeditor/light_config.js',
+      filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
+      filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Images',
+      filebrowserFlashBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Flash',
+      filebrowserUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Files',
+      filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Images',
+      filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Flash'
+      });
+</script>
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Код карты картинки:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
@@ -1706,7 +1736,5 @@ $ret.='<li>'.($id==$V_CATALOGUE_ID?'<input type="radio" name="cid" value="'.$V_C
 if ($ret) {$ret="<ul>${ret}</ul>";}
 return $ret;
 }
-
-?>
 
 ?>

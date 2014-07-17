@@ -182,6 +182,8 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
 
     public function getCattreeItems($catalogId, $itemId = 0, $full = false)
     {
+        $item_koef_small = $this->getSettingValue('item_koef_small', 1);
+
         $this->domXml->create_element('itemnode', '', 2);
         if ($full) {
             $this->getDocXml($catalogId, 2, true, $this->params['langId']);
@@ -212,15 +214,17 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
 
                 $this->domXml->create_element('name', $item['NAME']);
                 $this->domXml->create_element('menu_name', $item['MENU_NAME']);
-                $this->domXml->create_element('description', nl2br($item['DESCRIPTION']));
+//                $this->domXml->create_element('description', nl2br($item['DESCRIPTION']));
                 $this->domXml->create_element('url', $href);
+
+                $this->setXmlNode($item['DESCRIPTION'], 'description');
 
                 if (!empty($item['IMAGE']) && strchr($item['IMAGE'], "#")) {
                     $tmp = explode('#', $item['IMAGE']);
                     $this->domXml->create_element('image', '', 2);
                     $this->domXml->set_attribute(array('src' => $tmp[0],
-                            'w' => $tmp[1],
-                            'h' => $tmp[2]
+                            'w' => round($tmp[1] * $item_koef_small),
+                            'h' => round($tmp[2] * $item_koef_small)
                         )
                     );
                     $this->domXml->go_to_parent();
@@ -580,14 +584,18 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
 
         $this->domXml->set_tag('//data', true);
         $this->domXml->create_element('catinfo', '', 2);
-        $this->domXml->set_attribute(array('catalogue_id' => $catinfo['CATALOGUE_ID']
-        , 'cat_counts' => $count
-        ));
+        $this->domXml->set_attribute(
+            array(
+                'catalogue_id' => $catinfo['CATALOGUE_ID']
+              , 'cat_counts' => $count
+            )
+        );
 
         $this->domXml->create_element('name', $catinfo['NAME']);
         $this->domXml->create_element('catname', $catinfo['CATNAME']);
         $this->domXml->create_element('realcatname', $catinfo['REALCATNAME']);
         $this->domXml->create_element('url', $catinfo['URL']);
+        $this->setXmlNode($catinfo['DESCRIPTION'], 'description');
         $this->domXml->go_to_parent();
 
         $this->domXml->create_element('doc_meta', '', 2);

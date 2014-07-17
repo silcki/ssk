@@ -3,6 +3,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:import href="../_feedbackForm.xsl"/>
 	<xsl:import href="../_main.xsl"/>
+        <xsl:import href="../_socials.xsl"/>
 	<xsl:template name="javaScript">
 		<script type="text/javascript" src="/js/jquery.validate.js"/>
 		<script type="text/javascript" src="/js/validate.js?v=0"/>
@@ -157,6 +158,11 @@ $().ready(function() {
 		<div class="text">
 			<xsl:apply-templates select="item/txt"/>
 		</div>
+
+                <div style="margin:-10px 0px 55px 0px; height:45px;">
+                  <xsl:call-template name="socials"/>
+                </div>
+
 		<xsl:if test="//data/item/@is_form=1">
 			<!--<script type='text/javascript' src='/js/jquery.validate.js'></script>				
 		<xsl:value-of select="$validate" disable-output-escaping="yes"/>-->

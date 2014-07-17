@@ -312,8 +312,11 @@ $(document).ready(function(){
         if($(".rubr").length>0){
             tovarHeightFix(".rubr");
         }
-        if($(".catalog li").length>0){
-            tovarHeightFix(".catalog li");
+        if($("#content > .catalog > li").length>0){
+            tovarHeightFix("#content > .catalog > li");
+        }
+        if($(".text > .catalog li").length>0){
+            tovarHeightFix(".text > .catalog li");
         }
         if($(".gallery li a").length>0){
             tovarHeightFix(".gallery li a");

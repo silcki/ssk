@@ -78,7 +78,7 @@ a:hover{text-decoration:none;}
 #header{
     width:auto;
     height:131px;
-    margin: 0px -21px 0px -19px;
+    /*margin: 0px -21px 0px -19px;*/
     background:url(../i/bg-header.png) repeat-x;
     font-family:"open-sans", Tahoma;
 }
@@ -169,7 +169,7 @@ a:hover{text-decoration:none;}
 
 .slogan {
     float: left;
-    margin: 45px 45px 20px 27px;;
+    margin: 42px 45px 20px 27px;;
     width: 255px;
     height: 37px;
 }
@@ -230,6 +230,7 @@ a:hover{text-decoration:none;}
     z-index: 3;
     margin: 0 -22px 0 -20px;
     padding-left: 15px;
+    width: 100%;
     /*    margin: 0 10px;*/
     -webkit-box-shadow: 0 8px 6px -6px #a3a3a3;
     -moz-box-shadow: 0 8px 6px -6px #a3a3a3;
@@ -238,7 +239,7 @@ a:hover{text-decoration:none;}
 }
 
 .topmenu .holder{
-    width: 1028px;
+    width: 1052px;
     margin: 0 auto;
     background:url(../i/menu-separator.png) no-repeat;
     background-position:right;
@@ -249,7 +250,7 @@ a:hover{text-decoration:none;}
 }
 
 .topmenu ul.tmp{
-    margin-left: -14px;
+    margin-left: 11px;
 }
 
 .topmenu li{
@@ -1324,11 +1325,45 @@ div.callback select{
 /**** catalog ****/
 .catalog{
 }
-.catalog li{
+
+.catalog.item{
+}
+
+.catalog li {
     width:188px;
     float:left;
     margin:15px 0;
 }
+
+.catalog.item li{
+    width: 316px;
+}
+
+.catalog.item li.second {
+    margin: 15px 0 15px 34px;
+}
+
+.catalog li .bullet {
+    float: left;
+}
+
+.catalog li .content {
+    float: left;
+    padding-left: 15px;
+    position: relative;
+/*    width: 113px; */
+    width: 205px;
+}
+
+.catalog li .content .description{
+    font-size: 12px;
+}
+
+.catalog li .content .spisok li{
+    margin: 0 0 0 20px;
+    padding: 0 0 0 10px;
+}
+
 .catalog li.midle{
     margin:15px 68px;
 }

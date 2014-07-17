@@ -780,9 +780,24 @@ $V_REALSTATUS=$V_REALSTATUS?'checked':'';
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Краткий текст:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
+<textarea id="DESCRIPTION" name="DESCRIPTION" rows="7" cols="90">
+EOF;
+$V_DESCRIPTION = htmlspecialchars_decode($V_DESCRIPTION);
+echo $V_DESCRIPTION;
+@print <<<EOF
+</textarea>
 
-<textarea name="DESCRIPTION" rows="7" cols="90">$V_DESCRIPTION</textarea><br />
-
+<script type="text/javascript">
+  CKEDITOR.replace( 'DESCRIPTION', {
+      customConfig : 'ckeditor/light_config.js',
+      filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
+      filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Images',
+      filebrowserFlashBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Flash',
+      filebrowserUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Files',
+      filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Images',
+      filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Flash'
+      });
+</script>
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Стиль:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><select name="COLOR_STYLE">$V_STR_COLOR_STYLE</select><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Картинка рубрики:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type="hidden" name="IMAGE1" value="$V_IMAGE1" />
 <table><tr><td>
@@ -1003,9 +1018,24 @@ print '<input type="hidden" name="pid" value="'.$_REQUEST['pid'].'" />';
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Краткий текст:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
+<textarea id="DESCRIPTION" name="DESCRIPTION" rows="7" cols="90">
+EOF;
+$V_DESCRIPTION = htmlspecialchars_decode($V_DESCRIPTION);
+echo $V_DESCRIPTION;
+@print <<<EOF
+</textarea>
 
-<textarea name="DESCRIPTION" rows="7" cols="90">$V_DESCRIPTION</textarea><br />
-
+<script type="text/javascript">
+  CKEDITOR.replace( 'DESCRIPTION', {
+      customConfig : 'ckeditor/light_config.js',
+      filebrowserBrowseUrl : 'ckeditor/ckfinder/ckfinder.html',
+      filebrowserImageBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Images',
+      filebrowserFlashBrowseUrl : 'ckeditor/ckfinder/ckfinder.html?Type=Flash',
+      filebrowserUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Files',
+      filebrowserImageUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Images',
+      filebrowserFlashUploadUrl : 'ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&amp;type=Flash'
+      });
+</script>
 
 </td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Стиль:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><select name="COLOR_STYLE">$V_STR_COLOR_STYLE</select><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Картинка рубрики:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type="hidden" name="IMAGE1" value="$V_IMAGE1" />
 <table><tr><td>

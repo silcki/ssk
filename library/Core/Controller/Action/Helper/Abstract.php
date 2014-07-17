@@ -214,9 +214,15 @@ class Core_Controller_Action_Helper_Abstract
         }
     }
 
-    public function getSettingValue($name)
+    /**
+     * @param $name
+     * @param null $default
+     *
+     * @return mixed
+     */
+    public function getSettingValue($name, $default = null)
     {
-        return $this->getServiceManager()->getModel()->getSystemSets()->getSettingValue($name);
+        return $this->getServiceManager()->getModel()->getSystemSets()->getSettingValue($name, $default);
     }
 
     protected function getMailTrasportData()

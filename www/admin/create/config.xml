@@ -2515,7 +2515,7 @@ print <<<EOF
 			<name>Добавка к тайтлу</name>
 			<comment>Добавка к тайтлу</comment>
 		</col>
-		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+		<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
 			<name>Краткий текст</name>
 			<comment>Краткий текст</comment>
 		</col>
@@ -2840,7 +2840,7 @@ function updateOrdering($cmf,$id)
 			<name>Текст под картинкой</name>
 			<comment>Текст под картинкой</comment>
 		</col>
-		<col type="2" name="DESCRIPTION" rows="7" cols="90">
+		<col type="2" name="DESCRIPTION" rows="7" cols="90" panelize="y" econfig="light_config.js">
 			<name>Краткое описание</name>
 			<comment>Краткое описание</comment>
 		</col>
