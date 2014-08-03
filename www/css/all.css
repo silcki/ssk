@@ -227,7 +227,7 @@ a:hover{text-decoration:none;}
     background:url(../i/bg-menu.png) repeat-x;
     /*    margin-bottom:10px;*/
     position:relative;
-    z-index: 3;
+    z-index: 10;
     margin: 0 -22px 0 -20px;
     padding-left: 15px;
     width: 100%;
@@ -1336,11 +1336,14 @@ div.callback select{
 }
 
 .catalog.item li{
-    width: 316px;
+/*    width: 316px;*/
+    width: 350px;
+
 }
 
 .catalog.item li.second {
-    margin: 15px 0 15px 34px;
+/*    margin: 15px 0 15px 34px;*/
+    margin: 15px 0 15px 0px;
 }
 
 .catalog li .bullet {
@@ -1349,10 +1352,12 @@ div.callback select{
 
 .catalog li .content {
     float: left;
-    padding-left: 15px;
+/*    padding-left: 15px;*/
+    padding-left: 7px;
     position: relative;
 /*    width: 113px; */
-    width: 205px;
+/*    width: 205px;*/
+    width: 183px;
 }
 
 .catalog li .content .description{
@@ -1360,8 +1365,12 @@ div.callback select{
 }
 
 .catalog li .content .spisok li{
-    margin: 0 0 0 20px;
-    padding: 0 0 0 10px;
+/*    margin: 0 0 0 20px;
+    padding: 0 0 0 10px;*/
+
+    margin: 0 0 0 7px;
+    padding: 0 0 0 7px;
+
 }
 
 .catalog li.midle{
@@ -1371,13 +1380,14 @@ div.callback select{
     text-decoration:none;
 }
 .catalog li a img{
-    border:2px solid #e8e8e8;
+/*    border:2px solid #e8e8e8;*/
 }
 .catalog li a span{
     display:block;
     text-decoration:underline;
     color:#FF3700;
-    font-size:18px;
+/*    font-size:18px;*/
+    font-size:17px;
 }
 .catalog li a:hover img{
     border:2px solid #FF3700;

@@ -8,7 +8,7 @@ class SystemSets extends Core_Connect
      *
      * @return mixed
      */
-    public function getSettingValue($name, $default)
+    public function getSettingValue($name, $default = null)
     {
         $sql = "select VALUE
                 from SETINGS

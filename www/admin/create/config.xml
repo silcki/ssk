@@ -2563,6 +2563,13 @@ print <<<EOF
 			<name>В меню каталога</name>
 			<comment>Флаг (1-вкл 0-выкл)</comment>
 		</col>
+        <col type="10" name="TEMPLATE">
+            <name>Шаблон</name>
+            <enum>
+                <option value="0">Три колонки</option>
+                <option value="1">Две колонки</option>
+            </enum>
+        </col>
         <col type="2" name="HTML_KEYWORDS" rows="7" cols="90">
             <name>Html Keywords</name>
             <comment>Html Keywords</comment>

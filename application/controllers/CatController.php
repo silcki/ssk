@@ -108,6 +108,8 @@ class CatController extends Core_Controller_Action_Abstract
             ->getCattreeItems($catalogId, 0, true)
             ->getPath($catalogId, $befor_path)
             ->getCatInfo($catalogId);
+
+        $this->render($this->_catalogueHelper->getTemplate($catalogId));
     }
 
     public function itemAction()

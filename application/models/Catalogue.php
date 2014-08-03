@@ -612,4 +612,18 @@ class Catalogue extends Core_Connect
         return $image;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return int
+     */
+    public function getTemplate($id)
+    {
+        $sql = "select TEMPLATE
+                from CATALOGUE
+                where CATALOGUE_ID = ?";
+
+        return (int) $this->_db->fetchOne($sql, $id);
+    }
+
 }

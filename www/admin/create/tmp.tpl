@@ -20108,6 +20108,8 @@ $VIRTUAL_IMAGE_PATH="/cat/";
 
 $cmf->ENUM_COLOR_STYLE=array('Красный','Синий','Зеленый','Серый','Желтый','Фиолетовый','Желтый 2');
 
+$cmf->ENUM_TEMPLATE=array('Три колонки','Две колонки');
+
 
 
 
@@ -20561,10 +20563,11 @@ $_REQUEST['ITEM_IS_DESCR']=isset($_REQUEST['ITEM_IS_DESCR']) && $_REQUEST['ITEM_
 $_REQUEST['IN_MENU']=isset($_REQUEST['IN_MENU']) && $_REQUEST['IN_MENU']?1:0;
 
 
+
 $_REQUEST['REALSTATUS']=isset($_REQUEST['REALSTATUS']) && $_REQUEST['REALSTATUS']?1:0;
 
 
-  $cmf->execute('insert into CATALOGUE (CATALOGUE_ID,PARENT_ID,NAME,CATNAME,REALCATNAME,URL,SPECIAL_URL,TITLE,DESCRIPTION,COLOR_STYLE,IMAGE1,IMAGE2,COUNT_,STATUS,STATUS_MAIN,TO_PARENT,ITEM_IS_DESCR,IN_MENU,HTML_KEYWORDS,HTML_DESCRIPTION,REALSTATUS,ORDERING) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),'',stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['COLOR_STYLE']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['IMAGE2']),0,stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['STATUS_MAIN']),stripslashes($_REQUEST['TO_PARENT']),stripslashes($_REQUEST['ITEM_IS_DESCR']),stripslashes($_REQUEST['IN_MENU']),stripslashes($_REQUEST['HTML_KEYWORDS']),stripslashes($_REQUEST['HTML_DESCRIPTION']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDERING']));
+  $cmf->execute('insert into CATALOGUE (CATALOGUE_ID,PARENT_ID,NAME,CATNAME,REALCATNAME,URL,SPECIAL_URL,TITLE,DESCRIPTION,COLOR_STYLE,IMAGE1,IMAGE2,COUNT_,STATUS,STATUS_MAIN,TO_PARENT,ITEM_IS_DESCR,IN_MENU,TEMPLATE,HTML_KEYWORDS,HTML_DESCRIPTION,REALSTATUS,ORDERING) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),'',stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['COLOR_STYLE']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['IMAGE2']),0,stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['STATUS_MAIN']),stripslashes($_REQUEST['TO_PARENT']),stripslashes($_REQUEST['ITEM_IS_DESCR']),stripslashes($_REQUEST['IN_MENU']),stripslashes($_REQUEST['TEMPLATE']),stripslashes($_REQUEST['HTML_KEYWORDS']),stripslashes($_REQUEST['HTML_DESCRIPTION']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDERING']));
   
   
       if(empty($_REQUEST['CATNAME'])){
@@ -20657,11 +20660,12 @@ $_REQUEST['ITEM_IS_DESCR']=isset($_REQUEST['ITEM_IS_DESCR']) && $_REQUEST['ITEM_
 $_REQUEST['IN_MENU']=isset($_REQUEST['IN_MENU']) && $_REQUEST['IN_MENU']?1:0;
 
 
+
 $_REQUEST['REALSTATUS']=isset($_REQUEST['REALSTATUS']) && $_REQUEST['REALSTATUS']?1:0;
 
 
   $_REQUEST['pid'] = (!empty($_REQUEST['PARENT_ID'])) ? $_REQUEST['PARENT_ID'] : 0;
-  $cmf->execute('insert into CATALOGUE (CATALOGUE_ID,PARENT_ID,NAME,CATNAME,REALCATNAME,URL,SPECIAL_URL,TITLE,DESCRIPTION,COLOR_STYLE,IMAGE1,IMAGE2,COUNT_,STATUS,STATUS_MAIN,TO_PARENT,ITEM_IS_DESCR,IN_MENU,HTML_KEYWORDS,HTML_DESCRIPTION,REALSTATUS,ORDERING) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),'',stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['COLOR_STYLE']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['IMAGE2']),0,stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['STATUS_MAIN']),stripslashes($_REQUEST['TO_PARENT']),stripslashes($_REQUEST['ITEM_IS_DESCR']),stripslashes($_REQUEST['IN_MENU']),stripslashes($_REQUEST['HTML_KEYWORDS']),stripslashes($_REQUEST['HTML_DESCRIPTION']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDERING']));
+  $cmf->execute('insert into CATALOGUE (CATALOGUE_ID,PARENT_ID,NAME,CATNAME,REALCATNAME,URL,SPECIAL_URL,TITLE,DESCRIPTION,COLOR_STYLE,IMAGE1,IMAGE2,COUNT_,STATUS,STATUS_MAIN,TO_PARENT,ITEM_IS_DESCR,IN_MENU,TEMPLATE,HTML_KEYWORDS,HTML_DESCRIPTION,REALSTATUS,ORDERING) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$_REQUEST['id'],$_REQUEST['pid']+0,stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['CATNAME']),'',stripslashes($_REQUEST['URL']),'',stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['COLOR_STYLE']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['IMAGE2']),0,stripslashes($_REQUEST['STATUS']),stripslashes($_REQUEST['STATUS_MAIN']),stripslashes($_REQUEST['TO_PARENT']),stripslashes($_REQUEST['ITEM_IS_DESCR']),stripslashes($_REQUEST['IN_MENU']),stripslashes($_REQUEST['TEMPLATE']),stripslashes($_REQUEST['HTML_KEYWORDS']),stripslashes($_REQUEST['HTML_DESCRIPTION']),stripslashes($_REQUEST['REALSTATUS']),stripslashes($_REQUEST['ORDERING']));
   
   
       if(empty($_REQUEST['CATNAME'])){
@@ -20755,10 +20759,11 @@ $_REQUEST['ITEM_IS_DESCR']=isset($_REQUEST['ITEM_IS_DESCR']) && $_REQUEST['ITEM_
 $_REQUEST['IN_MENU']=isset($_REQUEST['IN_MENU']) && $_REQUEST['IN_MENU']?1:0;
 
 
+
 $_REQUEST['REALSTATUS']=isset($_REQUEST['REALSTATUS']) && $_REQUEST['REALSTATUS']?1:0;
 
 
-@$cmf->execute('update CATALOGUE set PARENT_ID=?,NAME=?,CATNAME=?,URL=?,TITLE=?,DESCRIPTION=?,COLOR_STYLE=?,IMAGE1=?,IMAGE2=?,STATUS_MAIN=?,TO_PARENT=?,ITEM_IS_DESCR=?,IN_MENU=?,HTML_KEYWORDS=?,HTML_DESCRIPTION=? where CATALOGUE_ID=?',stripslashes($_REQUEST['PARENT_ID']),stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['CATNAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['COLOR_STYLE']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['IMAGE2']),stripslashes($_REQUEST['STATUS_MAIN']),stripslashes($_REQUEST['TO_PARENT']),stripslashes($_REQUEST['ITEM_IS_DESCR']),stripslashes($_REQUEST['IN_MENU']),stripslashes($_REQUEST['HTML_KEYWORDS']),stripslashes($_REQUEST['HTML_DESCRIPTION']),$_REQUEST['id']);
+@$cmf->execute('update CATALOGUE set PARENT_ID=?,NAME=?,CATNAME=?,URL=?,TITLE=?,DESCRIPTION=?,COLOR_STYLE=?,IMAGE1=?,IMAGE2=?,STATUS_MAIN=?,TO_PARENT=?,ITEM_IS_DESCR=?,IN_MENU=?,TEMPLATE=?,HTML_KEYWORDS=?,HTML_DESCRIPTION=? where CATALOGUE_ID=?',stripslashes($_REQUEST['PARENT_ID']),stripslashes($_REQUEST['NAME']),stripslashes($_REQUEST['CATNAME']),stripslashes($_REQUEST['URL']),stripslashes($_REQUEST['TITLE']),stripslashes($_REQUEST['DESCRIPTION']),stripslashes($_REQUEST['COLOR_STYLE']),stripslashes($_REQUEST['IMAGE1']),stripslashes($_REQUEST['IMAGE2']),stripslashes($_REQUEST['STATUS_MAIN']),stripslashes($_REQUEST['TO_PARENT']),stripslashes($_REQUEST['ITEM_IS_DESCR']),stripslashes($_REQUEST['IN_MENU']),stripslashes($_REQUEST['TEMPLATE']),stripslashes($_REQUEST['HTML_KEYWORDS']),stripslashes($_REQUEST['HTML_DESCRIPTION']),$_REQUEST['id']);
 $_REQUEST['e']='ED';
 
       if(empty($_REQUEST['CATNAME'])){
@@ -20796,7 +20801,7 @@ $_REQUEST['e']='ED';
 
 if($_REQUEST['e'] == 'ED')
 {
-list($V_CATALOGUE_ID,$V_PARENT_ID,$V_NAME,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_TITLE,$V_DESCRIPTION,$V_COLOR_STYLE,$V_IMAGE1,$V_IMAGE2,$V_COUNT_,$V_STATUS,$V_STATUS_MAIN,$V_TO_PARENT,$V_ITEM_IS_DESCR,$V_IN_MENU,$V_HTML_KEYWORDS,$V_HTML_DESCRIPTION,$V_REALSTATUS)=$cmf->selectrow_arrayQ('select CATALOGUE_ID,PARENT_ID,NAME,CATNAME,REALCATNAME,URL,SPECIAL_URL,TITLE,DESCRIPTION,COLOR_STYLE,IMAGE1,IMAGE2,COUNT_,STATUS,STATUS_MAIN,TO_PARENT,ITEM_IS_DESCR,IN_MENU,HTML_KEYWORDS,HTML_DESCRIPTION,REALSTATUS from CATALOGUE where CATALOGUE_ID=?',$_REQUEST['id']);
+list($V_CATALOGUE_ID,$V_PARENT_ID,$V_NAME,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_TITLE,$V_DESCRIPTION,$V_COLOR_STYLE,$V_IMAGE1,$V_IMAGE2,$V_COUNT_,$V_STATUS,$V_STATUS_MAIN,$V_TO_PARENT,$V_ITEM_IS_DESCR,$V_IN_MENU,$V_TEMPLATE,$V_HTML_KEYWORDS,$V_HTML_DESCRIPTION,$V_REALSTATUS)=$cmf->selectrow_arrayQ('select CATALOGUE_ID,PARENT_ID,NAME,CATNAME,REALCATNAME,URL,SPECIAL_URL,TITLE,DESCRIPTION,COLOR_STYLE,IMAGE1,IMAGE2,COUNT_,STATUS,STATUS_MAIN,TO_PARENT,ITEM_IS_DESCR,IN_MENU,TEMPLATE,HTML_KEYWORDS,HTML_DESCRIPTION,REALSTATUS from CATALOGUE where CATALOGUE_ID=?',$_REQUEST['id']);
 
 
 
@@ -20820,6 +20825,7 @@ $V_STATUS_MAIN=$V_STATUS_MAIN?'checked':'';
 $V_TO_PARENT=$V_TO_PARENT?'checked':'';
 $V_ITEM_IS_DESCR=$V_ITEM_IS_DESCR?'checked':'';
 $V_IN_MENU=$V_IN_MENU?'checked':'';
+$V_STR_TEMPLATE=$cmf->Enumerator($cmf->ENUM_TEMPLATE,$V_TEMPLATE);
 $V_REALSTATUS=$V_REALSTATUS?'checked':'';
 
 @print <<<EOF
@@ -20935,7 +20941,7 @@ print <<<EOF
 <td><input type="file" name="NOT_IMAGE2" size="1" /><br />
 <input type="checkbox" name="CLR_IMAGE2" value="1" />Сбросить карт.
 
-</td></tr></table></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Выводить на главной?:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='STATUS_MAIN' value='1' $V_STATUS_MAIN/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Картинка родителя:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='TO_PARENT' value='1' $V_TO_PARENT/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Товар явл. описанием каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='ITEM_IS_DESCR' value='1' $V_ITEM_IS_DESCR/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>В меню каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='IN_MENU' value='1' $V_IN_MENU/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Html Keywords:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+</td></tr></table></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Выводить на главной?:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='STATUS_MAIN' value='1' $V_STATUS_MAIN/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Картинка родителя:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='TO_PARENT' value='1' $V_TO_PARENT/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Товар явл. описанием каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='ITEM_IS_DESCR' value='1' $V_ITEM_IS_DESCR/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>В меню каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='IN_MENU' value='1' $V_IN_MENU/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Шаблон:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><select name="TEMPLATE">$V_STR_TEMPLATE</select><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Html Keywords:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
 
 <textarea name="HTML_KEYWORDS" rows="7" cols="90">$V_HTML_KEYWORDS</textarea><br />
@@ -21045,7 +21051,7 @@ $visible=0;
 
 if($_REQUEST['e'] == 'AD' ||  $_REQUEST['e'] =='Новый')
 {
-list($V_CATALOGUE_ID,$V_PARENT_ID,$V_NAME,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_TITLE,$V_DESCRIPTION,$V_COLOR_STYLE,$V_IMAGE1,$V_IMAGE2,$V_COUNT_,$V_STATUS,$V_STATUS_MAIN,$V_TO_PARENT,$V_ITEM_IS_DESCR,$V_IN_MENU,$V_HTML_KEYWORDS,$V_HTML_DESCRIPTION,$V_REALSTATUS,$V_ORDERING)=array('','','','','','','','','','','','','','','','','','','','','','');
+list($V_CATALOGUE_ID,$V_PARENT_ID,$V_NAME,$V_CATNAME,$V_REALCATNAME,$V_URL,$V_SPECIAL_URL,$V_TITLE,$V_DESCRIPTION,$V_COLOR_STYLE,$V_IMAGE1,$V_IMAGE2,$V_COUNT_,$V_STATUS,$V_STATUS_MAIN,$V_TO_PARENT,$V_ITEM_IS_DESCR,$V_IN_MENU,$V_TEMPLATE,$V_HTML_KEYWORDS,$V_HTML_DESCRIPTION,$V_REALSTATUS,$V_ORDERING)=array('','','','','','','','','','','','','','','','','','','','','','','');
 if(!empty($_REQUEST['pid'])) $V_PARENT_ID = $_REQUEST['pid'];
 else $V_PARENT_ID = 0;
 
@@ -21060,6 +21066,7 @@ $V_STATUS_MAIN='';
 $V_TO_PARENT='';
 $V_ITEM_IS_DESCR='';
 $V_IN_MENU='';
+$V_STR_TEMPLATE=$cmf->Enumerator($cmf->ENUM_TEMPLATE,-1);
 $V_REALSTATUS='';
 
 @print <<<EOF
@@ -21173,7 +21180,7 @@ print <<<EOF
 <td><input type="file" name="NOT_IMAGE2" size="1" /><br />
 <input type="checkbox" name="CLR_IMAGE2" value="1" />Сбросить карт.
 
-</td></tr></table></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Вкл:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='STATUS' value='1' $V_STATUS/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Выводить на главной?:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='STATUS_MAIN' value='1' $V_STATUS_MAIN/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Картинка родителя:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='TO_PARENT' value='1' $V_TO_PARENT/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Товар явл. описанием каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='ITEM_IS_DESCR' value='1' $V_ITEM_IS_DESCR/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>В меню каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='IN_MENU' value='1' $V_IN_MENU/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Html Keywords:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
+</td></tr></table></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Вкл:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='STATUS' value='1' $V_STATUS/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Выводить на главной?:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='STATUS_MAIN' value='1' $V_STATUS_MAIN/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Картинка родителя:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='TO_PARENT' value='1' $V_TO_PARENT/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Товар явл. описанием каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='ITEM_IS_DESCR' value='1' $V_ITEM_IS_DESCR/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>В меню каталога:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><input type='checkbox' name='IN_MENU' value='1' $V_IN_MENU/><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Шаблон:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%"><select name="TEMPLATE">$V_STR_TEMPLATE</select><br /></td></tr><tr bgcolor="#FFFFFF"><th width="1%"><b>Html Keywords:<br /><img src="img/hi.gif" width="125" height="1" /></b></th><td width="100%">
 
 
 <textarea name="HTML_KEYWORDS" rows="7" cols="90">$V_HTML_KEYWORDS</textarea><br />

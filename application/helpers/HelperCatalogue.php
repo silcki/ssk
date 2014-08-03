@@ -708,6 +708,22 @@ class HelperCatalogue extends Core_Controller_Action_Helper_Abstract
         return $this;
     }
 
+    /**
+     * @param int $catalogId
+     *
+     * @return mixed
+     */
+    public function getTemplate($catalogId)
+    {
+        $templatePath = 'view';
+        $template = $this->catalogue->getTemplate($catalogId);
+        if ($template == 1) {
+            $templatePath = 'view_three';
+        }
+
+        return $templatePath;
+    }
+
     public function validateSend($request)
     {
         if (!$request->isPost()) {
