@@ -28,9 +28,6 @@
 					<xsl:apply-templates select="catalogue[@parent_id=$cid]" mode="sub"/>
 				</ul>
 			</xsl:if>-->
-			<xsl:if test="description!=''">
-				<p><xsl:value-of select="description" disable-output-escaping="yes"/></p>
-			</xsl:if>
 		</li>
 	</xsl:template>
 	<!-- Catalog -->
@@ -55,9 +52,9 @@
 			<xsl:apply-templates select="txt" />
 		</div>
 	</xsl:if>
-    <div style="margin:-10px 0px 30px 14px; height:45px;">
-        <xsl:call-template name="socials"/>
-    </div>
+        <div style="margin:-10px 0px 30px 14px; height:45px;">
+          <xsl:call-template name="socials"/>
+        </div>
 
 </xsl:template>
 

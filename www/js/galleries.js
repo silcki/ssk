@@ -67,7 +67,7 @@
             $(gItem[gj]).animate({
                 opacity:1
             },options.time1).css({
-                    "zIndex":1
+                    "zIndex":5
                 });
             $(numbItem[gi]).removeClass("active");
             $(numbItem[gj]).addClass("active");

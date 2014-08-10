@@ -313,7 +313,10 @@ $(document).ready(function(){
             tovarHeightFix(".rubr");
         }
         if($("#content > .catalog > li").length>0){
-            tovarHeightFix("#content > .catalog > li");
+            catalogHeightFix("#content > .catalog > li", 3);
+        }
+        if($("#content > .catalog.item > li").length>0){
+            catalogHeightFix("#content > .catalog.item > li", 2);
         }
         if($(".text > .catalog li").length>0){
             tovarHeightFix(".text > .catalog li");
@@ -344,6 +347,40 @@ $(document).ready(function(){
         }
         $(selector).height(maxHeightTov);
     };
+    
+    function catalogHeightFix(selector, inRow){
+        var elements = $(selector);
+        var elementsCount = elements.length;
+	var maxHeightTov = heightEl = 0;
+	var row = 1;
+	var rowHeight = new Array;
+	
+        for (i=0;i<elementsCount;i++){
+            tovHeight = elements[i];
+            tovHeight = $(tovHeight).height();
+            if (maxHeightTov<tovHeight){
+                maxHeightTov=tovHeight;
+            }
+            
+            
+            if ((i % inRow) == (inRow-1)) {
+                rowHeight[row] = maxHeightTov;
+        	row++;
+        	maxHeightTov = 0;
+            }
+	}
+	
+	row = 1;
+	for (i=0;i<elementsCount;i++){
+	    el = elements[i];
+	    heightEl = rowHeight[row];
+	    if ((i % inRow) == (inRow-1)) {
+		row++;
+	    }
+	    	    
+	    $(el).height(heightEl);
+	}	
+    }; 
 
     //  menu_slider();
     function menu_slider() {

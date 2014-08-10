@@ -227,7 +227,7 @@ a:hover{text-decoration:none;}
     background:url(../i/bg-menu.png) repeat-x;
     /*    margin-bottom:10px;*/
     position:relative;
-    z-index: 10;
+    z-index: 20;
     margin: 0 -22px 0 -20px;
     padding-left: 15px;
     width: 100%;
@@ -373,7 +373,7 @@ html body div#main div.holder div#column div.gallary_hold{
 
 html body div#main.main_index div.gallary_hold .number{
     position:absolute;
-    z-index:2;
+    z-index:15;
     padding:10px 10px 10px 5px;
 /*    background:#eee;*/
 /*    top:183px;*/
@@ -677,6 +677,11 @@ html body div#main div.holder div#column div.gallary_hold .number{
 }
 #content div.text{
     clear:both;
+}
+#content div.text h2{
+    color: #352fb1;
+    margin: 0 0 12px;
+    padding-right: 110px;
 }
 #content div.text p{
     margin:6px 0 15px;

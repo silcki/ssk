@@ -339,10 +339,10 @@ class AnotherPages extends Core_Connect
     public function getDocXml($xmlsId, $type, $lang)
     {
         $sql = "select XML
-                from XMLS
-                where XMLS_ID={$xmlsId}
-                  and TYPE={$type}
-                  and CMF_LANG_ID = {$lang}";
+            from XMLS
+            where XMLS_ID={$xmlsId}
+              and TYPE={$type}
+              and CMF_LANG_ID = {$lang}";
 
         return $this->_db->fetchOne($sql);
     }
@@ -351,20 +351,21 @@ class AnotherPages extends Core_Connect
     {
         if ($lang > 0) {
             $sql = "select B.DESCRIPTION
-                         , B.IMAGE
-                         , B.IMAGE1
-                         , B.URL
-                    from HEADER A
-                    inner join HEADER_CMF_LANG B on B.HEADER_ID=A.HEADER_ID
-                    where A.STATUS=1
-                      and B.CMF_LANG_ID={$lang}
-                    order by A.ORDERING";
+                      , B.IMAGE
+                      , B.IMAGE1
+                      , B.URL
+                  from HEADER A
+                  inner join HEADER_CMF_LANG B on B.HEADER_ID=A.HEADER_ID
+                  where A.STATUS=1
+                    and B.CMF_LANG_ID={$lang}
+                  order by A.ORDERING";
         } else {
             $sql = 'select *
-                    from HEADER
-                    where STATUS=1
-                    order by ORDERING';
+                 from HEADER
+                 where STATUS=1
+                 order by ORDERING';
         }
+
 
         return $this->_db->fetchAll($sql);
     }
