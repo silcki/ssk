@@ -1873,6 +1873,13 @@ ul.booklets div.name{
     width: 120px;
 }
 
+.sokoban_start{
+}
+
+.sokoban_finish{
+    display: none;
+}
+
 #content div.ui-widget-content {
     background: none;
     border: none;

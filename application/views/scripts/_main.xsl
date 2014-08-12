@@ -994,8 +994,9 @@ var google_remarketing_only = true;
 					<div class="sokoban_target">Коробок на месте:&#160;<span></span></div>-->
 					<div id="sokoban_field_map"></div>
 					<script type="text/javascript">
-							document.onkeydown = detect_key;
-							load_level(1);							
+                        var sokobanGame = new Sokoban();
+                        sokobanGame.init();
+                        sokobanGame.load_level(1);
 					</script>
                     <div class="sokoban_moves">Ходов сделано:&#160;<span></span></div>
                     <div align="right" style="float: right; margin-bottom: 0px;width: 100px;">
@@ -1006,6 +1007,10 @@ var google_remarketing_only = true;
                     </div>
                     <div style="clear:both;"></div>
                     <div align="left" style="margin-bottom:25px;"><a href="#sokoban_reset" class="sokoban_reset" data-level="1">Повтор уровня</a></div>
+                    <div align="left" style="margin-bottom:25px;">
+                        <a href="#" class="sokoban_start btn_send">Начать игру</a>
+                        <a href="#" class="sokoban_finish btn_send">Закончить игру</a>
+                    </div>
 
 					<img src="/sokoban/rules.jpg"/>
 				</div>
